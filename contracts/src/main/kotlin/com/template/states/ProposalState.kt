@@ -190,4 +190,35 @@ data class TradeState(
     override val participants = listOf(buyer, seller)//  the one intiating
 }
 
-
+@BelongsToContract(ProposalAndTradeContract::class)
+data class CoverageVerificationState(
+        //APPLICANT PERSONAL INFORMATION
+        val policy_applicant_name: String,
+        val policy_applicant_mailing_address: String,
+        val broker_company_name: String,
+        val broker_contact_name: String,
+        val broker_phone: String,
+        val broker_email: String,
+        val carrier_company_name: String,
+        //BROKER INFORMATION
+        val carrier_contact_name: String,
+        val carrier_phone: String,
+        val carrier_email: String,
+        val additional_insured_name: String,
+        //CARRIER INFORMATION
+        val additional_insured_mailing_address: String,
+        val lines_of_business: String,
+        val policy_information_proposed_eff_date: String,
+        val policy_information_proposed_exp_date: String,
+        //ADDITIONAL INSURED PARTIES
+        val attachments_additional: String,
+        val premises_address: String,
+        val premises_within_city_limits: Boolean,
+        val premises_interest: String,
+        val premises_additional: Boolean,
+        val buyer: Party,
+        val seller: Party,
+        //LINES OF BUSINESS OR AREAS OF COVER - NEED TO BE ABLE TO SELECT MULTIPLE LINES
+        override val linearId: UniqueIdentifier = UniqueIdentifier()) : LinearState {
+    override val participants = listOf(buyer, seller)//  the one intiating
+}

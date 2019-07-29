@@ -1,6 +1,7 @@
 package negotiation.workflows
 
 import co.paralleluniverse.fibers.Suspendable
+import negotiation.contracts.CoverageVerificationState
 import negotiation.contracts.ProposalAndTradeContract
 import negotiation.contracts.ProposalState
 import negotiation.contracts.TradeState
@@ -28,7 +29,7 @@ object AcceptanceFlow {
 
             // Creating the output.
             //val output = TradeState(input.billing_min_premium, input.buyer, input.seller, input.linearId)
-           val output = TradeState( input.policy_applicant_name , input.policy_applicant_mailing_address,
+            val tradeStateOutput = TradeState(input.policy_applicant_name, input.policy_applicant_mailing_address,
                    input.policy_applicant_gl_code   ,input.policy_applicant_sic   ,input.policy_applicant_fein_or_soc_sec   ,
                    input.policy_applicant_buisness_phone   ,input.policy_applicant_buisness_type   ,
                    input.broker_company_name   , input.broker_contact_name   ,input.broker_phone   ,input.broker_email   ,
@@ -41,6 +42,14 @@ object AcceptanceFlow {
                    input.premises_interest,input.premises_additional, input.buyer, input.seller, input.linearId)
 
 
+            val coverageVerificationStateOutput = CoverageVerificationState(input.policy_applicant_name, input.policy_applicant_mailing_address,
+                    input.broker_company_name, input.broker_contact_name, input.broker_phone,
+                    input.broker_email, input.carrier_company_name,
+                    input.carrier_contact_name, input.carrier_phone, input.carrier_email, input.additional_insured_name,
+                    input.additional_insured_mailing_address, input.lines_of_business, input.policy_information_proposed_eff_date, input.policy_information_proposed_exp_date,
+                    input.attachments_additional, input.premises_address, input.premises_within_city_limits,
+                    input.premises_interest, input.premises_additional, input.buyer,
+                    input.seller, input.linearId)
 
             // Creating the command.
             val requiredSigners = listOf(input.buyer.owningKey, input.seller.owningKey)
@@ -50,7 +59,8 @@ object AcceptanceFlow {
             val notary = inputStateAndRef.state.notary
             val txBuilder = TransactionBuilder(notary)
             txBuilder.addInputState(inputStateAndRef)
-            txBuilder.addOutputState(output, ProposalAndTradeContract.ID)
+            txBuilder.addOutputState(tradeStateOutput, ProposalAndTradeContract.ID)
+            txBuilder.addOutputState(coverageVerificationStateOutput)
             txBuilder.addCommand(command)
 
             // Signing the transaction ourselves.
