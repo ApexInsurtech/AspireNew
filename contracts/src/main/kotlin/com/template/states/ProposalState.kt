@@ -23,10 +23,10 @@ class ProposalAndTradeContract : Contract {
                 "There is no timestamp" using (tx.timeWindow == null)
 
                 val output = tx.outputsOfType<ProposalState>().single()
-                "The buyer and seller are the proposer and the proposee" using (setOf(output.buyer, output.seller) == setOf(output.proposer, output.proposee))
+                "The buyer and seller are the proposer and the proposee" using (setOf(output.buyer, output.seller) == setOf(output.buyer, output.seller))
 
-                "The proposer is a required signer" using (cmd.signers.contains(output.proposer.owningKey))
-                "The proposee is a required signer" using (cmd.signers.contains(output.proposee.owningKey))
+                "The proposer is a required signer" using (cmd.signers.contains(output.buyer.owningKey))
+                "The proposee is a required signer" using (cmd.signers.contains(output.seller.owningKey))
             }
 
             is Commands.Accept -> requireThat {
@@ -40,12 +40,12 @@ class ProposalAndTradeContract : Contract {
                 val input = tx.inputsOfType<ProposalState>().single()
                 val output = tx.outputsOfType<TradeState>().single()
 
-                "The amount is unmodified in the output" using (output.amount == output.amount)//we have change second argument from imput.ammount to output.ammount due to int string datatype error
+                "The amount is unmodified in the output" using (output.billing_min_premium == output.billing_min_premium)//we have change second argument from imput.ammount to output.ammount due to int string datatype error
                 "The buyer is unmodified in the output" using (input.buyer == output.buyer)
                 "The seller is unmodified in the output" using (input.seller == output.seller)
 
-                "The proposer is a required signer" using (cmd.signers.contains(input.proposer.owningKey))
-                "The proposee is a required signer" using (cmd.signers.contains(input.proposee.owningKey))
+                "The proposer is a required signer" using (cmd.signers.contains(input.buyer.owningKey))
+                "The proposee is a required signer" using (cmd.signers.contains(input.seller.owningKey))
             }
 
             is Commands.Modify -> requireThat {
@@ -59,12 +59,12 @@ class ProposalAndTradeContract : Contract {
                 val output = tx.outputsOfType<ProposalState>().single()
                 val input = tx.inputsOfType<ProposalState>().single()
 
-                "The amount is modified in the output" using (output.amount != input.amount)
+                "The amount is modified in the output" using (output.billing_min_premium != input.billing_min_premium)
                 "The buyer is unmodified in the output" using (input.buyer == output.buyer)
                 "The seller is unmodified in the output" using (input.seller == output.seller)
 
-                "The proposer is a required signer" using (cmd.signers.contains(output.proposer.owningKey))
-                "The proposee is a required signer" using (cmd.signers.contains(output.proposee.owningKey))
+                "The proposer is a required signer" using (cmd.signers.contains(output.buyer.owningKey))
+                "The proposee is a required signer" using (cmd.signers.contains(output.seller.owningKey))
             }
         }
     }
@@ -79,18 +79,111 @@ class ProposalAndTradeContract : Contract {
 
 @BelongsToContract(ProposalAndTradeContract::class)
 data class ProposalState(
-        val amount: Int,
+        //APPLICANT PERSONAL INFORMATION
+        val policy_applicant_name: String,
+        val policy_applicant_mailing_address: String,
+        val policy_applicant_gl_code: String,
+        val policy_applicant_sic: String,
+        val policy_applicant_fein_or_soc_sec: String,
+        val policy_applicant_buisness_phone: String,
+        val policy_applicant_buisness_type: String,
+        //BROKER INFORMATION
+        val broker_company_name: String,
+        val broker_contact_name: String,
+        val broker_phone: String,
+        val broker_email: String,
+        //CARRIER INFORMATION
+        val carrier_company_name: String,
+        val carrier_contact_name: String,
+        val carrier_phone: String,
+        val carrier_email: String,
+        //ADDITIONAL INSURED PARTIES
+        val additional_insured_name: String,
+        val additional_insured_mailing_address: String,
+        val additional_insured_gl_code: String,
+        val additional_insured_sic: String,
+        val additional_insured_fein_or_soc_sec: String,
+        val additional_insured_buisness_phone: String,
+        val additional_insured_type_of_buisness: String,
+        //LINES OF BUSINESS OR AREAS OF COVER - NEED TO BE ABLE TO SELECT MULTIPLE LINES
+        val lines_of_business: String,
+
+        //POLICY INFORMATION
+        val policy_information_proposed_eff_date: String,
+        val policy_information_proposed_exp_date: String,
+        //POLICY BILLING INFORMATION
+        val billing_plan: String,
+        val billing_payment_plan: String,
+        val billing_method_of_payment: String,
+        val billing_audit: String,
+        val billing_deposit: String,
+        val billing_min_premium: Int,
+        //OTHER ATTACHMENTS
+        val attachments_additional: String,
+        //PREMISES INFORMATION
+        val premises_address: String,
+        val premises_within_city_limits: Boolean,
+        val premises_interest: String,
+        val premises_additional: Boolean,
+        //val amount: Int,
         val buyer: Party,
         val seller: Party,
-        val proposer: Party,
-        val proposee: Party,
         override val linearId: UniqueIdentifier = UniqueIdentifier()) : LinearState {
-    override val participants = listOf(proposer, proposee)
+    override val participants = listOf(buyer, seller)
 }
 
 @BelongsToContract(ProposalAndTradeContract::class)
 data class TradeState(
-        val amount: Int,
+        //APPLICANT PERSONAL INFORMATION
+        val policy_applicant_name : String,
+        val policy_applicant_mailing_address: String,
+        val policy_applicant_gl_code: String,
+        val policy_applicant_sic: String,
+        val policy_applicant_fein_or_soc_sec: String,
+        val policy_applicant_buisness_phone: String,
+        val policy_applicant_buisness_type: String,
+        //BROKER INFORMATION
+        val broker_company_name: String,
+        val broker_contact_name: String,
+        val broker_phone: String,
+        val broker_email: String,
+        //CARRIER INFORMATION
+        val carrier_company_name: String,
+        val carrier_contact_name: String,
+        val carrier_phone: String,
+        val carrier_email: String,
+        //ADDITIONAL INSURED PARTIES
+        val additional_insured_name : String,
+        val additional_insured_mailing_address: String,
+        val additional_insured_gl_code: String,
+        val additional_insured_sic: String,
+        val additional_insured_fein_or_soc_sec: String,
+        val additional_insured_buisness_phone: String,
+        val additional_insured_type_of_buisness: String,
+        //LINES OF BUSINESS OR AREAS OF COVER - NEED TO BE ABLE TO SELECT MULTIPLE LINES
+        val lines_of_business: String,
+
+        //POLICY INFORMATION
+        val policy_information_proposed_eff_date: String,
+        val policy_information_proposed_exp_date: String,
+        //POLICY BILLING INFORMATION
+        val billing_plan: String,
+        val billing_payment_plan: String,
+        val billing_method_of_payment: String,
+        val billing_audit: String,
+        val billing_deposit: String,
+        val billing_min_premium: Int,
+        //OTHER ATTACHMENTS
+        val attachments_additional: String,
+        //PREMISES INFORMATION
+        val premises_address: String,
+        val premises_within_city_limits: Boolean,
+        val premises_interest: String,
+        val premises_additional: Boolean,
+        //val amount: Int,
+        //val buyer: Party,
+        //val seller: Party,
+       // val amount: Int,
         val buyer: Party,
         val seller: Party,
         override val linearId: UniqueIdentifier = UniqueIdentifier()) : LinearState {

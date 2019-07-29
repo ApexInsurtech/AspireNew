@@ -26,11 +26,11 @@ object ModificationFlow {
             val input = inputStateAndRef.state.data
 
             // Creating the output.
-            val counterparty = if (ourIdentity == input.proposer) input.proposee else input.proposer
-            val output = input.copy(amount = newAmount, proposer = ourIdentity, proposee = counterparty)
+            val counterparty = if (ourIdentity == input.buyer) input.seller else input.buyer
+            val output = input.copy(billing_min_premium = newAmount, buyer = ourIdentity, seller = counterparty)
 
             // Creating the command.
-            val requiredSigners = listOf(input.proposer.owningKey, input.proposee.owningKey)
+            val requiredSigners = listOf(input.buyer.owningKey, input.seller.owningKey)
             val command = Command(ProposalAndTradeContract.Commands.Modify(), requiredSigners)
 
             // Building the transaction.
@@ -59,7 +59,7 @@ object ModificationFlow {
             val signTransactionFlow = object : SignTransactionFlow(counterpartySession) {
                 override fun checkTransaction(stx: SignedTransaction) {
                     val ledgerTx = stx.toLedgerTransaction(serviceHub, false)
-                    val proposee = ledgerTx.inputsOfType<ProposalState>().single().proposee
+                    val proposee = ledgerTx.inputsOfType<ProposalState>().single().buyer
                     if (proposee != counterpartySession.counterparty) {
                         throw FlowException("Only the proposee can modify a proposal.")
                     }
