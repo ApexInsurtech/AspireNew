@@ -1,0 +1,58 @@
+
+Initiate Proposal:
+-------------------
+flow start ProposalFlow$Initiator isBuyer: true, amount: 10, counterparty: InsurerC
+
+View Proposal in Vault:
+------------------------
+
+run vaultQuery contractStateType: negotiation.contracts.ProposalState
+
+NOTE: Copy the linearId.id from the response, we will use this to modify the proposal state.
+
+Modify Proposal:
+----------------
+
+If we note down the state's linearId.id, we can now modify the proposal from the shell of PartyB by running:
+
+flow start ModificationFlow$Initiator proposalId: 7b90d0a9-ca68-4b5b-84ff-f6281d247868, newAmount: 8
+
+This flow can be only be executed by the party receiving the proposal state.
+
+Acceptance Proposal:
+---------------------
+
+Finally, let's have PartyA accept the proposal:
+
+flow start AcceptanceFlow$Initiator proposalId: 7b90d0a9-ca68-4b5b-84ff-f6281d247868
+
+View Acceptance/Trade Proposal:
+-------------------------------
+
+Once the acceptance flow has been successfully executed the Proposal State is transformed into a Trade State.  We can now see the accepted trade in our vault with the new value by running the command (note we are now querying for TradeStates, not ProposalStates):
+
+run vaultQuery contractStateType: negotiation.contracts.TradeState
+
+Spring Webserver:
+----------------------
+
+Each node has a Spring Boot Webserver. The server ports are defined in clients/build.gradle
+
+To interact with the Cordapp Via HTTP:
+
+The Spring Boot servers run locally on the following ports:
+
+    PartyA: localhost:50005
+    PartyB: localhost:50006
+    PartyC: localhost:50007
+
+These ports are defined in clients/build.gradle.
+
+Each Spring Boot server exposes the following endpoints:
+
+    /api/example/me
+    /api/example/peers
+    /api/example/ious
+    /api/example/create-iou with parameters iouValue and partyName which is CN name of a node
+
+There is also a web front-end served from the home web page e.g. localhost:50005

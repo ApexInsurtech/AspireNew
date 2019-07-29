@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: jdom:jdom:1.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/jdom/jdom/1.0/jdom-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/jdom/jdom/1.0/662abe0196cf554d4d7374f5d6382034171b652c/jdom-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

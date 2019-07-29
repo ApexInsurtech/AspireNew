@@ -1,0 +1,21 @@
+# Project exclude paths
+/build/
+/.gradle
+/contracts/build/
+/contracts/out/
+/workflows/out/
+/workflows/build/
+/clients/out/
+/clients/build/
+/cordaapp/out/
+/cordaapp/build/
+/cordaapp-contracts-states/out/
+/cordaapp-contracts-states/build/
+/oracle/out/
+/oracle/build/
+/modules/manual/out/
+/modules/manual/build/
+/modules/ripple/out/
+/modules/ripple/build/
+/modules/swift/out/
+/modules/swift/build/

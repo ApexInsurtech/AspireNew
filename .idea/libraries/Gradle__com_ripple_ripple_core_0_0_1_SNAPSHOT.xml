@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: com.ripple:ripple-core:0.0.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/ripple/ripple-core/0.0.1-SNAPSHOT/ripple-core-0.0.1-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

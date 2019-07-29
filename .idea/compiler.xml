@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="Aspire-20190723.clients.main" target="1.8" />
+      <module name="Aspire-20190723.clients.test" target="1.8" />
+      <module name="Aspire-20190723.contracts.main" target="1.8" />
+      <module name="Aspire-20190723.contracts.test" target="1.8" />
+      <module name="Aspire-20190723.cordapp-contracts-states.main" target="1.8" />
+      <module name="Aspire-20190723.cordapp-contracts-states.test" target="1.8" />
+      <module name="Aspire-20190723.cordapp.main" target="1.8" />
+      <module name="Aspire-20190723.cordapp.test" target="1.8" />
+      <module name="Aspire-20190723.main" target="1.8" />
+      <module name="Aspire-20190723.modules.main" target="1.8" />
+      <module name="Aspire-20190723.modules.manual.main" target="1.8" />
+      <module name="Aspire-20190723.modules.manual.test" target="1.8" />
+      <module name="Aspire-20190723.modules.ripple.main" target="1.8" />
+      <module name="Aspire-20190723.modules.ripple.test" target="1.8" />
+      <module name="Aspire-20190723.modules.swift.main" target="1.8" />
+      <module name="Aspire-20190723.modules.swift.test" target="1.8" />
+      <module name="Aspire-20190723.modules.test" target="1.8" />
+      <module name="Aspire-20190723.oracle.main" target="1.8" />
+      <module name="Aspire-20190723.oracle.test" target="1.8" />
+      <module name="Aspire-20190723.test" target="1.8" />
+      <module name="Aspire-20190723.workflows.integrationTest" target="1.8" />
+      <module name="Aspire-20190723.workflows.main" target="1.8" />
+      <module name="Aspire-20190723.workflows.test" target="1.8" />
+      <module name="Aspire.clients.main" target="1.8" />
+      <module name="Aspire.clients.test" target="1.8" />
+      <module name="Aspire.contracts.main" target="1.8" />
+      <module name="Aspire.contracts.test" target="1.8" />
+      <module name="Aspire.cordapp-contracts-states.main" target="1.8" />
+      <module name="Aspire.cordapp-contracts-states.test" target="1.8" />
+      <module name="Aspire.cordapp.main" target="1.8" />
+      <module name="Aspire.cordapp.test" target="1.8" />
+      <module name="Aspire.main" target="1.8" />
+      <module name="Aspire.modules.main" target="1.8" />
+      <module name="Aspire.modules.manual.main" target="1.8" />
+      <module name="Aspire.modules.manual.test" target="1.8" />
+      <module name="Aspire.modules.ripple.main" target="1.8" />
+      <module name="Aspire.modules.ripple.test" target="1.8" />
+      <module name="Aspire.modules.swift.main" target="1.8" />
+      <module name="Aspire.modules.swift.test" target="1.8" />
+      <module name="Aspire.modules.test" target="1.8" />
+      <module name="Aspire.oracle.main" target="1.8" />
+      <module name="Aspire.oracle.test" target="1.8" />
+      <module name="Aspire.test" target="1.8" />
+      <module name="Aspire.workflows.integrationTest" target="1.8" />
+      <module name="Aspire.workflows.main" target="1.8" />
+      <module name="Aspire.workflows.test" target="1.8" />
+      <module name="com.template.Aspire.clients.main" target="1.8" />
+      <module name="com.template.Aspire.clients.test" target="1.8" />
+      <module name="com.template.Aspire.contracts.main" target="1.8" />
+      <module name="com.template.Aspire.contracts.test" target="1.8" />
+      <module name="com.template.Aspire.main" target="1.8" />
+      <module name="com.template.Aspire.test" target="1.8" />
+      <module name="com.template.Aspire.workflows.integrationTest" target="1.8" />
+      <module name="com.template.Aspire.workflows.main" target="1.8" />
+      <module name="com.template.Aspire.workflows.test" target="1.8" />
+      <module name="IdeaProjects.Aspire.clients.main" target="1.8" />
+      <module name="IdeaProjects.Aspire.clients.test" target="1.8" />
+      <module name="IdeaProjects.Aspire.contracts.main" target="1.8" />
+      <module name="IdeaProjects.Aspire.contracts.test" target="1.8" />
+      <module name="IdeaProjects.Aspire.main" target="1.8" />
+      <module name="IdeaProjects.Aspire.test" target="1.8" />
+      <module name="IdeaProjects.Aspire.workflows.integrationTest" target="1.8" />
+      <module name="IdeaProjects.Aspire.workflows.main" target="1.8" />
+      <module name="IdeaProjects.Aspire.workflows.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
