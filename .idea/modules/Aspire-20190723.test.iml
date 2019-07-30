@@ -253,8 +253,8 @@
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy-all:1.8.9" level="project" />
     <orderEntry type="library" name="Gradle: com.newrelic.agent.java:newrelic-api:3.10.0" level="project" />
     <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.corda.crash:crash.cli:cadb53544fbb3c0fb901445da614998a6a419488" level="project" />
     <orderEntry type="library" name="Gradle: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.corda.crash:crash.cli:cadb53544fbb3c0fb901445da614998a6a419488" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Aspire-20190723.main" />
 </module>

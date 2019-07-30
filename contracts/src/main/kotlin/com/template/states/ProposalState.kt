@@ -33,12 +33,12 @@ class ProposalAndTradeContract : Contract {
                 "There is exactly one input" using (tx.inputStates.size == 1)
                 "The single input is of type ProposalState" using (tx.inputsOfType<ProposalState>().size == 1)
                 "There is exactly one output" using (tx.outputStates.size == 1)
-                "The single output is of type PolicyState" using (tx.outputsOfType<TradeState>().size == 1)
+                "The single output is of type PolicyState" using (tx.outputsOfType<PolicyState>().size == 1)
                 "There is exactly one command" using (tx.commands.size == 1)
                 "There is no timestamp" using (tx.timeWindow == null)
 
                 val input = tx.inputsOfType<ProposalState>().single()
-                val output = tx.outputsOfType<TradeState>().single()
+                val output = tx.outputsOfType<PolicyState>().single()
 
                 "The amount is unmodified in the output" using (output.billing_min_premium == output.billing_min_premium)//we have change second argument from imput.ammount to output.ammount due to int string datatype error
                 "The buyer is unmodified in the output" using (input.buyer == output.buyer)
@@ -133,7 +133,7 @@ data class ProposalState(
 }
 
 @BelongsToContract(ProposalAndTradeContract::class)
-data class TradeState(
+data class PolicyState(
         //APPLICANT PERSONAL INFORMATION
         val policy_applicant_name : String,
         val policy_applicant_mailing_address: String,

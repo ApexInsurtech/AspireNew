@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6e3ffe35-b7af-4727-8265-fd54dd266dfa" name="Default Changelist" comment="">
+    <list default="true" id="6e3ffe35-b7af-4727-8265-fd54dd266dfa" name="Default Changelist" comment="Added oracle">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Aspire-20190723.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Aspire-20190723.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/clients/Aspire-20190723.clients.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/clients/Aspire-20190723.clients.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/ProposalState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/ProposalState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/AcceptanceFlow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/AcceptanceFlow.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -73,22 +77,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/claims/workflows/FnolFlow.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-175">
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
-              <folding>
-                <element signature="e#31#484#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/AcceptanceFlow.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="69" column="69" selection-start-line="69" selection-start-column="69" selection-end-line="69" selection-end-column="69" />
+            <state relative-caret-position="32">
+              <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
               <folding>
                 <element signature="e#31#587#0" expanded="true" />
               </folding>
@@ -96,14 +88,53 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/claims/workflows/MakeClaimFlow.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/claims/workflows/FnolFlow.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+              <folding>
+                <element signature="e#31#643#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/ProposalFlow.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-25">
+              <caret line="74" column="65" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="65" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/CoverageVerificationState.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2450">
-              <caret line="98" column="55" selection-start-line="98" selection-start-column="55" selection-end-line="98" selection-end-column="55" />
+            <state relative-caret-position="3000">
+              <caret line="120" column="47" selection-start-line="120" selection-start-column="19" selection-end-line="120" selection-end-column="47" />
               <folding>
                 <element signature="e#31#154#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="205" column="21" selection-start-line="205" selection-start-column="21" selection-end-line="205" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -115,7 +146,6 @@
       <find>ompileKotlin</find>
       <find>nego</find>
       <find>trade</find>
-      <find>TradeState</find>
       <find>Trade</find>
       <find>start</find>
       <find>=</find>
@@ -133,8 +163,13 @@
       <find>bool</find>
       <find>VerifyCoverageState</find>
       <find>ProposalState</find>
-      <find>Pro</find>
       <find>PolicyState</find>
+      <find>Pro</find>
+      <find>counterparty</find>
+      <find>TradeState</find>
+      <find>CoverageVerificationS</find>
+      <find>MAkeA</find>
+      <find>State</find>
     </findStrings>
     <replaceStrings>
       <replace>PolicyState</replace>
@@ -143,6 +178,7 @@
       <replace>: String ,</replace>
       <replace>ClaimState</replace>
       <replace>CoverageVerificationContract</replace>
+      <replace>MakeAClaimState</replace>
       <replace>CoverageVerificationState</replace>
     </replaceStrings>
   </component>
@@ -159,7 +195,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/settings.gradle" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/workflows/src/main/kotlin/com/r3/corda/finance/obligation/contracts/states/Obligation.kt" />
         <option value="$PROJECT_DIR$/cordapp/src/main/kotlin/com/r3/corda/finance/obligation/workflows/flows/CreateObligation.kt" />
         <option value="$PROJECT_DIR$/cordapp/src/main/kotlin/com/r3/corda/finance/obligation/workflows/flows/GetFxRate.kt" />
@@ -179,9 +214,12 @@
         <option value="$PROJECT_DIR$/workflows/src/test/kotlin/com/template/FlowTests.kt" />
         <option value="$PROJECT_DIR$/clients/src/main/kotlin/com/template/webserver/Controller.kt" />
         <option value="$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/ProposalState.kt" />
+        <option value="$PROJECT_DIR$/workflows/src/main/kotlin/com/claims/workflows/MakeClaim.kt" />
         <option value="$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/AcceptanceFlow.kt" />
+        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/workflows/src/main/kotlin/com/claims/workflows/FnolFlow.kt" />
         <option value="$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/CoverageVerificationState.kt" />
+        <option value="$PROJECT_DIR$/workflows/src/main/kotlin/com/claims/workflows/MakeClaimFlow.kt" />
       </list>
     </option>
   </component>
@@ -192,11 +230,10 @@
       </set>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="306" />
-    <option name="y" value="121" />
     <option name="width" value="1150" />
-    <option name="height" value="1045" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectId" id="1Np23LwyHMRtSRLSg9JzdcxW8BR" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -349,20 +386,21 @@
             <path>
               <item name="Aspire-20190723" type="b2602c69:ProjectViewProjectNode" />
               <item name="Aspire-20190723" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="cordapp-contracts-states" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="Aspire-20190723" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Aspire-20190723" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="cordapp-contracts-states" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Aspire-20190723" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Aspire-20190723" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="cordapp-contracts-states" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="cordapp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="workflows" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Aspire-20190723" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Aspire-20190723" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="cordapp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="workflows" type="462c0819:PsiDirectoryNode" />
+              <item name="states" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Aspire-20190723" type="b2602c69:ProjectViewProjectNode" />
@@ -597,12 +635,18 @@
       <option name="project" value="LOCAL" />
       <updated>1564492262776</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added oracle">
+      <created>1564501245458</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1564501245458</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="1" />
@@ -619,10 +663,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3286119" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.37818697" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.30878186" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.4164306" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.28186968" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.22804533" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -856,23 +900,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="155" column="13" lean-forward="true" selection-start-line="155" selection-start-column="13" selection-end-line="155" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/group/chat/flows/AddMemberFlow.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/group/chat/flows/AddMessageFlow.kt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/clients/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="494">
@@ -925,37 +952,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/ProposalFlow.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="68" column="37" lean-forward="true" selection-end-line="116" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/ProposalState.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-155">
-          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+        <state relative-caret-position="260">
+          <caret line="35" column="94" selection-start-line="35" selection-start-column="94" selection-end-line="35" selection-end-column="94" />
           <folding>
             <element signature="e#31#154#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/claims/workflows/FnolFlow.kt">
+    <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/group/chat/flows/AddMessageFlow.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-175">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-          <folding>
-            <element signature="e#31#484#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-450" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/group/chat/flows/AddMemberFlow.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1075">
+          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="205" column="21" selection-start-line="205" selection-start-column="21" selection-end-line="205" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/AcceptanceFlow.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="69" column="69" selection-start-line="69" selection-start-column="69" selection-end-line="69" selection-end-column="69" />
+        <state relative-caret-position="32">
+          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
             <element signature="e#31#587#0" expanded="true" />
           </folding>
@@ -964,10 +993,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/CoverageVerificationState.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2450">
-          <caret line="98" column="55" selection-start-line="98" selection-start-column="55" selection-end-line="98" selection-end-column="55" />
+        <state relative-caret-position="3000">
+          <caret line="120" column="47" selection-start-line="120" selection-start-column="19" selection-end-line="120" selection-end-column="47" />
           <folding>
             <element signature="e#31#154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/ProposalFlow.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-25">
+          <caret line="74" column="65" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/claims/workflows/MakeClaimFlow.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/workflows/src/main/kotlin/com/claims/workflows/FnolFlow.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+          <folding>
+            <element signature="e#31#643#0" expanded="true" />
           </folding>
         </state>
       </provider>
