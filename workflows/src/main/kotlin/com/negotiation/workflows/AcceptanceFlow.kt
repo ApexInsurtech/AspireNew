@@ -28,7 +28,7 @@ object AcceptanceFlow {
 
             // Creating the output.
             //val output = TradeState(input.billing_min_premium, input.buyer, input.seller, input.linearId)
-           val output = TradeState( input.policy_applicant_name , input.policy_applicant_mailing_address,
+            val output = TradeState(input.policy_applicant_name, input.policy_applicant_mailing_address,
                    input.policy_applicant_gl_code   ,input.policy_applicant_sic   ,input.policy_applicant_fein_or_soc_sec   ,
                    input.policy_applicant_buisness_phone   ,input.policy_applicant_buisness_type   ,
                    input.broker_company_name   , input.broker_contact_name   ,input.broker_phone   ,input.broker_email   ,
