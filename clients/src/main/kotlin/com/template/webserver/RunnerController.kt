@@ -4,9 +4,12 @@ import negotiation.workflows.ModificationFlow
 import org.slf4j.LoggerFactory
 import negotiation.workflows.ProposalFlow.Initiator as PInitiator
 import negotiation.workflows.ModificationFlow.Initiator as MInitiator
+import negotiation.workflows.AcceptanceFlow.Initiator as AInitiator
 import net.corda.core.contracts.UniqueIdentifier
+import net.corda.core.internal.concurrent.thenMatch
 import net.corda.core.messaging.startTrackedFlow
 import org.springframework.web.bind.annotation.*
+import java.util.concurrent.CompletableFuture
 
 @RestController
 @RequestMapping("/proposal-flow")
@@ -19,7 +22,7 @@ class RunnerController (rpc: NodeRPCConnection){
   @PostMapping("/initiator", consumes = ["application/json"])
   fun initialize(
     @RequestBody data : Map<String, Any>
-  ): String {
+  ): CompletableFuture<UniqueIdentifier> {
     var counterparty = proxy.partiesFromName(data["counterparty"] as String, true).first();
     var isBuyer = data["is_buyer"] as Boolean;
     var applicant = data["applicant"] as HashMap<String, String>;
@@ -72,50 +75,8 @@ class RunnerController (rpc: NodeRPCConnection){
       premises_interest = premises["interest"]!!.toBoolean(),
       counterparty = counterparty
     );*/
-    /*proxy.startTrackedFlow(
-      ::Initiator,
-      isBuyer,
-      applicant["name"]!!,
-      applicant["mailing_address"]!!,
-      applicant["gl_code"]!!,
-      applicant["sic"]!!,
-      applicant["ss"]!!,
-      applicant["business_phone"]!!,
-      applicant["business_type"]!!,
-      broker["company_name"]!!,
-      broker["contact_name"]!!,
-      broker["phone"]!!,
-      broker["email"]!!,
-      carrier["company"]!!,
-      carrier["contact"]!!,
-      carrier["phone"]!!,
-      carrier["email"]!!,
-      additional["name"]!!,
-      additional["mailing_address"]!!,
-      additional["gl_code"]!!,
-      additional["sic"]!!,
-      additional["ss"]!!,
-      additional["business_phone"]!!,
-      additional["business_type"]!!,
-      lob,
-      startDate,
-      expireDate,
-      billing["plan"]!!,
-      billing["payment_plan"]!!,
-      billing["mop"]!!,
-      billing["audit"]!!,
-      billing["deposit"]!!,
-      billing["min_premium"]!!.toInt(),
-      attachments,
-      premises["additional"]!!,
-      premises["address"]!!.toBoolean(),
-      premises["city_limits"]!!,
-      premises["interest"]!!.toBoolean(),
-      counterparty
-    );*/
-    // proxy.startFlowDynamic(ProposalFlow.Initiator)
-    proxy.startTrackedFlow(
-      ::Initiator,
+    val flow = proxy.startTrackedFlowDynamic(
+      PInitiator::class.java,
       isBuyer,
       applicant["name"]!!,
       applicant["mailing_address"]!!,
@@ -155,24 +116,34 @@ class RunnerController (rpc: NodeRPCConnection){
       premises["interest"]!!.toBoolean(),
       counterparty
     );
-    return "TEST";
+    return flow.returnValue.toCompletableFuture();
   }
 
-  @PostMapping("/modification", consumes = ["application/json"])
+  @PostMapping("/modify", consumes = ["application/json"])
   fun modify(
     @RequestBody data : Map<String, Any>
-  ): Map<String, Any> {
+  ): CompletableFuture<Unit> {
     var proposalId = data["proposal_id"] as String;
     var uuid = UniqueIdentifier.fromString(proposalId);
     var newAmount = data["new_amount"] as Int;
-    var flow = proxy.startTrackedFlow(
-      ::MInitiator,
+    val flow = proxy.startTrackedFlowDynamic(
+      MInitiator::class.java,
       uuid,
       newAmount
     );
-    return mapOf(
-      "uuid" to flow.id.uuid.toString()
-    );
+    return flow.returnValue.toCompletableFuture();
   }
 
+  @PostMapping("/accept", consumes = ["application/json"])
+  fun accept(
+    @RequestBody data : Map<String, Any>
+  ): CompletableFuture<Unit> {
+    var proposalId = data["proposal_id"] as String;
+    var uuid = UniqueIdentifier.fromString(proposalId);
+    val flow = proxy.startTrackedFlowDynamic(
+      AInitiator::class.java,
+      uuid
+    );
+    return flow.returnValue.toCompletableFuture();
+  }
 }
