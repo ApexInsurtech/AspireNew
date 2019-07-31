@@ -515,11 +515,18 @@
       <option name="project" value="LOCAL" />
       <updated>1564510676140</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="updated all flows and states">
+      <created>1564564856556</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1564564856556</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
@@ -618,7 +625,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Tidying up code" />
     <MESSAGE value="Added oracle" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added oracle" />
+    <MESSAGE value="updated all flows and states" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated all flows and states" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
