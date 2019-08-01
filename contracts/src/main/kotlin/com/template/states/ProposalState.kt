@@ -23,17 +23,17 @@ class ProposalAndTradeContract : Contract {
                 "There is no timestamp" using (tx.timeWindow == null)
 
                 val output = tx.outputsOfType<ProposalState>().single()
-                "The buyer and seller are the proposer and the proposee" using (setOf(output.buyer, output.seller) == setOf(output.buyer, output.seller))
+                "The buyer and seller are the proposer and the proposee" using (setOf(output.broker, output.lead_insurer) == setOf(output.proposer, output.proposee))
 
-                "The proposer is a required signer" using (cmd.signers.contains(output.buyer.owningKey))
-                "The proposee is a required signer" using (cmd.signers.contains(output.seller.owningKey))
+                "The proposer is a required signer" using (cmd.signers.contains(output.proposer.owningKey))
+                "The proposee is a required signer" using (cmd.signers.contains(output.proposee.owningKey))
             }
 
             is Commands.Accept -> requireThat {
                 "There is exactly one input" using (tx.inputStates.size == 1)
                 "The single input is of type ProposalState" using (tx.inputsOfType<ProposalState>().size == 1)
                 "There is exactly one output" using (tx.outputStates.size == 1)
-                "The single output is of type PolicyState" using (tx.outputsOfType<PolicyState>().size == 1)
+                "The single output is of type TradeState" using (tx.outputsOfType<PolicyState>().size == 1)
                 "There is exactly one command" using (tx.commands.size == 1)
                 "There is no timestamp" using (tx.timeWindow == null)
 
@@ -41,11 +41,11 @@ class ProposalAndTradeContract : Contract {
                 val output = tx.outputsOfType<PolicyState>().single()
 
                 "The amount is unmodified in the output" using (output.billing_min_premium == output.billing_min_premium)//we have change second argument from imput.ammount to output.ammount due to int string datatype error
-                "The buyer is unmodified in the output" using (input.buyer == output.buyer)
-                "The seller is unmodified in the output" using (input.seller == output.seller)
+                "The buyer is unmodified in the output" using (input.broker == output.broker)
+                "The seller is unmodified in the output" using (input.lead_insurer == output.lead_insurer)
 
-                "The proposer is a required signer" using (cmd.signers.contains(input.buyer.owningKey))
-                "The proposee is a required signer" using (cmd.signers.contains(input.seller.owningKey))
+                "The proposer is a required signer" using (cmd.signers.contains(input.proposer.owningKey))
+                "The proposee is a required signer" using (cmd.signers.contains(input.proposee.owningKey))
             }
 
             is Commands.Modify -> requireThat {
@@ -60,14 +60,15 @@ class ProposalAndTradeContract : Contract {
                 val input = tx.inputsOfType<ProposalState>().single()
 
                 "The amount is modified in the output" using (output.billing_min_premium != input.billing_min_premium)
-                "The buyer is unmodified in the output" using (input.buyer == output.buyer)
-                "The seller is unmodified in the output" using (input.seller == output.seller)
+                "The buyer is unmodified in the output" using (input.broker == output.broker)
+                "The seller is unmodified in the output" using (input.lead_insurer == output.lead_insurer)
 
-                "The proposer is a required signer" using (cmd.signers.contains(output.buyer.owningKey))
-                "The proposee is a required signer" using (cmd.signers.contains(output.seller.owningKey))
+                "The proposer is a required signer" using (cmd.signers.contains(output.proposer.owningKey))
+                "The proposee is a required signer" using (cmd.signers.contains(output.proposee.owningKey))
             }
         }
     }
+
 
     // Used to indicate the transaction's intent.
     sealed class Commands : TypeOnlyCommandData() {
@@ -125,11 +126,18 @@ data class ProposalState(
         val premises_within_city_limits: Boolean,
         val premises_interest: String,
         val premises_additional: Boolean,
+        //New Variables
+        val total_coverage: Int,
+        val coverage_amount: Int,
+       // val coverage_ratio: Float,
         //val amount: Int,
-        val buyer: Party,
-        val seller: Party,
+
+        val broker: Party,
+        val lead_insurer: Party,
+        val proposer: Party,
+        val proposee: Party,
         override val linearId: UniqueIdentifier = UniqueIdentifier()) : LinearState {
-    override val participants = listOf(buyer, seller)
+    override val participants = listOf(proposer,proposee)
 }
 
 @BelongsToContract(ProposalAndTradeContract::class)
@@ -184,10 +192,13 @@ data class PolicyState(
         //val buyer: Party,
         //val seller: Party,
        // val amount: Int,
-        val buyer: Party,
-        val seller: Party,
+        val total_coverage: Int,
+        val coverage_amount: Int,
+        val broker: Party,
+        val lead_insurer: Party,
+
         override val linearId: UniqueIdentifier = UniqueIdentifier()) : LinearState {
-    override val participants = listOf(buyer, seller)//  the one intiating
+    override val participants = listOf(broker,lead_insurer )//  the one intiating
 }
 
 

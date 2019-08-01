@@ -50,13 +50,14 @@ object ProposalFlow {
                     val premises_additional    : String ,
                     val premises_address    : Boolean ,
                     val premises_within_city_limits    : String ,
-                    val premises_interest: Boolean,val counterparty: Party  ) : FlowLogic<UniqueIdentifier>() {
+                    val premises_interest: Boolean,val total_coverage: Int
+                    ,val coverage_amount: Int,val counterparty: Party  ) : FlowLogic<UniqueIdentifier>() {
         override val progressTracker = ProgressTracker()
-
+//remeber to add two more parties to this initiator which may have nullvalues
         @Suspendable
         override fun call(): UniqueIdentifier {
             // Creating the output.
-            val (buyer, seller) = when {
+            val (broker, lead_insurer) = when {
                 isBuyer -> ourIdentity to counterparty
                 else -> counterparty to ourIdentity
             }
@@ -72,7 +73,7 @@ object ProposalFlow {
                     lines_of_business   ,policy_information_proposed_eff_date   ,policy_information_proposed_exp_date   ,
                     billing_plan   ,billing_payment_plan   ,billing_method_of_payment   ,billing_audit   ,billing_deposit   ,
                     billing_min_premium  ,attachments_additional  ,premises_additional   ,premises_address   ,premises_within_city_limits   ,
-                    premises_interest  ,ourIdentity, counterparty)
+                    premises_interest  ,total_coverage,coverage_amount,broker , lead_insurer, ourIdentity, counterparty)
 
             // Creating the command.
             val commandType = ProposalAndTradeContract.Commands.Propose()

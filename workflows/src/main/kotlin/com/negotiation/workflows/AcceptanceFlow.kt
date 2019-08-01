@@ -39,12 +39,13 @@ object AcceptanceFlow {
                    input.additional_insured_type_of_buisness   , input.lines_of_business   ,input.policy_information_proposed_eff_date   ,input.policy_information_proposed_exp_date   ,
                    input.billing_plan   ,input.billing_payment_plan   ,input.billing_method_of_payment   ,input.billing_audit   ,input.billing_deposit   ,
                    input.billing_min_premium ,input.attachments_additional ,input.premises_address,input.premises_within_city_limits   ,
-                   input.premises_interest,input.premises_additional, input.buyer, input.seller, input.linearId)
+                   input.premises_interest,input.premises_additional, input.total_coverage, input.coverage_amount,input.broker, input.lead_insurer, input.linearId)
+
 
 
 
             // Creating the command.
-            val requiredSigners = listOf(input.buyer.owningKey, input.seller.owningKey)
+            val requiredSigners = listOf(input.proposer.owningKey, input.proposee.owningKey)
             val command = Command(ProposalAndTradeContract.Commands.Accept(), requiredSigners)
 
             // Building the transaction.
@@ -58,7 +59,7 @@ object AcceptanceFlow {
             val partStx = serviceHub.signInitialTransaction(txBuilder)
 
             // Gathering the counterparty's signature.
-            val counterparty = if (ourIdentity == input.buyer) input.seller else input.buyer
+            val counterparty = if (ourIdentity == input.proposer) input.proposee else input.proposer
             val counterpartySession = initiateFlow(counterparty)
             val fullyStx = subFlow(CollectSignaturesFlow(partStx, listOf(counterpartySession)))
 
@@ -74,7 +75,7 @@ object AcceptanceFlow {
             val signTransactionFlow = object : SignTransactionFlow(counterpartySession) {
                 override fun checkTransaction(stx: SignedTransaction) {
                     val ledgerTx = stx.toLedgerTransaction(serviceHub, false)
-                    val proposee = ledgerTx.inputsOfType<ProposalState>().single().seller
+                    val proposee = ledgerTx.inputsOfType<ProposalState>().single().proposee
                     if (proposee != counterpartySession.counterparty) {
                         throw FlowException("Only the proposee can accept a proposal.")
                     }

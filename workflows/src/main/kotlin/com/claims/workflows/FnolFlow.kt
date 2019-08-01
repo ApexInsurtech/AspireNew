@@ -35,12 +35,12 @@ object FnolFlow {
                     input.additional_insured_name   ,input.additional_insured_mailing_address
                     , input.lines_of_business   ,input.policy_information_proposed_eff_date   ,input.policy_information_proposed_exp_date
                     ,input.attachments_additional ,input.premises_address,input.premises_within_city_limits   ,
-                    input.premises_interest,input.premises_additional, input.buyer, input.seller, input.linearId)
+                    input.premises_interest,input.premises_additional, input.broker, input.lead_insurer, input.linearId)
 
 
             // Creating the command.
             val commandType = CoverageVerificationContract.Commands.Propose()
-            val requiredSigners = listOf(input.buyer.owningKey, input.seller.owningKey)
+            val requiredSigners = listOf(input.broker.owningKey, input.lead_insurer.owningKey)
             //val requiredSigners = listOf(ourIdentity.owningKey, counterparty.owningKey)
             val command = Command(commandType, requiredSigners)
 
@@ -55,7 +55,7 @@ object FnolFlow {
 
             // Gathering the counterparty's signature.
 
-            val counterparty = if (ourIdentity == input.buyer) input.seller else input.buyer
+            val counterparty = if (ourIdentity == input.broker) input.lead_insurer else input.lead_insurer
             val counterpartySession = initiateFlow(counterparty)
             val fullyStx = subFlow(CollectSignaturesFlow(partStx, listOf(counterpartySession)))
 
