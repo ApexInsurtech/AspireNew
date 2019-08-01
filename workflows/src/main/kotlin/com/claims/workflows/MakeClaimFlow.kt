@@ -3,6 +3,7 @@ package negotiation.workflows
 import co.paralleluniverse.fibers.Suspendable
 import negotiation.contracts.MakeaClaimState
 import negotiation.contracts.MakeaClaimcontract
+import negotiation.contracts.PolicyState
 import negotiation.contracts.ProposalState
 import net.corda.core.contracts.Command
 import net.corda.core.contracts.UniqueIdentifier
@@ -17,7 +18,7 @@ import net.corda.core.utilities.ProgressTracker
 object MakeClaimFlow {
     @InitiatingFlow
     @StartableByRPC
-    class Initiator(val proposalId: UniqueIdentifier) : FlowLogic<UniqueIdentifier>() {
+    class Initiator(val proposalId: UniqueIdentifier,val description_details: String) : FlowLogic<UniqueIdentifier>() {
         override val progressTracker = ProgressTracker()
 
         @Suspendable
@@ -25,17 +26,19 @@ object MakeClaimFlow {
             // Creating the output.
 
             val inputCriteria = QueryCriteria.LinearStateQueryCriteria(linearId = listOf(proposalId))
-            val inputStateAndRef = serviceHub.vaultService.queryBy<ProposalState>(inputCriteria).states.single()
+            val inputStateAndRef = serviceHub.vaultService.queryBy<PolicyState>(inputCriteria).states.single()
             val input = inputStateAndRef.state.data
 
 
-            val output = MakeaClaimState(input.policy_applicant_name, input.policy_applicant_mailing_address,
-                    input.broker, input.lead_insurer, input.linearId)
+            val output = MakeaClaimState(input.policy_applicant_name, input.policy_applicant_mailing_address,description_details
+                    ,input.broker, input.lead_insurer,input.proposer,input.proposee, input.linearId)
 
 
             // Creating the command.
             val commandType = MakeaClaimcontract.Commands.Propose()
             val requiredSigners = listOf(input.broker.owningKey, input.lead_insurer.owningKey)
+           // val requiredSigners = listOf(input.broker.owningKey, ourIdentity.owningKey)
+           // val requiredSigners = listOf(input.proposee.owningKey, input.proposer.owningKey)
             //val requiredSigners = listOf(ourIdentity.owningKey, counterparty.owningKey)
             val command = Command(commandType, requiredSigners)
 

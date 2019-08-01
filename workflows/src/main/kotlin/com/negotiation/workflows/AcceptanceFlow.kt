@@ -22,6 +22,7 @@ object AcceptanceFlow {
 
         @Suspendable
         override fun call() {
+
             // Retrieving the input from the vault.
             val inputCriteria = QueryCriteria.LinearStateQueryCriteria(linearId = listOf(proposalId))
             val inputStateAndRef = serviceHub.vaultService.queryBy<ProposalState>(inputCriteria).states.single()
@@ -39,7 +40,7 @@ object AcceptanceFlow {
                    input.additional_insured_type_of_buisness   , input.lines_of_business   ,input.policy_information_proposed_eff_date   ,input.policy_information_proposed_exp_date   ,
                    input.billing_plan   ,input.billing_payment_plan   ,input.billing_method_of_payment   ,input.billing_audit   ,input.billing_deposit   ,
                    input.billing_min_premium ,input.attachments_additional ,input.premises_address,input.premises_within_city_limits   ,
-                   input.premises_interest,input.premises_additional, input.total_coverage, input.coverage_amount,input.broker, input.lead_insurer, input.linearId)
+                   input.premises_interest,input.premises_additional, input.total_coverage, input.coverage_amount,input.broker, input.lead_insurer,input.proposer,input.proposee, input.linearId)
 
 
 

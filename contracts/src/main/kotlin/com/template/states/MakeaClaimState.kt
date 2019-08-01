@@ -84,10 +84,13 @@ data class MakeaClaimState(
         //APPLICANT PERSONAL INFORMATION
         val policy_applicant_name: String,
         val policy_applicant_mailing_address: String,
+        val description_details: String,
         val buyer: Party,
         val seller: Party,
+        val proposer: Party,
+        val proposee: Party,
         override val linearId: UniqueIdentifier = UniqueIdentifier()) : LinearState {
-    override val participants = listOf(buyer, seller)
+    override val participants = listOf(proposer, proposee)
 }
 
 

@@ -196,9 +196,10 @@ data class PolicyState(
         val coverage_amount: Int,
         val broker: Party,
         val lead_insurer: Party,
-
+        val proposer: Party,
+        val proposee: Party,
         override val linearId: UniqueIdentifier = UniqueIdentifier()) : LinearState {
-    override val participants = listOf(broker,lead_insurer )//  the one intiating
+    override val participants = listOf(proposer,proposee )//  the one intiating
 }
 
 

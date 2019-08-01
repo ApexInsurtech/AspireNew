@@ -3,6 +3,7 @@ package negotiation.workflows
 import co.paralleluniverse.fibers.Suspendable
 import negotiation.contracts.CoverageVerificationContract
 import negotiation.contracts.CoverageVerificationState
+import negotiation.contracts.PolicyState
 import negotiation.contracts.ProposalState
 import net.corda.core.contracts.Command
 import net.corda.core.contracts.UniqueIdentifier
@@ -17,7 +18,7 @@ import net.corda.core.utilities.ProgressTracker
 object FnolFlow {
     @InitiatingFlow
     @StartableByRPC
-    class Initiator(val proposalId: UniqueIdentifier) : FlowLogic<UniqueIdentifier>() {
+    class Initiator(val proposalId: UniqueIdentifier,val counterparty: Party ) : FlowLogic<UniqueIdentifier>() {
         override val progressTracker = ProgressTracker()
 
         @Suspendable
@@ -25,7 +26,7 @@ object FnolFlow {
             // Creating the output.
 
             val inputCriteria = QueryCriteria.LinearStateQueryCriteria(linearId = listOf(proposalId))
-            val inputStateAndRef = serviceHub.vaultService.queryBy<ProposalState>(inputCriteria).states.single()
+            val inputStateAndRef = serviceHub.vaultService.queryBy<PolicyState>(inputCriteria).states.single()
             val input = inputStateAndRef.state.data
 
 
@@ -40,8 +41,9 @@ object FnolFlow {
 
             // Creating the command.
             val commandType = CoverageVerificationContract.Commands.Propose()
-            val requiredSigners = listOf(input.broker.owningKey, input.lead_insurer.owningKey)
-            //val requiredSigners = listOf(ourIdentity.owningKey, counterparty.owningKey)
+            //val requiredSigners = listOf(input.broker.owningKey, input.lead_insurer.owningKey)
+            //val requiredSigners = listOf(input.proposer.owningKey, ourIdentity.owningKey)
+            val requiredSigners = listOf(ourIdentity.owningKey, counterparty.owningKey)
             val command = Command(commandType, requiredSigners)
 
             // Building the transaction.
