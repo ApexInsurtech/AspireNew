@@ -2,6 +2,7 @@
   <library name="Gradle: io.github.classgraph:classgraph:4.6.12">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/io/github/classgraph/classgraph/4.6.12/classgraph-4.6.12.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.github.classgraph/classgraph/4.6.12/623938064d1843ac237d24a67435922ca9cf090a/classgraph-4.6.12.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
