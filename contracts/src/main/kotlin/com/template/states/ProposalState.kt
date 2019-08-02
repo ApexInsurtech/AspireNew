@@ -3,6 +3,7 @@ package negotiation.contracts
 import net.corda.core.contracts.*
 import net.corda.core.identity.Party
 import net.corda.core.transactions.LedgerTransaction
+import java.util.*
 
 class ProposalAndTradeContract : Contract {
     companion object {
@@ -110,14 +111,14 @@ data class ProposalState(
         val lines_of_business: String,
 
         //POLICY INFORMATION
-        val policy_information_proposed_eff_date: String,
-        val policy_information_proposed_exp_date: String,
+        val policy_information_proposed_eff_date: Date,
+        val policy_information_proposed_exp_date: Date,
         //POLICY BILLING INFORMATION
         val billing_plan: String,
         val billing_payment_plan: String,
         val billing_method_of_payment: String,
         val billing_audit: String,
-        val billing_deposit: String,
+        val billing_deposit: Int,
         val billing_min_premium: Int,
         //OTHER ATTACHMENTS
         val attachments_additional: String,
@@ -172,14 +173,14 @@ data class PolicyState(
         val lines_of_business: String,
 
         //POLICY INFORMATION
-        val policy_information_proposed_eff_date: String,
-        val policy_information_proposed_exp_date: String,
+        val policy_information_proposed_eff_date: Date,
+        val policy_information_proposed_exp_date: Date,
         //POLICY BILLING INFORMATION
         val billing_plan: String,
         val billing_payment_plan: String,
         val billing_method_of_payment: String,
         val billing_audit: String,
-        val billing_deposit: String,
+        val billing_deposit: Int,
         val billing_min_premium: Int,
         //OTHER ATTACHMENTS
         val attachments_additional: String,

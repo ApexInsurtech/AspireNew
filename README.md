@@ -93,13 +93,13 @@ run vaultQuery contractStateType: com.template.states.ChatState
 
 Scroll up and copy the Linear ID field. Then:
 
-flow start group.chat.flows.AddMemberFlow gameID: "2a77a365-512c-44d6-a937-352965d84281", member: "O=Broker, L=London, C=GB"
+flow start group.chat.flows.AddMemberFlow groupID: "2a77a365-512c-44d6-a937-352965d84281", member: "O=Broker, L=London, C=GB"
 
 Here we have added the broker node, although you can add any node you wish at this point.  To add additional nodes simply execute the above flow again and change the member field to the relevant party that you would like to include in the group chat.
 
 ### 3. ADD A MESSAGE TO THE GROUP CHAT:
 
-flow start group.chat.flows.AddMessageFlow gameID: "2a77a365-512c-44d6-a937-352965d84281", message: "APEX INSURTECH - WINNERS OF THE CORDACON 2019 INSURTECH CHALLENGE!"
+flow start group.chat.flows.AddMessageFlow groupID: "2a77a365-512c-44d6-a937-352965d84281", message: "APEX INSURTECH - WINNERS OF THE CORDACON 2019 INSURTECH CHALLENGE!"
 
 ### 4. CHECK GROUP CHAT MESSAGES:
 

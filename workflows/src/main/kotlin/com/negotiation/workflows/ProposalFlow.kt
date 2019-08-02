@@ -10,6 +10,7 @@ import net.corda.core.identity.Party
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
 import net.corda.core.utilities.ProgressTracker
+import java.util.*
 
 object ProposalFlow {
     @InitiatingFlow
@@ -38,13 +39,13 @@ object ProposalFlow {
                     val additional_insured_buisness_phone    : String ,
                     val additional_insured_type_of_buisness    : String ,
                     val lines_of_business    : String ,
-                    val policy_information_proposed_eff_date    : String ,
-                    val policy_information_proposed_exp_date    : String ,
+                    val policy_information_proposed_eff_date    : Date ,
+                    val policy_information_proposed_exp_date    : Date ,
                    val  billing_plan    : String ,
                     val billing_payment_plan    : String ,
                     val billing_method_of_payment    : String ,
                     val billing_audit    : String ,
-                    val billing_deposit    : String ,
+                    val billing_deposit    : Int ,
                     val billing_min_premium   : Int ,
                     val attachments_additional   : String ,
                     val premises_additional    : String ,
