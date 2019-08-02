@@ -110,7 +110,7 @@ From Insurer C:
 
 ```flow start ModificationFlow$Initiator proposalId: {linearID for quote from C}, newAmount: 9800```
 
-Now we accept the quote from Insurer B:
+Now we accept the quote from Insurer B (Execute flow in Broker Node):
 
 flow start AcceptanceFlow$Initiator proposalId: xxx
 
