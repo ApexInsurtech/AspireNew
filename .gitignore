@@ -1,6 +1,7 @@
 # Project exclude paths
 **.log
 /.idea
+/.idea.bak
 /build/
 /.gradle
 /contracts/build
