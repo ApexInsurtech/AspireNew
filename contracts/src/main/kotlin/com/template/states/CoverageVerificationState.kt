@@ -24,10 +24,11 @@ class CoverageVerificationContract : Contract {
                 "There is no timestamp" using (tx.timeWindow == null)
 
                 val output = tx.outputsOfType<CoverageVerificationState>().single()
-                "The buyer and seller are the proposer and the proposee" using (setOf(output.buyer, output.seller) == setOf(output.buyer, output.seller))
+                "The buyer and seller are the proposer and the proposee" using (setOf(output.broker, output.lead_insurer) == setOf(output.broker, output.lead_insurer))
 
-                "The proposer is a required signer" using (cmd.signers.contains(output.buyer.owningKey))
-                "The proposee is a required signer" using (cmd.signers.contains(output.seller.owningKey))
+                "The proposer is a required signer" using (cmd.signers.contains(output.broker.owningKey))
+                "The proposee is a required signer" using (cmd.signers.contains(output.lead_insurer.owningKey))
+                "All of the participants must be signers." using (cmd.signers.containsAll(output.participants.map { it.owningKey }))
             }
 
             is Commands.Accept -> requireThat {
@@ -42,11 +43,13 @@ class CoverageVerificationContract : Contract {
                 val output = tx.outputsOfType<ClaimState>().single()
 
                 "The amount is unmodified in the output" using (output.policy_applicant_name == output.policy_applicant_name)//we have change second argument from imput.ammount to output.ammount due to int string datatype error
-                "The buyer is unmodified in the output" using (input.buyer == output.buyer)
-                "The seller is unmodified in the output" using (input.seller == output.seller)
+                "The buyer is unmodified in the output" using (input.broker == output.buyer)
+                "The seller is unmodified in the output" using (input.lead_insurer == output.seller)
 
-                "The proposer is a required signer" using (cmd.signers.contains(input.buyer.owningKey))
-                "The proposee is a required signer" using (cmd.signers.contains(input.seller.owningKey))
+                "The proposer is a required signer" using (cmd.signers.contains(input.broker.owningKey))
+                "The proposee is a required signer" using (cmd.signers.contains(input.lead_insurer.owningKey))
+
+                "All of the participants must be signers." using (cmd.signers.containsAll(output.participants.map { it.owningKey }))
             }
 
             is Commands.Modify -> requireThat {
@@ -61,11 +64,12 @@ class CoverageVerificationContract : Contract {
                 val input = tx.inputsOfType<CoverageVerificationState>().single()
 
                 //"The amount is modified in the output" using (output.billing_min_premium != input.billing_min_premium)
-                "The buyer is unmodified in the output" using (input.buyer == output.buyer)
-                "The seller is unmodified in the output" using (input.seller == output.seller)
+                "The buyer is unmodified in the output" using (input.broker == output.broker)
+                "The seller is unmodified in the output" using (input.lead_insurer == output.lead_insurer)
 
-                "The proposer is a required signer" using (cmd.signers.contains(output.buyer.owningKey))
-                "The proposee is a required signer" using (cmd.signers.contains(output.seller.owningKey))
+                "The proposer is a required signer" using (cmd.signers.contains(output.broker.owningKey))
+                "The proposee is a required signer" using (cmd.signers.contains(output.lead_insurer.owningKey))
+                "All of the participants must be signers." using (cmd.signers.containsAll(output.participants.map { it.owningKey }))
             }
         }
     }
@@ -112,10 +116,10 @@ data class CoverageVerificationState(
         val premises_interest: String,
        val premises_additional: Boolean,
         //val amount: Int,
-        val buyer: Party,
-        val seller: Party,
+        val broker: Party,
+        val lead_insurer: Party,
         override val linearId: UniqueIdentifier = UniqueIdentifier()) : LinearState {
-    override val participants = listOf(buyer, seller)
+    override val participants = listOf(broker, lead_insurer)
 }
 
 
