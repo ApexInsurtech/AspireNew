@@ -1,5 +1,6 @@
 # Project exclude paths
 **.log
+/config
 /.idea
 /.idea.bak
 /build/
