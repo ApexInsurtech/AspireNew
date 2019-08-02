@@ -20,7 +20,7 @@ import java.util.*
 // *********
 @InitiatingFlow
 @StartableByRPC
-class AddMemberFlow(val gameID: String, val member: Party) : FlowLogic<UniqueIdentifier>() {
+class AddMemberFlow(val groupID: String, val member: Party) : FlowLogic<UniqueIdentifier>() {
     /**
      * Tracks progress throughout the flows call execution.
      */
@@ -54,7 +54,7 @@ class AddMemberFlow(val gameID: String, val member: Party) : FlowLogic<UniqueIde
     override fun call(): UniqueIdentifier {
         // Step 1. Validation.
         progressTracker.currentStep = VALIDATING
-        val gameStateRef = this.serviceHub.vaultService.queryBy(ChatState::class.java, QueryCriteria.LinearStateQueryCriteria(linearId = listOf(UniqueIdentifier(id = UUID.fromString(gameID))))).states.first()
+        val gameStateRef = this.serviceHub.vaultService.queryBy(ChatState::class.java, QueryCriteria.LinearStateQueryCriteria(linearId = listOf(UniqueIdentifier(id = UUID.fromString(groupID))))).states.first()
         val gameState = gameStateRef.state.data
         val memberStateState: MemberState = MemberState(party = member, moderator = gameState.moderator)
         val notary = this.serviceHub.networkMapCache.notaryIdentities.first()

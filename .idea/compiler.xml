@@ -48,6 +48,29 @@
       <module name="Aspire.workflows.integrationTest" target="1.8" />
       <module name="Aspire.workflows.main" target="1.8" />
       <module name="Aspire.workflows.test" target="1.8" />
+      <module name="AspireNew.clients.main" target="1.8" />
+      <module name="AspireNew.clients.test" target="1.8" />
+      <module name="AspireNew.contracts.main" target="1.8" />
+      <module name="AspireNew.contracts.test" target="1.8" />
+      <module name="AspireNew.cordapp-contracts-states.main" target="1.8" />
+      <module name="AspireNew.cordapp-contracts-states.test" target="1.8" />
+      <module name="AspireNew.cordapp.main" target="1.8" />
+      <module name="AspireNew.cordapp.test" target="1.8" />
+      <module name="AspireNew.main" target="1.8" />
+      <module name="AspireNew.modules.main" target="1.8" />
+      <module name="AspireNew.modules.manual.main" target="1.8" />
+      <module name="AspireNew.modules.manual.test" target="1.8" />
+      <module name="AspireNew.modules.ripple.main" target="1.8" />
+      <module name="AspireNew.modules.ripple.test" target="1.8" />
+      <module name="AspireNew.modules.swift.main" target="1.8" />
+      <module name="AspireNew.modules.swift.test" target="1.8" />
+      <module name="AspireNew.modules.test" target="1.8" />
+      <module name="AspireNew.oracle.main" target="1.8" />
+      <module name="AspireNew.oracle.test" target="1.8" />
+      <module name="AspireNew.test" target="1.8" />
+      <module name="AspireNew.workflows.integrationTest" target="1.8" />
+      <module name="AspireNew.workflows.main" target="1.8" />
+      <module name="AspireNew.workflows.test" target="1.8" />
       <module name="com.template.Aspire.clients.main" target="1.8" />
       <module name="com.template.Aspire.clients.test" target="1.8" />
       <module name="com.template.Aspire.contracts.main" target="1.8" />

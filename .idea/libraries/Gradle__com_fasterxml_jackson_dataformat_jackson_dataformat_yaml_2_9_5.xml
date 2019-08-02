@@ -2,6 +2,7 @@
   <library name="Gradle: com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.5">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.9.5/jackson-dataformat-yaml-2.9.5.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.5/a10eb0c996b7b855b7dafa3abb0a39cb6873b9e7/jackson-dataformat-yaml-2.9.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

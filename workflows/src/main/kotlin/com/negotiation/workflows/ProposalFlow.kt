@@ -10,6 +10,7 @@ import net.corda.core.identity.Party
 import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
 import net.corda.core.utilities.ProgressTracker
+import java.util.*
 
 object ProposalFlow {
     @InitiatingFlow
@@ -38,25 +39,26 @@ object ProposalFlow {
                     val additional_insured_buisness_phone    : String ,
                     val additional_insured_type_of_buisness    : String ,
                     val lines_of_business    : String ,
-                    val policy_information_proposed_eff_date    : String ,
-                    val policy_information_proposed_exp_date    : String ,
+                    val policy_information_proposed_eff_date    : Date ,
+                    val policy_information_proposed_exp_date    : Date ,
                    val  billing_plan    : String ,
                     val billing_payment_plan    : String ,
                     val billing_method_of_payment    : String ,
                     val billing_audit    : String ,
-                    val billing_deposit    : String ,
+                    val billing_deposit    : Int ,
                     val billing_min_premium   : Int ,
                     val attachments_additional   : String ,
                     val premises_additional    : String ,
                     val premises_address    : Boolean ,
                     val premises_within_city_limits    : String ,
-                    val premises_interest: Boolean,val counterparty: Party  ) : FlowLogic<UniqueIdentifier>() {
+                    val premises_interest: Boolean,val total_coverage: Int
+                    ,val coverage_amount: Int,val counterparty: Party  ) : FlowLogic<UniqueIdentifier>() {
         override val progressTracker = ProgressTracker()
-
+//remeber to add two more parties to this initiator which may have nullvalues
         @Suspendable
         override fun call(): UniqueIdentifier {
             // Creating the output.
-            val (buyer, seller) = when {
+            val (broker, lead_insurer) = when {
                 isBuyer -> ourIdentity to counterparty
                 else -> counterparty to ourIdentity
             }
@@ -72,7 +74,7 @@ object ProposalFlow {
                     lines_of_business   ,policy_information_proposed_eff_date   ,policy_information_proposed_exp_date   ,
                     billing_plan   ,billing_payment_plan   ,billing_method_of_payment   ,billing_audit   ,billing_deposit   ,
                     billing_min_premium  ,attachments_additional  ,premises_additional   ,premises_address   ,premises_within_city_limits   ,
-                    premises_interest  ,ourIdentity, counterparty)
+                    premises_interest  ,total_coverage,coverage_amount,broker , lead_insurer, ourIdentity, counterparty)
 
             // Creating the command.
             val commandType = ProposalAndTradeContract.Commands.Propose()

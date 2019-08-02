@@ -1,118 +1,116 @@
-APEX ASPIRE
-Welcome to the Apex Git repo.  If you are reading this, you are part of a privileged few, whom I trust very much.
+POLICY PLACEMENT
 
-TO START:
+Step 1:
 
-Start all the nodes at the same time, cd to the Aspire main folder and execute the following:
+Broker requests a quote for coverage on a commercial property.  By law the Broker must seek the most competitive quote, they must approach at least 3 insurers.  In this demo we will request a quote from 3 insurers.  It begins with the broker submitting a proposal form to an Insurer.
 
-LINUX:
+From Broker:
 
-```./gradlew clean deployNodes Deploys Nodes```
-```cd build/nodes Navigate to nodes folder```
-```./runnodes Runs the nodes```
-```cd Aspire Navigate back to main folder```
-```./gradlew runTemplateClient Deploys Webservers```
+Quote Requested from InsurerA:
 
-WINDOWS:
-
-```gradlew.bat clean deployNodes Deploys Nodes```
-```cd build/nodes Navigate to nodes folder```
-```runnodes Runs the nodes```
-```cd Aspire Navigate back to main folder```
-```gradlew.bat runTemplateClient Deploys Webservers```
-
-Starting node's individually:
-
-Occassionally a node will fail to start. In this situation we can run a node individually by opening a terminal window within the node’s folder (cd build/nodes) and running:
-
-java -jar corda.jar
----------------------------------------------------------------------------------------------------------------------------------------------------------
-OUR DEMO:
-
-For now we will execute all flows from the node shell. Once all flows are working will will integrate Spring etc.
-
-In the demo below a Broker requests a quote from an Insurer (creating a Proposal), they are then able to negotiate between themselves and reach agreement on a the terms of the insurance policy.
-
-In Aspire, any node can create a proposal to any other node. The node that is making the proposal is the proposer and the node that is receiving the proposal is the proposee. Please note that these role's change each time a proposal is sent back or forth.
-
-The commands below must be executed from the relevant node shell. Change the amounts, parties as required, and be sure to add the correct linear ID (you can access this by doing a vault query, more below).
+```flow start ProposalFlow$Initiator isBuyer: true, policy_applicant_name: “A”, policy_applicant_mailing_address: “A”, policy_applicant_gl_code: “A”, policy_applicant_sic: “A”, policy_applicant_fein_or_soc_sec: “A”, policy_applicant_buisness_phone: “A”, policy_applicant_buisness_type: “A”, broker_company_name : “A”, broker_contact_name: “A”, broker_phone: “A”, broker_email: “A”, carrier_company_name: “A”, carrier_contact_name: “A”, carrier_phone: “A”, carrier_email: “A”, additional_insured_name: “A”, additional_insured_mailing_address: “A”, additional_insured_gl_code: “A”, additional_insured_sic: “A”, additional_insured_fein_or_soc_sec: “A”, additional_insured_buisness_phone: “A”, additional_insured_type_of_buisness: “A”, lines_of_business: “A”, policy_information_proposed_eff_date: “A”, policy_information_proposed_exp_date: “A”, billing_plan: “A”, billing_payment_plan: “A”,   billing_method_of_payment: “A”, billing_audit: “A”, billing_deposit: “A”, billing_min_premium: 1, attachments_additional: “A”, premises_additional: “A”, premises_address: true, premises_within_city_limits: “A” ,premises_interest: true, counterparty: InsurerA, coverage_amount: 100, total_coverage: 500```
 
 
-### CREATING A PROPOSAL:
+Quote Requested from InsurerB:
 
-ProposalFlow$Initiator
 
-This flow creates a proposal to Insurer C, this proposal will have the data Amount = 10, and isBuyer = true.
+```flow start ProposalFlow$Initiator isBuyer: true, policy_applicant_name: “A”, policy_applicant_mailing_address: “A”, policy_applicant_gl_code: “A”, policy_applicant_sic: “A”, policy_applicant_fein_or_soc_sec: “A”, policy_applicant_buisness_phone: “A”, policy_applicant_buisness_type: “A”, broker_company_name : “A”, broker_contact_name: “A”, broker_phone: “A”, broker_email: “A”, carrier_company_name: “A”, carrier_contact_name: “A”, carrier_phone: “A”, carrier_email: “A”, additional_insured_name: “A”, additional_insured_mailing_address: “A”, additional_insured_gl_code: “A”, additional_insured_sic: “A”, additional_insured_fein_or_soc_sec: “A”, additional_insured_buisness_phone: “A”, additional_insured_type_of_buisness: “A”, lines_of_business: “A”, policy_information_proposed_eff_date: “A”, policy_information_proposed_exp_date: “A”, billing_plan: “A”, billing_payment_plan: “A”,   billing_method_of_payment: “A”, billing_audit: “A”, billing_deposit: “A”, billing_min_premium: 1, attachments_additional: “A”, premises_additional: “A”, premises_address: true, premises_within_city_limits: “A” ,premises_interest: true, counterparty: InsurerB, coverage_amount: 300, total_coverage: 500```
 
-In the Broker shell execute the following command:
 
-cd..
+Quote Requested from InsurerC:
 
-### VIEWING A PROPOSAL:
 
-Now go to InsurerC shell and execute the command below: run vaultQuery contractStateType: negotiation.contracts.ProposalState
+```flow start ProposalFlow$Initiator isBuyer: true, policy_applicant_name: “A”, policy_applicant_mailing_address: “A”, policy_applicant_gl_code: “A”, policy_applicant_sic: “A”, policy_applicant_fein_or_soc_sec: “A”, policy_applicant_buisness_phone: “A”, policy_applicant_buisness_type: “A”, broker_company_name : “A”, broker_contact_name: “A”, broker_phone: “A”, broker_email: “A”, carrier_company_name: “A”, carrier_contact_name: “A”, carrier_phone: “A”, carrier_email: “A”, additional_insured_name: “A”, additional_insured_mailing_address: “A”, additional_insured_gl_code: “A”, additional_insured_sic: “A”, additional_insured_fein_or_soc_sec: “A”, additional_insured_buisness_phone: “A”, additional_insured_type_of_buisness: “A”, lines_of_business: “A”, policy_information_proposed_eff_date: “A”, policy_information_proposed_exp_date: “A”, billing_plan: “A”, billing_payment_plan: “A”,   billing_method_of_payment: “A”, billing_audit: “A”, billing_deposit: “A”, billing_min_premium: 1, attachments_additional: “A”, premises_additional: “A”, premises_address: true, premises_within_city_limits: “A” ,premises_interest: true, counterparty: InsurerC, coverage_amount: 100, total_coverage: 500```
 
-This allow's us to view the proposal in Insurer C's vault. This flow can be executed from any shell to allow us to view the vault contents. Note down the linear ID (its near the top of the state data).
 
-### MODIFYING A PROPOSAL:
+Notice how we send exactly the same data to all 3 insurers when asking for a quote.  From UI after proposal form is filled out, we need to be able to send to all 3 insurers at same time with a single click (use check boxes or drop down).
 
-Now assume that Insurer C wishes to modify the agreement and return it to the Broker, execute the following:
+Should have a drop down which will list all nodes on network.  Network Map function connected to a drop down box.
 
-flow start ModificationFlow$Initiator proposalId: xx, newAmount: 8
+Step 2:
 
-Where xx is the linear ID taken from the vault, also notice that we have amended the amount to 8.
+Modification of Quote:
 
-Again go back to Broker Shell and execute a vault query:
+On many occasions the Insurers will request additional information beforing issuing a quote.  In this case Insuer A and C will both ask for a Survey Report.  B will ask for some other document (not important).  We will attach the required documents and return to the 3 insurers.  This will be done one insurers at a time.
 
-run vaultQuery contractStateType: negotiation.contracts.ProposalState
 
-### ACCEPTING THE PROPOSAL
+Command:
 
-Now we can see that the state has changed. We can go back and forth as many times as we wish until we finally reach agreement. Once the broker and Insurer C agree on an amount we execute the acceptance flow:
+From Insurer A:
 
-flow start AcceptanceFlow$Initiator proposalId: xx
+```flow start ModificationFlow$Initiator proposalId: linearID, newAmount: 0```
 
-This converts the proposal state into a trade state. Next the insurer must convert the trade state into a policy state (TBD).
+```flow start group.chat.flows.StartChat notary: "O=Notary, L=London, C=GB"```
 
------------------------------------------------------------------------------------------------------------------------------------------------------------
-## NODE CHAT:
+```run vaultQuery contractStateType: com.template.states.ChatState```
 
-To start a chat (group or one to one), go to any Node shell:
+```flow start group.chat.flows.AddMemberFlow gameID: "linearID", member: "O=Broker, L=London, C=GB"```
 
-### 1. START A GROUP CHAT
+```flow start group.chat.flows.AddMessageFlow gameID: "linearID", message: "Hey please attach a Survey report for this quote request"```
 
-flow start group.chat.flows.StartChat notary: "O=Notary, L=London, C=GB"
 
-This will start Start Chat flow, which in turn will create a ChatState.  All members and messages between members are stored in the ChatState.
+Note: Can we connect this chat to the actual proposal state via linearID
 
-### 2. ADD INSURER A:
+From Insurer B:
 
-First we need the linear ID or game ID: 2a77a365-512c-44d6-a937-352965d84281
+```flow start ModificationFlow$Initiator proposalId: linearID, newAmount: 0```
 
-run vaultQuery contractStateType: com.template.states.ChatState
+```flow start group.chat.flows.StartChat notary: "O=Notary, L=London, C=GB"```
 
-Scroll up and copy the Linear ID field. Then:
+```run vaultQuery contractStateType: com.template.states.ChatState```
 
-flow start group.chat.flows.AddMemberFlow gameID: "2a77a365-512c-44d6-a937-352965d84281", member: "O=Broker, L=London, C=GB"
+```flow start group.chat.flows.AddMemberFlow gameID: "linearID", member: "O=Broker, L=London, C=GB"```
 
-Here we have added the broker node, although you can add any node you wish at this point.  To add additional nodes simply execute the above flow again and change the member field to the relevant party that you would like to include in the group chat.
+```flow start group.chat.flows.AddMessageFlow gameID: "linearID", message: "Hey please attach a Survey report for this quote request"```
 
-### 3. ADD A MESSAGE TO THE GROUP CHAT:
 
-flow start group.chat.flows.AddMessageFlow gameID: "2a77a365-512c-44d6-a937-352965d84281", message: "APEX INSURTECH - WINNERS OF THE CORDACON 2019 INSURTECH CHALLENGE!"
+From Insurer C:
 
-### 4. CHECK GROUP CHAT MESSAGES:
+```flow start ModificationFlow$Initiator proposalId: linearID, newAmount: 0```
 
-Execute a vault query from relevant nodes to confirm that message has been added to the group chat:
+```flow start group.chat.flows.StartChat notary: "O=Notary, L=London, C=GB"```
 
-run vaultQuery contractStateType: com.template.states.ChatState
+```run vaultQuery contractStateType: com.template.states.ChatState```
 
-Oracle:
+```flow start group.chat.flows.AddMemberFlow gameID: "linearID", member: "O=Broker, L=London, C=GB"```
 
-To request the 5th prime number:
+<<<<<<< HEAD
+flow start group.chat.flows.AddMemberFlow groupID: "2a77a365-512c-44d6-a937-352965d84281", member: "O=Broker, L=London, C=GB"
+=======
+```flow start group.chat.flows.AddMessageFlow gameID: "linearID", message: "Hey please attach a Survey report for this quote request"```
+>>>>>>> 803e33ed5b855048f768e395bc2556d821d8f7cd
 
-flow start CreatePrime index: 5
 
-To check in vault:
+From Broker Node:
 
-run vaultQuery contractStateType: net.corda.examples.oracle.base.contract.PrimeState
+<<<<<<< HEAD
+flow start group.chat.flows.AddMessageFlow groupID: "2a77a365-512c-44d6-a937-352965d84281", message: "APEX INSURTECH - WINNERS OF THE CORDACON 2019 INSURTECH CHALLENGE!"
+=======
+```run vaultQuery contractStateType: com.template.states.ChatState```
+can we add reference to the proposalID here that allows us to pull only those chat state that correspond to the relevant proposal state?
+>>>>>>> 803e33ed5b855048f768e395bc2556d821d8f7cd
+
+STEP 3:
+
+Broker will issue a modification flow to attach requested docs:
+
+```flow start ModificationFlow$Initiator proposalId: {linearID for quote from A}, newAmount: 0 + ATTACHMENT```
+
+```flow start ModificationFlow$Initiator proposalId: {linearID for quote from B}, newAmount: 0 + ATTACHMENT```
+
+```flow start ModificationFlow$Initiator proposalId: {linearID for quote from C}, newAmount: 0 + ATTACHMENT```
+
+STEP 4:
+
+From Insurer A:
+
+```flow start ModificationFlow$Initiator proposalId: {linearID for quote from A}, newAmount: 10000```
+
+From Insurer B:
+
+```flow start ModificationFlow$Initiator proposalId: {linearID for quote from B}, newAmount: 9500```
+
+
+From Insurer C:
+
+```flow start ModificationFlow$Initiator proposalId: {linearID for quote from C}, newAmount: 9800```

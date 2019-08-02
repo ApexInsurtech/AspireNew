@@ -1,6 +1,9 @@
 package com.template
 
 
+import negotiation.workflows.AcceptanceFlow
+import negotiation.workflows.FnolFlow
+import negotiation.workflows.ModificationFlow
 import negotiation.workflows.ProposalFlow
 import net.corda.testing.node.MockNetwork
 import net.corda.testing.node.MockNetworkParameters
@@ -20,6 +23,9 @@ class FlowTests {
     init {
         listOf(a, b).forEach {
             it.registerInitiatedFlow(ProposalFlow.Responder::class.java)
+            //it.registerInitiatedFlow(ModificationFlow.Responder::class.java)
+            //it.registerInitiatedFlow(AcceptanceFlow.Responder::class.java)
+            //it.registerInitiatedFlow(FnolFlow.Responder::class.java)
         }
     }
 

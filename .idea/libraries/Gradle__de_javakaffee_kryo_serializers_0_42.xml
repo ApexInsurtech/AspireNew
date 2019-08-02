@@ -2,6 +2,7 @@
   <library name="Gradle: de.javakaffee:kryo-serializers:0.42">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/de/javakaffee/kryo-serializers/0.42/kryo-serializers-0.42.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.javakaffee/kryo-serializers/0.42/2f541b01c7a67f688ab6fde619cd66ce1c2cde56/kryo-serializers-0.42.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
