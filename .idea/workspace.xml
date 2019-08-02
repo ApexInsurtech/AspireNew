@@ -4,45 +4,15 @@
     <list default="true" id="6e3ffe35-b7af-4727-8265-fd54dd266dfa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/CoverageVerificationState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/CoverageVerificationState.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/ProposalState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states/ProposalState.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/ProposalFlow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/com/negotiation/workflows/ProposalFlow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/group/chat/flows/AddMemberFlow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/group/chat/flows/AddMemberFlow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/workflows/src/main/kotlin/group/chat/flows/AddMessageFlow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/workflows/src/main/kotlin/group/chat/flows/AddMessageFlow.kt" afterDir="false" />
+=======
+>>>>>>> 803e33ed5b855048f768e395bc2556d821d8f7cd
     </list>
-    <ignored path="$PROJECT_DIR$/.gradle/" />
-    <ignored path="$PROJECT_DIR$/build/" />
-    <ignored path="$PROJECT_DIR$/out/" />
-    <ignored path="$PROJECT_DIR$/clients/.gradle/" />
-    <ignored path="$PROJECT_DIR$/clients/build/" />
-    <ignored path="$PROJECT_DIR$/clients/out/" />
-    <ignored path="$PROJECT_DIR$/contracts/.gradle/" />
-    <ignored path="$PROJECT_DIR$/contracts/build/" />
-    <ignored path="$PROJECT_DIR$/contracts/out/" />
-    <ignored path="$PROJECT_DIR$/workflows/.gradle/" />
-    <ignored path="$PROJECT_DIR$/workflows/build/" />
-    <ignored path="$PROJECT_DIR$/workflows/out/" />
-    <ignored path="$PROJECT_DIR$/cordapp/.gradle/" />
-    <ignored path="$PROJECT_DIR$/cordapp/build/" />
-    <ignored path="$PROJECT_DIR$/cordapp/out/" />
-    <ignored path="$PROJECT_DIR$/cordapp-contracts-states/.gradle/" />
-    <ignored path="$PROJECT_DIR$/cordapp-contracts-states/build/" />
-    <ignored path="$PROJECT_DIR$/cordapp-contracts-states/out/" />
-    <ignored path="$PROJECT_DIR$/modules/.gradle/" />
-    <ignored path="$PROJECT_DIR$/modules/build/" />
-    <ignored path="$PROJECT_DIR$/modules/out/" />
-    <ignored path="$PROJECT_DIR$/oracle/.gradle/" />
-    <ignored path="$PROJECT_DIR$/oracle/build/" />
-    <ignored path="$PROJECT_DIR$/oracle/out/" />
-    <ignored path="$PROJECT_DIR$/modules/manual/.gradle/" />
-    <ignored path="$PROJECT_DIR$/modules/manual/build/" />
-    <ignored path="$PROJECT_DIR$/modules/manual/out/" />
-    <ignored path="$PROJECT_DIR$/modules/ripple/.gradle/" />
-    <ignored path="$PROJECT_DIR$/modules/ripple/build/" />
-    <ignored path="$PROJECT_DIR$/modules/ripple/out/" />
-    <ignored path="$PROJECT_DIR$/modules/swift/.gradle/" />
-    <ignored path="$PROJECT_DIR$/modules/swift/build/" />
-    <ignored path="$PROJECT_DIR$/modules/swift/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +45,7 @@
       </state>
     </system>
   </component>
+<<<<<<< HEAD
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -171,6 +142,8 @@
       </file>
     </leaf>
   </component>
+=======
+>>>>>>> 803e33ed5b855048f768e395bc2556d821d8f7cd
   <component name="FindInProjectRecents">
     <findStrings>
       <find>Acceptan</find>
@@ -228,6 +201,7 @@
     </option>
     <option name="RESET_MODE" value="HARD" />
   </component>
+<<<<<<< HEAD
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -271,6 +245,8 @@
       </list>
     </option>
   </component>
+=======
+>>>>>>> 803e33ed5b855048f768e395bc2556d821d8f7cd
   <component name="IgnoredFileRootStore">
     <option name="generatedRoots">
       <set>
@@ -287,6 +263,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -426,6 +403,8 @@
       <pane id="PackagesPane" />
     </panes>
   </component>
+=======
+>>>>>>> 803e33ed5b855048f768e395bc2556d821d8f7cd
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/contracts/src/main/kotlin/com/template/states" />
@@ -565,9 +544,24 @@
       <option name="project" value="LOCAL" />
       <updated>1564564856556</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="updated all flows and states">
+      <created>1564703372647</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1564703372647</updated>
+    </task>
+    <task id="LOCAL-00011" summary="updated all flows and states">
+      <created>1564703511035</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1564703511035</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
+<<<<<<< HEAD
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
@@ -632,18 +626,14 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout-to-restore>
   </component>
+=======
+>>>>>>> 803e33ed5b855048f768e395bc2556d821d8f7cd
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -673,6 +663,7 @@
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/cordapp/src/main/kotlin/com/r3/corda/finance/obligation/workflows/flows/GetFxRate.kt">
       <provider selected="true" editor-type-id="text-editor">
@@ -1003,6 +994,8 @@
       </provider>
     </entry>
   </component>
+=======
+>>>>>>> 803e33ed5b855048f768e395bc2556d821d8f7cd
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">

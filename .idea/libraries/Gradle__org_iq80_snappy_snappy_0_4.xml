@@ -2,6 +2,7 @@
   <library name="Gradle: org.iq80.snappy:snappy:0.4">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/iq80/snappy/snappy/0.4/snappy-0.4.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.iq80.snappy/snappy/0.4/a42b2d92a89efd35bb14738000dabcac6bd07a8d/snappy-0.4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

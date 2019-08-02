@@ -2,6 +2,7 @@
   <library name="Gradle: com.zaxxer:HikariCP:2.5.1">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/2.5.1/HikariCP-2.5.1.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zaxxer/HikariCP/2.5.1/b896b711e2d98fedf403de590559a123b5fbf1a6/HikariCP-2.5.1.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zaxxer/HikariCP/2.5.1/324200db63109bcdfb7bc3bd7d139f7d5ab1b20d/HikariCP-2.5.1-javadoc.jar!/" />
