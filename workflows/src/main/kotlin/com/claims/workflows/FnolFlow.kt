@@ -57,7 +57,8 @@ object FnolFlow {
 
             // Gathering the counterparty's signature.
 
-            val counterparty = if (ourIdentity == input.broker) input.lead_insurer else input.lead_insurer
+           // val counterparty = if (ourIdentity == input.broker) input.lead_insurer else input.lead_insurer
+            //we might change it
             val counterpartySession = initiateFlow(counterparty)
             val fullyStx = subFlow(CollectSignaturesFlow(partStx, listOf(counterpartySession)))
 
