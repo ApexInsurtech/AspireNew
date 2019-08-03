@@ -24,25 +24,11 @@ class Controller(rpc: NodeRPCConnection) {
 
     private val proxy = rpc.proxy
 
-    @GetMapping(value = ["/templateendpoint"], produces = arrayOf("text/plain"))
-    private fun templateendpoint(): String {
-        return "Define an endpoint here."
-    }
-
-    @GetMapping(value = ["/test_status"], produces = arrayOf("text/plain"))
-    private fun test_status(): String {
-        return "answwer is 1."
-    }
-    @GetMapping("/flow_details", produces = ["application/json"])
-    private fun flowDetails(): String {
-        return proxy.registeredFlows().toString()
-    }
-
     @GetMapping("/state-details", produces = ["application/json"])
     private fun statesDetails(): List<Map<String, Any>> {
-        return proxy.vaultQueryBy<LinearState>().states.map {
-            var x = it.state.data.participants.map {
-                val nameOrNull = it.nameOrNull()!!
+        return proxy.vaultQueryBy<LinearState>().states.map { it ->
+            var x = it.state.data.participants.map {itx ->
+                val nameOrNull = itx.nameOrNull()!!
                 nameOrNull
             };
             mapOf(
