@@ -32,12 +32,12 @@ object ClaimFlow {
 
 
             val output = ClaimState(input.policy_applicant_name, input.policy_applicant_mailing_address,
-                    input.buyer, input.seller, input.linearId)
+                    input.broker, input.lead_insurer, input.linearId)
 
 
             // Creating the command.
             val commandType = ClaimContract.Commands.Propose()
-            val requiredSigners = listOf(input.buyer.owningKey, input.seller.owningKey)
+            val requiredSigners = listOf(input.broker.owningKey, input.lead_insurer.owningKey)
             //val requiredSigners = listOf(ourIdentity.owningKey, counterparty.owningKey)
             val command = Command(commandType, requiredSigners)
 
@@ -52,7 +52,7 @@ object ClaimFlow {
 
             // Gathering the counterparty's signature.
 
-            val counterparty = if (ourIdentity == input.buyer) input.seller else input.buyer
+            val counterparty = if (ourIdentity == input.broker) input.lead_insurer else input.lead_insurer
             val counterpartySession = initiateFlow(counterparty)
             val fullyStx = subFlow(CollectSignaturesFlow(partStx, listOf(counterpartySession)))
 

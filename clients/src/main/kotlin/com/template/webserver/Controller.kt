@@ -48,6 +48,8 @@ class Controller(rpc: NodeRPCConnection) {
         var queryCriteria = QueryCriteria.LinearStateQueryCriteria(linearId = listOf(uuid));
         val data = proxy.vaultQueryByCriteria(queryCriteria, ProposalState::class.java).states.first().state.data;
         return mapOf(
+            "seller" to data.lead_insurer.name,
+            "buyer" to data.broker.name,
             "policy_applicant_name" to data.policy_applicant_name,
             "policy_applicant_mailing_address" to data.policy_applicant_mailing_address,
             "policy_applicant_gl_code" to data.policy_applicant_gl_code,
