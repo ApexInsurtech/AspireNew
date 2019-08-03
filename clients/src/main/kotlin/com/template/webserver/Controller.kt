@@ -24,25 +24,11 @@ class Controller(rpc: NodeRPCConnection) {
 
     private val proxy = rpc.proxy
 
-    @GetMapping(value = ["/templateendpoint"], produces = arrayOf("text/plain"))
-    private fun templateendpoint(): String {
-        return "Define an endpoint here."
-    }
-
-    @GetMapping(value = ["/test_status"], produces = arrayOf("text/plain"))
-    private fun test_status(): String {
-        return "answwer is 1."
-    }
-    @GetMapping("/flow_details", produces = ["application/json"])
-    private fun flowDetails(): String {
-        return proxy.registeredFlows().toString()
-    }
-
     @GetMapping("/state-details", produces = ["application/json"])
     private fun statesDetails(): List<Map<String, Any>> {
-        return proxy.vaultQueryBy<LinearState>().states.map {
-            var x = it.state.data.participants.map {
-                val nameOrNull = it.nameOrNull()!!
+        return proxy.vaultQueryBy<LinearState>().states.map { it ->
+            var x = it.state.data.participants.map {itx ->
+                val nameOrNull = itx.nameOrNull()!!
                 nameOrNull
             };
             mapOf(
@@ -62,8 +48,6 @@ class Controller(rpc: NodeRPCConnection) {
         var queryCriteria = QueryCriteria.LinearStateQueryCriteria(linearId = listOf(uuid));
         val data = proxy.vaultQueryByCriteria(queryCriteria, ProposalState::class.java).states.first().state.data;
         return mapOf(
-            "seller" to data.seller.name,
-            "buyer" to data.buyer.name,
             "policy_applicant_name" to data.policy_applicant_name,
             "policy_applicant_mailing_address" to data.policy_applicant_mailing_address,
             "policy_applicant_gl_code" to data.policy_applicant_gl_code,
