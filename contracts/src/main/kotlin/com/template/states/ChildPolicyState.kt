@@ -14,6 +14,7 @@ import net.corda.core.serialization.CordaSerializable
 data class ChildPolicyState(
         override val linearId: UniqueIdentifier = UniqueIdentifier(),
         val party: Party,
+        val policyID: UniqueIdentifier,
         val moderator: Party,
         var myCards: List<Card> = emptyList<Card>(),
         var rankingEnum: RankingEnum = RankingEnum.HIGH_CARD,

@@ -78,7 +78,7 @@ class GenerateParentPolicy(val notary: Party) : FlowLogic<UniqueIdentifier>() {
                 deck.linearId,
                 emptyList(),
                 RoundEnum.Started,
-                ""
+                UniqueIdentifier()
         )
         val txCommand = Command(ParentPolicyContract.Commands.Start_GAME(), chatState.participants.map { it.owningKey })
         val txBuilder = TransactionBuilder(notary)
