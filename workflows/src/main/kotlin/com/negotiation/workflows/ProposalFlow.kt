@@ -48,13 +48,16 @@ object ProposalFlow {
                     val billing_deposit    : Int ,
                     val billing_min_premium   : Int ,
                     val attachments_additional   : String ,
-                    val premises_additional    : String ,
-                    val premises_address    : Boolean ,
-                    val premises_within_city_limits    : String ,
-                    val premises_interest: Boolean,val total_coverage: Int
-                    ,val coverage_amount: Int,val counterparty: Party  ) : FlowLogic<UniqueIdentifier>() {
+                    val premises_additional    : Boolean ,
+                    val premises_address    : String,
+                    val premises_within_city_limits    : Boolean ,
+                    val premises_interest: String,
+                    val total_coverage: Int,
+                    val coverage_amount: Int,
+                    val counterparty: Party
+        ) : FlowLogic<UniqueIdentifier>() {
         override val progressTracker = ProgressTracker()
-//remeber to add two more parties to this initiator which may have nullvalues
+        //remeber to add two more parties to this initiator which may have nullvalues
         @Suspendable
         override fun call(): UniqueIdentifier {
             // Creating the output.
@@ -63,18 +66,55 @@ object ProposalFlow {
                 else -> counterparty to ourIdentity
             }
             //val output = ProposalState(amount, buyer, seller, ourIdentity, counterparty)
-            val output = ProposalState(policy_applicant_name , policy_applicant_mailing_address,
-                    policy_applicant_gl_code   ,policy_applicant_sic   ,policy_applicant_fein_or_soc_sec   ,
-                    policy_applicant_buisness_phone   ,policy_applicant_buisness_type   ,
-                    broker_company_name   , broker_contact_name   ,broker_phone   ,broker_email   ,
-                    carrier_company_name   , carrier_contact_name   ,carrier_phone   ,carrier_email   ,
-                    additional_insured_name   ,additional_insured_mailing_address   ,additional_insured_gl_code   ,
-                    additional_insured_sic   ,additional_insured_fein_or_soc_sec   ,additional_insured_buisness_phone   ,
-                    additional_insured_type_of_buisness   ,
-                    lines_of_business   ,policy_information_proposed_eff_date   ,policy_information_proposed_exp_date   ,
-                    billing_plan   ,billing_payment_plan   ,billing_method_of_payment   ,billing_audit   ,billing_deposit   ,
-                    billing_min_premium  ,attachments_additional  ,premises_additional   ,premises_address   ,premises_within_city_limits   ,
-                    premises_interest  ,total_coverage,coverage_amount,broker , lead_insurer, ourIdentity, counterparty)
+            val output = ProposalState(
+              // APPLICANT INFO
+              policy_applicant_name,
+              policy_applicant_mailing_address,
+              policy_applicant_gl_code,
+              policy_applicant_sic,
+              policy_applicant_fein_or_soc_sec,
+              policy_applicant_buisness_phone,
+              policy_applicant_buisness_type,
+              // BORKER INFO
+              broker_company_name,
+              broker_contact_name,
+              broker_phone,
+              broker_email,
+              // CARRIER INFO
+              carrier_company_name,
+              carrier_contact_name,
+              carrier_phone,
+              carrier_email,
+              // ADDITIONAL INSURED
+              additional_insured_name,
+              additional_insured_mailing_address,
+              additional_insured_gl_code,
+              additional_insured_sic,
+              additional_insured_fein_or_soc_sec,
+              additional_insured_buisness_phone,
+              additional_insured_type_of_buisness,
+              //LOB
+              lines_of_business,
+              policy_information_proposed_eff_date,
+              policy_information_proposed_exp_date,
+              billing_plan,
+              billing_payment_plan,
+              billing_method_of_payment,
+              billing_audit,
+              billing_deposit,
+              billing_min_premium,
+              attachments_additional,
+              premises_address,
+              premises_within_city_limits,
+              premises_interest,
+              premises_additional,
+              total_coverage,
+              coverage_amount,
+              broker,
+              lead_insurer,
+              ourIdentity,
+              counterparty
+            )
 
             // Creating the command.
             val commandType = ProposalAndTradeContract.Commands.Propose()

@@ -109,7 +109,6 @@ data class ProposalState(
         val additional_insured_type_of_buisness: String,
         //LINES OF BUSINESS OR AREAS OF COVER - NEED TO BE ABLE TO SELECT MULTIPLE LINES
         val lines_of_business: String,
-
         //POLICY INFORMATION
         val policy_information_proposed_eff_date: Date,
         val policy_information_proposed_exp_date: Date,
