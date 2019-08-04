@@ -44,6 +44,18 @@ class ChatController (rpc: NodeRPCConnection){
     return x.returnValue.toCompletableFuture();
   }
 
+  @PostMapping("/list")
+  fun listChats() : List<Map<String, Any>> {
+    return proxy.vaultQueryBy<ChatState>().states.map {
+      mapOf(
+        "last_message" to it.state.data.betAmount,
+        "by" to it.state.data.moderator.name.organisation,
+        "time" to it.state.data.lastChange.atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+        "chat_id" to it.state.data.linearId.toString()
+      )
+    }
+  }
+
   @PostMapping("/add-members", consumes = ["application/json"])
   fun addMembers(
     @RequestBody body : Map<String, Any>
@@ -77,10 +89,17 @@ class ChatController (rpc: NodeRPCConnection){
   ) : List<Map<String, Any>> {
     val groupId = body["group_id"] as String;
     var query = LinearStateQueryCriteria(linearId = listOf(UniqueIdentifier.fromString(groupId)), status = Vault.StateStatus.ALL);
+    var me = proxy.nodeInfo().legalIdentities.first();
     return proxy.vaultQueryByCriteria(query, ChatState::class.java).states.map {
+      var sender = "";
+      sender = if(it.state.data.moderator == me){
+        "Me"
+      }else{
+        it.state.data.moderator.name.organisation;
+      }
       mapOf(
         "message" to it.state.data.betAmount,
-        "party" to it.state.data.moderator.name.organisation,
+        "party" to sender,
         "time" to it.state.data.lastChange.atZone(ZoneOffset.UTC).toInstant().toEpochMilli()
       )
     };

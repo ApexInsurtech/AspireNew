@@ -93,9 +93,9 @@
         <div class="row">
           <div class="col-12">
             <div class="page-title-box">
-              <div class="float-left"><h4 class="page-title">Proposals</h4></div>
+              <div class="float-left"><h4 class="page-title">Chat</h4></div>
               <div class="float-right">
-                <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#add-proposal"><i class="fa fa-plus"></i> Add Proposal</a>
+                <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#start-chat"><i class="fa fa-plus"></i> New Chat</a>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -103,133 +103,44 @@
         </div>
         <!-- end row -->
         <div class="row">
-          <div class="offset-xl-3 col-xl-3 col-sm-6">
-            <div class="card-box widget-box-two widget-two-custom">
-              <i class="mdi mdi-currency-usd widget-two-icon"></i>
-              <div class="wigdet-two-content">
-                <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Total Revenue</p>
-                <h2 class="font-600"> <span id="proposal_revenue">0</span></h2>
+          <div class="col-sm-4">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">My Chats</h4>
+              </div>
+              <ul id="chats" class="list-group list-group-flush">
+                <li class="list-group-item">No Chats</li>
+              </ul>
+            </div>
+          </div><!-- end col -->
+          <div class="col-sm-8">
+            <div class="card">
+              <div id="selected_chat" class="card-body" style="height: 500px; overflow-y: auto;">
+                <h6>Select a Chat</h6>
+              </div>
+              <div class="card-body">
+                <div class="form-group col-12">
+                  <input type="text" class="form-control" name="inpMessage" placeholder="Enter Message" disabled>
+                </div>
               </div>
             </div>
           </div><!-- end col -->
-          <div class="col-xl-3 col-sm-6">
-            <div class="card-box widget-box-two widget-two-custom">
-              <i class="mdi mdi-account-multiple widget-two-icon"></i>
-              <div class="wigdet-two-content">
-                <p class="m-0 text-uppercase font-bold font-secondary text-overflow" title="Statistics">Total Proposals</p>
-                <h2 class="font-600"> <span id="proposal_numbers">0</span></h2>
-              </div>
-            </div>
-          </div><!-- end col -->
-        </div>
-        <div class="row">
-          <div class="col-xl-12 col-lg-12">
-            <div class="card-box">
-              <div class="col-12">
-                <div class="pull-left"><h4 class="m-t-0 header-title"><b>Proposals</b></h4></div>
-                <div class="pull-right"><button id="get-list" class="btn btn-primary" role="button"><i class="fa fa-refresh" aria-hidden="true"></i></button></div>
-                <div class="clearfix"></div>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-hover m-0 table-actions-bar">
-                  <thead>
-                    <tr>
-                      <th>Applicant Name</th>
-                      <th>Broker Company</th>
-                      <th>Broker Contact</th>
-                      <th>Plan</th>
-                      <th>Billing Premium</th>
-                      <th>Billing Deposit</th>
-                    </tr>
-                  </thead>
-                  <tbody id="proposal-data">
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
         <!--- end row -->
       </div> <!-- container -->
     </div> <!-- content -->
     <!-- Button trigger modal -->    
     <!-- Modal -->
-    <div class="modal fade" id="add-proposal" tabindex="-1" role="dialog" aria-labelledby="add_proposal" aria-hidden="true">
+    <div class="modal fade" id="start-chat" tabindex="-1" role="dialog" aria-labelledby="start_chat" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add Proposal</h5>
+            <h5 class="modal-title">New Chat</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
           </div>
           <div class="modal-body">
-            <div class="row">
-              <div class="col-md-6 col-sm-12">
-                <legend>Applicant Details</legend>
-                <div class="row">
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_name">Name</label>
-                    <input type="text" class="form-control" name="applicant_name" id="applicant_name" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_address">Mailing Address</label>
-                    <input type="text" class="form-control" name="applicant_mailing_address" id="applicant_mailing_address" required>
-                  </div>
-                  <div class="col-md-4 col-sm-12 form-group">
-                    <label for="applicant_address">GL Code</label>
-                    <input type="text" class="form-control" name="applicant_gl_code" id="applicant_gl_code" required>
-                  </div>
-                  <div class="col-md-4 col-sm-12 form-group">
-                    <label for="applicant_address">SIC</label>
-                    <input type="text" class="form-control" name="applicant_sic" id="applicant_sic" required>
-                  </div>
-                  <div class="col-md-4 col-sm-12 form-group">
-                    <label for="applicant_address">Social Security</label>
-                    <input type="text" class="form-control" name="applicant_ss" id="applicant_ss" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_address">Business Phone</label>
-                    <input type="text" class="form-control" name="applicant_business_phone" id="applicant_business_phone" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_address">Business Type</label>
-                    <select class="form-control" name="applicant_business_type" id="applicant_business_type">
-                      <option>CORPORATION</option>
-                      <option>INDIVIDUAL</option>
-                      <option>JOINT VENTURE</option>
-                      <option>LLC</option>
-                      <option>NOT FOR PROFIT ORG</option>
-                      <option>PARTNERSHIP</option>
-                      <option>SUBCHAPTER "S" CORPORATION</option>
-                      <option>TRUST</option>
-                      <option>OTHER</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <legend>Broker Details</legend>
-                <div class="row">
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_name">Company Name</label>
-                    <input type="text" class="form-control" name="broker_company_name" id="broker_company_name" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_address">Company Contact Name</label>
-                    <input type="text" class="form-control" name="broker_contact_name" id="broker_contact_name" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_address">Phone</label>
-                    <input type="text" class="form-control" name="broker_phone" id="broker_phone" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_address">Email</label>
-                    <input type="email" class="form-control" name="broker_email" id="broker_email" required>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="row">
               <div class="col-md-6 col-sm-12">
                 <legend>Carrier Info</legend>
@@ -492,132 +403,86 @@
 <!-- App js -->
 <script src="/assets/js/jquery.core.js"></script>
 <script src="/assets/js/jquery.app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
 <script>
   $(function(){
-    $("#make_proposal").on("click", function(){
-      let data = {
-        "applicant": {
-          "name": $("input[name=applicant_name]").val(),
-          "mailing_address": $("input[name=applicant_mailing_address]").val(),
-          "gl_code": $("input[name=applicant_gl_code]").val(),
-          "sic": $("input[name=applicant_sic]").val(),
-          "ss": $("input[name=applicant_ss]").val(),
-          "business_phone": $("input[name=applicant_business_phone]").val(),
-          "business_type": $("select[name=applicant_business_type]").val(),
-        },
-        "broker": {
-          "company_name": $("input[name=broker_company_name]").val(),
-          "contact_name": $("input[name=broker_contact_name]").val(),
-          "phone": $("input[name=broker_phone]").val(),
-          "email": $("input[name=broker_email]").val(),
-        },
-        "carrier": {
-          "company": $("input[name=carrier_company]").val(),
-          "contact": $("input[name=carrier_contact]").val(),
-          "phone": $("input[name=carrier_phone]").val(),
-          "email": $("input[name=carrier_email]").val(),
-        },
-        "additional": {
-          "name": $("input[name=additional_name]").val(),
-          "mailing_address": $("input[name=additional_mailing_address]").val(),
-          "gl_code": $("input[name=additional_gl_code]").val(),
-          "sic": $("input[name=additional_sic]").val(),
-          "ss": $("input[name=additional_ss]").val(),
-          "business_phone": $("input[name=additional_business_phone]").val(),
-          "business_type": $("select[name=additional_business_type]").val(),
-        },
-        "lob" : $("select[name=additional_business_type]").val(),
-        "start_date": $("input[name=start_date]").val(),
-        "expire_date": $("input[name=expire_date]").val(),
-        "billing": {
-          "plan": $("select[name=billing_plan]").val(),
-          "payment_plan": $("input[name=billing_payment_plan]").val(),
-          "mop": $("input[name=billing_mop]").val(),
-          "audit": $("input[name=billing_audit]").val(),
-          "deposit": parseInt($("input[name=billing_deposit]").val()),
-          "min_premium": parseInt($("input[name=billing_min_premium]").val()),
-        },
-        "attachments": $("select[name=attachment]").val(),
-        "premises": {
-          "additional": $("input[name=premises_additional]").is(":checked"),
-          "address": $("input[name=premises_address]").val(),
-          "city_limits": $("input[name=premises_city_limits]").is(":checked"),
-          "interest": $("input[name=premises_interest]").val(),
-        },
-        "coverage": {
-          "total": parseInt($("input[name=coverage_total]").val()),
-          "amount": parseInt($("input[name=coverage_amount]").val()),
-        },
-        "counterparty": $("select[name=counterparty]").val(),
-      };
+    $("input[name=inpMessage]").attr("disabled", "true");
+    $.ajax({
+      "url": "/chat/list",
+      "method": "post",
+      "success": function(response){
+        let chats = "";
+        for(let chat of response){
+          let dt = moment(chat['time']).format("YYYY-MM-DD HH:mm:ss Z");
+          chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
+        }
+        $("#chats").html("");
+        $("#chats").html(chats);
+      }
+    });
+    $("input[name=inpMessage]").on("keyup", function(e){
+      if(e.keyCode == 13){
+        $("input[name=inpMessage]").attr("disabled", "true");
+        let message = $(this).val();
+        let chat_id = $(this).data("group_id")
+        $.ajax({
+          url: "/chat/add-message",
+          method: "post",
+          data: JSON.stringify({"group_id": chat_id, "message": message }),
+          dataType: "json",
+          contentType: 'application/json',
+          processData: false,
+          success: function(response){
+            $.ajax({
+              url: "/chat/list-messages",
+              method: "post",
+              data: JSON.stringify({"group_id": chat_id }),
+              dataType: "json",
+              contentType: 'application/json',
+              processData: false,
+              success: function(response){
+                let messages = "";
+                for(let msg of response){
+                  if(msg["message"] == "") continue;
+                  let dt = moment(msg['time']).format("YYYY-MM-DD HH:mm:ss Z");
+                  messages += "<div style=\"border: 1px solid rgba(0,0,0,0.2); margin-top: 5px; padding: 5px 10px; border-radius: 3px; width: 50%; "+ (msg["party"] == "Me" ? "margin-left: 50%;" : "margin-right: 50%;") +"\" class=\""+ (msg["party"] == "Me" ? "float-right" : "float-left") +"\"><span>"+msg["message"]+"</span><br><small>"+msg["party"]+" @ "+dt+"</small></div>";
+                }
+                messages +="<div class=\"clearfix\"></div>";
+                $("#selected_chat").html("");
+                $("#selected_chat").html(messages);
+                $("input[name=inpMessage]").data("group_id", chat_id);
+                $("input[name=inpMessage]").val("");
+                $("input[name=inpMessage]").removeAttr("disabled");
+              }
+            });
+          }
+        });
+      }
+    });
+    $("body").on("click", ".chat", function(){
+      let chat_id = $(this).data("chat-id");
       $.ajax({
-        url: "/proposal/initiate",
+        url: "/chat/list-messages",
         method: "post",
-        data: JSON.stringify(data),
+        data: JSON.stringify({"group_id": chat_id }),
         dataType: "json",
         contentType: 'application/json',
         processData: false,
-        success: function (response) {
-          $('#add-proposal').modal('hide');
-          window.location.reload();
-        }
-      });
-    });
-    $(".dp").datepicker({
-      format: "yyyy-mm-dd",
-      autoclose: true,
-      todayHighlight: true
-    });
-    $.ajax({
-      "url": "/proposal/stats",
-      "method": "post",
-      "success": function(response){
-        for(let type in response){
-          $("#proposal_"+type).html(response[type]);
-        }
-      }
-    });
-    /* $.ajax({
-      "url": "/proposal/list",
-      "method": "post",
-      "success": function(response){
-        let data = "";
-        for (let proposal of response) {
-          data += "<tr>";
-          data += "<td>"+proposal["applicant_name"]+"</td>";
-          data += "<td>"+proposal["broker_company"]+"</td>";
-          data += "<td>"+proposal["broker_contact"]+"</td>";
-          data += "<td>"+proposal["billing_plan"]+"</td>";
-          data += "<td>"+proposal["billing_premium"]+"</td>";
-          data += "<td>"+proposal["billing_deposit"]+"</td>";
-          data += "</tr>";
-        }
-        $("#proposal-data").html("");
-        $("#proposal-data").html(data);
-      }
-    }); */
-    $("button#get-list").on("click", function(e){
-      $.ajax({
-        "url": "/proposal/list",
-        "method": "post",
-        "success": function(response){
-          let data = "";
-          for (let proposal of response) {
-            data += "<tr>";
-            data += "<td>"+proposal["applicant_name"]+"</td>";
-            data += "<td>"+proposal["broker_company"]+"</td>";
-            data += "<td>"+proposal["broker_contact"]+"</td>";
-            data += "<td>"+proposal["billing_plan"]+"</td>";
-            data += "<td>"+proposal["billing_premium"]+"</td>";
-            data += "<td>"+proposal["billing_deposit"]+"</td>";
-            data += "</tr>";
+        success: function(response){
+          let messages = "";
+          for(let msg of response){
+            if(msg["message"] == "") continue;
+            let dt = moment(msg['time']).format("YYYY-MM-DD HH:mm:ss Z");
+            messages += "<div style=\"border: 1px solid rgba(0,0,0,0.2); margin-top: 5px; padding: 5px 10px; border-radius: 3px; width: 50%; "+ (msg["party"] == "Me" ? "margin-left: 50%;" : "margin-right: 50%;") +"\" class=\""+ (msg["party"] == "Me" ? "float-right" : "float-left") +"\"><span>"+msg["message"]+"</span><br><small>"+msg["party"]+" @ "+dt+"</small></div>";
           }
-          $("#proposal-data").html("");
-          $("#proposal-data").html(data);
+          messages +="<div class=\"clearfix\"></div>";
+          $("#selected_chat").html("");
+          $("#selected_chat").html(messages);
+          $("input[name=inpMessage]").data("group_id", chat_id);
+          $("input[name=inpMessage]").removeAttr("disabled");
         }
       });
     });
-    $("button#get-list").click();
   });
 </script>
 </body>

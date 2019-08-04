@@ -38,57 +38,50 @@ class ProposalController (rpc: NodeRPCConnection){
     var attachments = data["attachments"] as String;
     var premises = data["premises"] as HashMap<String, Any>;
     var coverage = data["coverage"] as HashMap<String, Int>;
-    var brokerParty : Party = proxy.partiesFromName(data["broker_party"] as String, true).first();
-    var leadInsurerParty : Party = proxy.partiesFromName(data["lead_insurer_party"] as String, true).first();
-    var proposerParty : Party = proxy.partiesFromName(data["proposer_party"] as String, true).first();
-    var proposeeParty : Party = proxy.partiesFromName(data["proposee_party"] as String, true).first();
-    logger.debug(brokerParty.name.toString());
-    logger.debug(leadInsurerParty.name.toString());
-    logger.debug(proposerParty.name.toString());
-    logger.debug(proposeeParty.name.toString());
+    var counterparty : Party = proxy.partiesFromName("InsurerA", true).first();
+    var isBuyer : Boolean = true;
     val flow = proxy.startTrackedFlowDynamic(
       PInitiator::class.java,
-      applicant["name"],
-      applicant["mailing_address"],
-      applicant["gl_code"],
-      applicant["sic"],
-      applicant["ss"],
-      applicant["business_phone"],
-      applicant["business_type"],
-      broker["company_name"],
-      broker["contact_name"],
-      broker["phone"],
-      broker["email"],
-      carrier["company"],
-      carrier["contact"],
-      carrier["phone"],
-      carrier["email"],
-      additional["name"],
-      additional["mailing_address"],
-      additional["gl_code"],
-      additional["sic"],
-      additional["ss"],
-      additional["business_phone"],
-      additional["business_type"],
+      isBuyer,
+      applicant["name"] as String,
+      applicant["mailing_address"] as String,
+      applicant["gl_code"] as String,
+      applicant["sic"] as String,
+      applicant["ss"] as String,
+      applicant["business_phone"] as String,
+      applicant["business_type"] as String,
+      broker["company_name"] as String,
+      broker["contact_name"] as String,
+      broker["phone"] as String,
+      broker["email"] as String,
+      carrier["company"] as String,
+      carrier["contact"] as String,
+      carrier["phone"] as String,
+      carrier["email"] as String,
+      additional["name"] as String,
+      additional["mailing_address"] as String,
+      additional["gl_code"] as String,
+      additional["sic"] as String,
+      additional["ss"] as String,
+      additional["business_phone"] as String,
+      additional["business_type"] as String,
       lob,
       startDate,
       expireDate,
-      billing["plan"],
-      billing["payment_plan"],
-      billing["mop"],
-      billing["audit"],
+      billing["plan"] as String,
+      billing["payment_plan"] as String,
+      billing["mop"] as String,
+      billing["audit"] as String,
       billing["deposit"] as Int,
       billing["min_premium"] as Int,
       attachments,
-      premises["address"],
+      premises["additional"] as Boolean,
+      premises["address"] as String,
       premises["city_limits"] as Boolean,
-      premises["interest"] as Boolean,
+      premises["interest"] as String,
       coverage["total"] as Int,
       coverage["amount"] as Int,
-      brokerParty,
-      leadInsurerParty,
-      proposerParty,
-      proposeeParty
+      counterparty
     );
     return flow.returnValue.toCompletableFuture();
   }
@@ -122,9 +115,16 @@ class ProposalController (rpc: NodeRPCConnection){
   }
 
   @PostMapping("/list")
-  fun list(): List<ProposalState> {
+  fun list(): List<Map<String, Any>> {
     return proxy.vaultQueryBy<ProposalState>().states.map { ps ->
-      ps.state.data
+      mapOf(
+        "applicant_name" to ps.state.data.policy_applicant_name,
+        "broker_company" to ps.state.data.broker_company_name,
+        "broker_contact" to ps.state.data.broker_contact_name,
+        "billing_plan" to ps.state.data.billing_plan,
+        "billing_premium" to ps.state.data.billing_min_premium,
+        "billing_deposit" to ps.state.data.billing_deposit
+      )
     };
   }
 
