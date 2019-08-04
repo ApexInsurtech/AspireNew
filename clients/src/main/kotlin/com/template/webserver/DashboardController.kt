@@ -30,7 +30,7 @@ class DashboardController (rpc: NodeRPCConnection){
   }
 
   @PostMapping("business-lines")
-  fun s(): MutableMap<String, Int> {
+  fun businessLines(): MutableMap<String, Int> {
     var bl : MutableMap<String, Int> = mutableMapOf(
       "BOILER & MACHINERY" to 0,
       "BUSINESS AUTO" to 0,

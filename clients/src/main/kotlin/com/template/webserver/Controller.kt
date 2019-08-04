@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDateTime
 import java.time.ZoneId
+import org.springframework.core.SpringVersion
 
 /**
  * Define your API endpoints here.
@@ -38,6 +39,9 @@ class Controller(rpc: NodeRPCConnection) {
             );
         };
     }
+
+    @GetMapping("/spring")
+    fun spring(): String = SpringVersion.getVersion()!!
 
     @PostMapping("/contract-details", produces = ["application/json"], consumes = ["application/json"])
     private fun statesDetails(
