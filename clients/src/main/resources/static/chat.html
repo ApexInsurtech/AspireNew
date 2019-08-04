@@ -95,7 +95,7 @@
             <div class="page-title-box">
               <div class="float-left"><h4 class="page-title">Chat</h4></div>
               <div class="float-right">
-                <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#start-chat"><i class="fa fa-plus"></i> New Chat</a>
+                <button class="btn btn-primary" id="btnAddChat"><i class="fa fa-plus"></i> New Chat</button>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -131,251 +131,6 @@
     </div> <!-- content -->
     <!-- Button trigger modal -->    
     <!-- Modal -->
-    <div class="modal fade" id="start-chat" tabindex="-1" role="dialog" aria-labelledby="start_chat" aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">New Chat</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-6 col-sm-12">
-                <legend>Carrier Info</legend>
-                <div class="row">
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_name">Company Name</label>
-                    <input type="text" class="form-control" name="carrier_company" id="carrier_company" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_address">Contact Name</label>
-                    <input type="text" class="form-control" name="carrier_contact" id="carrier_contact" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_address">Phone</label>
-                    <input type="text" class="form-control" name="carrier_phone" id="carrier_phone" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_address">Email</label>
-                    <input type="email" class="form-control" name="carrier_email" id="carrier_email" required>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-sm-12">
-                <legend>Additional Insured</legend>
-                <div class="row">
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="applicant_name">Name</label>
-                    <input type="text" class="form-control" name="additional_name" id="additional_name" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="additional_address">Mailing Address</label>
-                    <input type="text" class="form-control" name="additional_mailing_address" id="additional_mailing_address" required>
-                  </div>
-                  <div class="col-md-4 col-sm-12 form-group">
-                    <label for="additional_address">GL Code</label>
-                    <input type="text" class="form-control" name="additional_gl_code" id="additional_gl_code" required>
-                  </div>
-                  <div class="col-md-4 col-sm-12 form-group">
-                    <label for="additional_address">SIC</label>
-                    <input type="text" class="form-control" name="additional_sic" id="additional_sic" required>
-                  </div>
-                  <div class="col-md-4 col-sm-12 form-group">
-                    <label for="additional_address">Social Security</label>
-                    <input type="text" class="form-control" name="additional_ss" id="additional_ss" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="additional_address">Business Phone</label>
-                    <input type="text" class="form-control" name="additional_business_phone" id="additional_business_phone" required>
-                  </div>
-                  <div class="col-md-6 col-sm-12 form-group">
-                    <label for="additional_address">Business Type</label>
-                    <select class="form-control" name="additional_business_type" id="additional_business_type">
-                      <option>CORPORATION</option>
-                      <option>INDIVIDUAL</option>
-                      <option>JOINT VENTURE</option>
-                      <option>LLC</option>
-                      <option>NOT FOR PROFIT ORG</option>
-                      <option>PARTNERSHIP</option>
-                      <option>SUBCHAPTER "S" CORPORATION</option>
-                      <option>TRUST</option>
-                      <option>OTHER</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-3 col-sm-12 form-group">
-                <label for="lob">Line of Business</label>
-                <select class="form-control" name="lob" id="lob">
-                  <option>BOILER & MACHINERY</option>
-                  <option>BUSINESS AUTO</option>
-                  <option>BUSINESS OWNERS</option>
-                  <option>COMMERCIAL GENERAL LIABILITY</option>
-                  <option>COMMERCIAL INLAND MARINE</option>
-                  <option>COMMERCIAL PROPERTY</option>
-                  <option>CRIME</option>
-                  <option>CYBER AND PRIVACY</option>
-                  <option>FIDUCIARY LIABILITY</option>
-                  <option>GARAGE AND DEALERS</option>
-                  <option>LIQUOR LIABILITY</option>
-                  <option>MOTOR CARRIER</option>
-                  <option>TRUCKERS</option>
-                  <option>UMBRELLA</option>
-                  <option>YACHT</option>
-                </select>
-              </div>
-              <div class="col-md-3 col-sm-12 form-group">
-                <label for="start_date">Effective From</label>
-                <input type="text" class="form-control dp" name="start_date" id="start_date" readonly required>
-              </div>
-              <div class="col-md-3 col-sm-12 form-group">
-                <label for="expire_date">Expires On</label>
-                <input type="text" class="form-control dp" name="expire_date" id="expire_date" readonly required>
-              </div>
-              <div class="col-md-3 col-sm-12 form-group">
-                <label for="attachment">Attachment</label>
-                <select class="form-control" name="attachment" id="attachment">
-                  <option>ACCOUNTS RECEIVABLE / VALUABLE PAPERS</option>
-                  <option>ADDITIONAL INTEREST SCHEDULE</option>
-                  <option>ADDITIONAL PREMISES INFORMATION SCHEDULE</option>
-                  <option>APARTMENT BUILDING SUPPLEMENT</option>
-                  <option>CONDO ASSN BYLAWS (for D&O Coverage only)</option>
-                  <option>CONTRACTORS SUPPLEMENT</option>
-                  <option>COVERAGES SCHEDULE</option>
-                  <option>DEALERS SECTION</option>
-                  <option>DRIVER INFORMATION SCHEDULE</option>
-                  <option>ELECTRONIC DATA PROCESSING SECTION</option>
-                  <option>POLICY INFORMATION</option>
-                  <option>PROPOSED EFF DATE</option>
-                  <option>GLASS AND SIGN SECTION</option>
-                  <option>HOTEL / MOTEL SUPPLEMENT</option>
-                  <option>INSTALLATION / BUILDERS RISK SECTION</option>
-                  <option>INTERNATIONAL LIABILITY EXPOSURE SUPPLEMENT</option>
-                  <option>INTERNATIONAL PROPERTY EXPOSURE SUPPLEMENT</option>
-                  <option>LOSS SUMMARY</option>
-                  <option>OPEN CARGO SECTION</option>
-                  <option>PREMIUM PAYMENT SUPPLEMENT</option>
-                  <option>PROFESSIONAL LIABILITY SUPPLEMENT</option>
-                  <option>RESTAURANT / TAVERN SUPPLEMENT</option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <legend>Billing</legend>
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="row">
-                      <div class="form-group col-md-6">
-                        <label for="billing_plan">Plan</label>
-                        <select class="form-control" name="billing_plan" id="billing_plan">
-                          <option>DIRECT</option>
-                          <option>AGENCY</option>
-                        </select>
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="billing_payment_plan">Payment Plan</label>
-                        <input type="text" class="form-control" name="billing_payment_plan" id="billing_payment_plan">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="row">
-                      <div class="form-group col-md-6">
-                        <label for="billing_mop">Method of Payment</label>
-                        <input type="text" class="form-control" name="billing_mop" id="billing_mop">
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="billing_audit">Audit</label>
-                        <input type="text" class="form-control" name="billing_audit" id="billing_audit">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="row">
-                      <div class="form-group col-md-6">
-                        <label for="billing_deposit">Deposit</label>
-                        <input type="text" class="form-control" name="billing_deposit" id="billing_deposit">
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="billing_min_premium">Min. Premium</label>
-                        <input type="text" class="form-control" name="billing_min_premium" id="billing_min_premium">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <legend>Premises</legend>
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="premises_additional" id="premises_additional">
-                            Has additional premises
-                          </label>
-                        </div>
-                      </div>
-                      <div class="form-group col-md-12">
-                        <label for="premises_address">Address</label>
-                        <input type="text" class="form-control premises" name="premises_address" id="premises_address">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-check">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input premises" name="premises_city_limits" id="premises_city_limits">
-                            Within city limits
-                          </label>
-                        </div>
-                      </div>
-                      <div class="form-group col-md-12">
-                        <label for="premises_address">Interest</label>
-                        <input type="text" class="form-control premises" name="premises_interest" id="premises_interest">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-md-4">
-                <label for="coverage_total">Total Coverage</label>
-                <input type="text" class="form-control" name="coverage_total" id="coverage_total">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="coverage_amount">Coverage Amount</label>
-                <input type="text" class="form-control" name="coverage_amount" id="coverage_amount">
-              </div>
-              <div class="form-group col-md-4">
-                <label for="counterparty">Plan</label>
-                <select class="form-control" name="counterparty" id="counterparty">
-                  <option>InsurerA</option>
-                  <option>InsurerB</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" id="make_proposal" class="btn btn-primary">Save</button>
-          </div>
-        </div>
-      </div>
-    </div>
     <footer class="footer text-right">
       2019 &copy; Apex Insure Tech
     </footer>
@@ -407,6 +162,27 @@
 <script>
   $(function(){
     $("input[name=inpMessage]").attr("disabled", "true");
+    $("#btnAddChat").on("click", function(){
+      $.ajax({
+        "url": "/chat/make-group",
+        "method": "post",
+        "success": function(response){
+          $.ajax({
+            "url": "/chat/list",
+            "method": "post",
+            "success": function(response){
+              let chats = "";
+              for(let chat of response){
+                let dt = moment(chat['time']).format("YYYY-MM-DD HH:mm:ss Z");
+                chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
+              }
+              $("#chats").html("");
+              $("#chats").html(chats);
+            }
+          });
+        }
+      });
+    });
     $.ajax({
       "url": "/chat/list",
       "method": "post",
