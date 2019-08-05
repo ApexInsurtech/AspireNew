@@ -116,14 +116,18 @@ class ProposalController (rpc: NodeRPCConnection){
 
   @PostMapping("/list")
   fun list(): List<Map<String, Any>> {
+    var me = proxy.nodeInfo().legalIdentities.first();
     return proxy.vaultQueryBy<ProposalState>().states.map { ps ->
+      var allow = ps.state.data.proposee == me;
       mapOf(
+        "proposal_id" to ps.state.data.linearId.toString(),
         "applicant_name" to ps.state.data.policy_applicant_name,
         "broker_company" to ps.state.data.broker_company_name,
         "broker_contact" to ps.state.data.broker_contact_name,
         "billing_plan" to ps.state.data.billing_plan,
         "billing_premium" to ps.state.data.billing_min_premium,
-        "billing_deposit" to ps.state.data.billing_deposit
+        "billing_deposit" to ps.state.data.billing_deposit,
+        "allow_accept" to allow
       )
     };
   }

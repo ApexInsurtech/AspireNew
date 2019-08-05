@@ -610,6 +610,7 @@
             data += "<td>"+proposal["billing_plan"]+"</td>";
             data += "<td>"+proposal["billing_premium"]+"</td>";
             data += "<td>"+proposal["billing_deposit"]+"</td>";
+            data += "<td>"+(proposal["allow_accept"] ? "<button data-proposal-id=\""+proposal['proposal_id']+"\" class=\"btn btn-primary proposal-accept\">Accept <i class=\"fa fa-check\" aria-hidden=\"true\"></i></button>" : "")+"</td>";
             data += "</tr>";
           }
           $("#proposal-data").html("");
@@ -618,6 +619,20 @@
       });
     });
     $("button#get-list").click();
+    $("body").on("click", ".proposal-accept", function(e){
+      var proposal_id = $(this).data("proposal-id");
+      $.ajax({
+        "url": "/proposal/accept",
+        "method": "post",
+        "data": JSON.stringify({"proposal_id": proposal_id}),
+        "dataType": "json",
+        "contentType": 'application/json',
+        "processData": false,
+        "success": function(){
+          $("button#get-list").click();
+        }
+      })
+    });
   });
 </script>
 </body>
