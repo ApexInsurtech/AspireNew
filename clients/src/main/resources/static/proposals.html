@@ -450,7 +450,7 @@
                 <input type="text" class="form-control" name="coverage_amount" id="coverage_amount">
               </div>
               <div class="form-group col-md-4">
-                <label for="counterparty">Plan</label>
+                <label for="counterparty">Counter Party</label>
                 <select class="form-control" name="counterparty" id="counterparty">
                   <option>InsurerA</option>
                   <option>InsurerB</option>
@@ -526,7 +526,7 @@
           "business_phone": $("input[name=additional_business_phone]").val(),
           "business_type": $("select[name=additional_business_type]").val(),
         },
-        "lob" : $("select[name=additional_business_type]").val(),
+        "lob" : $("select[name=lob]").val(),
         "start_date": $("input[name=start_date]").val(),
         "expire_date": $("input[name=expire_date]").val(),
         "billing": {

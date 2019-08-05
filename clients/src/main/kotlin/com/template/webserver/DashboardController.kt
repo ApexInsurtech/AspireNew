@@ -18,7 +18,7 @@ class DashboardController (rpc: NodeRPCConnection){
   }
   private val proxy = rpc.proxy
 
-  @PostMapping("proposals")
+  @PostMapping("stats")
   fun proposals(): Map<String, Any> {
     var revenue = 0;
     var deposits = 0;
@@ -45,14 +45,14 @@ class DashboardController (rpc: NodeRPCConnection){
   @PostMapping("business-lines")
   fun businessLines(): MutableMap<String, Int> {
     var bl : MutableMap<String, Int> = mutableMapOf(
-      "BOILER & MACHINERY" to 0,
-      "BUSINESS AUTO" to 0,
-      "BUSINESS OWNERS" to 0,
+      "BOILER & MACHINERY" to 10,
+      "BUSINESS AUTO" to 5,
+      "BUSINESS OWNERS" to 2,
       "COMMERCIAL GENERAL LIABILITY" to 0,
       "COMMERCIAL INLAND MARINE" to 0,
-      "COMMERCIAL PROPERTY" to 0,
+      "COMMERCIAL PROPERTY" to 5,
       "CRIME" to 0,
-      "CYBER AND PRIVACY" to 0,
+      "CYBER AND PRIVACY" to 9,
       "FIDUCIARY LIABILITY" to 0,
       "GARAGE AND DEALERS" to 0,
       "LIQUOR LIABILITY" to 0,
