@@ -56,7 +56,7 @@ class ChatController (rpc: NodeRPCConnection){
     }
   }
 
-  @PostMapping("/add-members", consumes = ["application/json"])
+  @PostMapping("/add-member", consumes = ["application/json"])
   fun addMembers(
     @RequestBody body : Map<String, Any>
   ) : CompletableFuture<UniqueIdentifier> {
@@ -90,7 +90,9 @@ class ChatController (rpc: NodeRPCConnection){
     val groupId = body["group_id"] as String;
     var query = LinearStateQueryCriteria(linearId = listOf(UniqueIdentifier.fromString(groupId)), status = Vault.StateStatus.ALL);
     var me = proxy.nodeInfo().legalIdentities.first();
-    return proxy.vaultQueryByCriteria(query, ChatState::class.java).states.map {
+    return proxy.vaultQueryByCriteria(query, ChatState::class.java).states.filter {
+      it.state.data.betAmount != ""
+    }.map {
       var sender = "";
       sender = if(it.state.data.moderator == me){
         "Me"

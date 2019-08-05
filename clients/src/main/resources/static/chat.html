@@ -70,13 +70,13 @@
             <a href="proposals.html"><i class="fi-briefcase"></i> <span> Proposals </span></a>
           </li>
           <li>
-            <a href="policies.html"><i class="fi-briefcase"></i> <span> Policies </span></a>
+            <a href="#"><i class="fi-briefcase"></i> <span> Policies </span></a>
           </li>
           <li>
-            <a href="claims.html"><i class="fi-briefcase"></i> <span> Claims </span></a>
+            <a href="#"><i class="fi-briefcase"></i> <span> Claims </span></a>
           </li>
           <li>
-            <a href="accounting.html"><i class="fi-briefcase"></i> <span> Accounting </span></a>
+            <a href="#"><i class="fi-briefcase"></i> <span> Accounting </span></a>
           </li>
           <li>
             <a href="chat.html"><i class="dripicons-message"></i> <span> Chat </span></a>
@@ -115,6 +115,17 @@
           </div><!-- end col -->
           <div class="col-sm-8">
             <div class="card">
+              <div class="card-title pt-2 mb-1 pr-2">
+                <div class="float-right">
+                  <button id="add_member" class="btn btn-rounded btn-primary dropdown-toggle" disabled type="button" data-toggle="dropdown">Add Member
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item add-member" data-party="InsurerA">InsurerA</a></li>
+                    <li><a class="dropdown-item add-member" data-party="InsurerB">InsurerB</a></li>
+                  </ul>
+                </div>
+              </div>
               <div id="selected_chat" class="card-body" style="height: 500px; overflow-y: auto;">
                 <h6>Select a Chat</h6>
               </div>
@@ -162,6 +173,7 @@
 <script>
   $(function(){
     $("input[name=inpMessage]").attr("disabled", "true");
+    $("#add_member").attr("disabled", "true");
     $("#btnAddChat").on("click", function(){
       $.ajax({
         "url": "/chat/make-group",
@@ -235,6 +247,19 @@
         });
       }
     });
+    $(".add-member").on("click", function(){
+      let member = $(this).data("party");
+      let group_id = $("input[name=inpMessage]").data("group_id");
+      $.ajax({
+        "url": "/chat/add-member",
+        method: "post",
+        data: JSON.stringify({"group_id": group_id, "party": member }),
+        dataType: "json",
+        contentType: 'application/json',
+        processData: false,
+        success: function(response){},
+      });
+    });
     $("body").on("click", ".chat", function(){
       let chat_id = $(this).data("chat-id");
       $.ajax({
@@ -245,6 +270,7 @@
         contentType: 'application/json',
         processData: false,
         success: function(response){
+          $("#add_member").removeAttr("disabled");
           let messages = "";
           for(let msg of response){
             if(msg["message"] == "") continue;
