@@ -3,6 +3,7 @@ package com.template.webserver
 import negotiation.contracts.ClaimState
 import negotiation.contracts.MakeaClaimState
 import negotiation.contracts.ProposalState
+import negotiation.contracts.PolicyState
 import negotiation.contracts.Reservestate
 import net.corda.core.messaging.vaultQueryBy
 import org.slf4j.LoggerFactory
@@ -45,14 +46,14 @@ class DashboardController (rpc: NodeRPCConnection){
   @PostMapping("business-lines")
   fun businessLines(): MutableMap<String, Int> {
     var bl : MutableMap<String, Int> = mutableMapOf(
-      "BOILER & MACHINERY" to 10,
-      "BUSINESS AUTO" to 5,
-      "BUSINESS OWNERS" to 2,
+      "BOILER & MACHINERY" to 0,
+      "BUSINESS AUTO" to 0,
+      "BUSINESS OWNERS" to 0,
       "COMMERCIAL GENERAL LIABILITY" to 0,
       "COMMERCIAL INLAND MARINE" to 0,
-      "COMMERCIAL PROPERTY" to 5,
+      "COMMERCIAL PROPERTY" to 0,
       "CRIME" to 0,
-      "CYBER AND PRIVACY" to 9,
+      "CYBER AND PRIVACY" to 0,
       "FIDUCIARY LIABILITY" to 0,
       "GARAGE AND DEALERS" to 0,
       "LIQUOR LIABILITY" to 0,
@@ -99,5 +100,19 @@ class DashboardController (rpc: NodeRPCConnection){
       "premium" to premium,
       "claims" to claims
     );
+  }
+
+  @PostMapping("policies")
+  fun policies(): List<Map<String, Any>> {
+    return proxy.vaultQueryBy<PolicyState>().states.map { ps ->
+      mapOf(
+        "applicant_name" to ps.state.data.policy_applicant_name,
+        "broker_company" to ps.state.data.broker_company_name,
+        "broker_contact" to ps.state.data.broker_contact_name,
+        "billing_plan" to ps.state.data.billing_plan,
+        "billing_premium" to ps.state.data.billing_min_premium,
+        "billing_deposit" to ps.state.data.billing_deposit
+      )
+    };
   }
 }
