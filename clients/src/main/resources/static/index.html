@@ -232,7 +232,7 @@
   $(function(){
     $("button#get-list").on("click", function(e){
       $.ajax({
-        "url": "/dashboard/list",
+        "url": "/dashboard/policies",
         "method": "post",
         "success": function(response){
           let data = "";
