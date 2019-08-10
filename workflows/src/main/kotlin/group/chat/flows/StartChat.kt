@@ -1,7 +1,6 @@
 package group.chat.flows
 
 import co.paralleluniverse.fibers.Suspendable
-import com.sun.media.jfxmedia.logging.Logger
 import com.template.contracts.ChatContract
 import com.template.model.RoundEnum
 import com.template.states.Deck
@@ -23,9 +22,7 @@ import net.corda.core.utilities.ProgressTracker.Step
 // *********
 @InitiatingFlow
 @StartableByRPC
-class StartChat(
-  val members : List<Party>
-) : FlowLogic<UniqueIdentifier>() {
+class StartChat(val notary: Party) : FlowLogic<UniqueIdentifier>() {
     /**
      * Tracks progress throughout the flows call execution.
      */
@@ -56,18 +53,32 @@ class StartChat(
     override fun call(): UniqueIdentifier {
         // Step 1. Initialisation.
         progressTracker.currentStep = INITIALISING
-        val initiator = serviceHub.myInfo.legalIdentities.first()
+        val dealer = serviceHub.myInfo.legalIdentities.first()
+
+        // Step 2. Decking.
+        progressTracker.currentStep = DECKING
+        val deck: Deck = Deck(dealer)
+        deck.shuffle()
+        val txInternalCommand = Command(ChatContract.Commands.Start_GAME(), dealer.owningKey)
+        val txInternalBuilder = TransactionBuilder(notary)
+                .addOutputState(deck)
+                .addCommand(txInternalCommand)
+        txInternalBuilder.verify(serviceHub)
+        val dealerSignedTxForDecking = serviceHub.signInitialTransaction(txInternalBuilder)
+        serviceHub.recordTransactions(dealerSignedTxForDecking)
+
         // Step 3. Building.
         progressTracker.currentStep = BUILDING
         val chatState: ChatState = ChatState(
-            linearId = UniqueIdentifier(),
-            initiator = initiator,
-            message = "Chat Initialized by "+initiator.name.commonName!!,
-            by = initiator,
-            members = this.members
-        );
-        val txCommand = Command(ChatContract.Commands.StartGame(), chatState.participants.map { it.owningKey })
-        val notary = serviceHub.networkMapCache.notaryIdentities.first()
+                UniqueIdentifier(),
+                dealer,
+                emptyList(),
+                deck.linearId,
+                emptyList(),
+                RoundEnum.Started,
+                ""
+        )
+        val txCommand = Command(ChatContract.Commands.Start_GAME(), chatState.participants.map { it.owningKey })
         val txBuilder = TransactionBuilder(notary)
                 .addOutputState(chatState)
                 .addCommand(txCommand)

@@ -52,21 +52,15 @@ class AddMessageFlow(val groupID: String, val message: String) : FlowLogic<Unit>
     override fun call(): Unit {
         // Step 1. Validation.
         progressTracker.currentStep = VALIDATING
-        val gameStateRef = this.serviceHub.vaultService.queryBy(
-          ChatState::class.java,
-          QueryCriteria.LinearStateQueryCriteria(
-            linearId = listOf(UniqueIdentifier.fromString(groupID))
-          )
-        ).states.first()
+        val gameStateRef = this.serviceHub.vaultService.queryBy(ChatState::class.java, QueryCriteria.LinearStateQueryCriteria(linearId = listOf(UniqueIdentifier(id = UUID.fromString(groupID))))).states.first()
         val gameState = gameStateRef.state.data
         val notary = this.serviceHub.networkMapCache.notaryIdentities.first()
 
         // Step 2. Building.
         progressTracker.currentStep = BUILDING
-        val me = this.serviceHub.myInfo.legalIdentities.first()
-        val newGameState = gameState.addMessage(message = message, by = me)
+        val newGameState = gameState.addBetAmount(message)
         val currentParticipants = gameState.participants.map { it.owningKey }
-        val txCommand = Command(ChatContract.Commands.SEND(), currentParticipants)
+        val txCommand = Command(ChatContract.Commands.BET(), currentParticipants)
         val txBuilder = TransactionBuilder(notary)
                 .addInputState(gameStateRef)
                 .addOutputState(newGameState)
@@ -79,7 +73,8 @@ class AddMessageFlow(val groupID: String, val message: String) : FlowLogic<Unit>
 
         // Step 4. Get the counter-party (Players) signature.
         progressTracker.currentStep = COLLECTING
-        val participants = newGameState.members - me
+        val me = this.serviceHub.myInfo.legalIdentities.first()
+        val participants = newGameState.participants - me
         val otherPartySessions = participants.map { initiateFlow(it) }
         val fullySignedTx = subFlow(CollectSignaturesFlow(playerSignedTx, otherPartySessions.toSet()))
 

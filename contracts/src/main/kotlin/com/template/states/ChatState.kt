@@ -14,26 +14,28 @@ import java.time.LocalDateTime
 @CordaSerializable
 data class ChatState(
         override val linearId: UniqueIdentifier,
-        val initiator: Party,
+        val moderator: Party,
         val members: List<Party>,
-        var message: String,
-        var by: Party,
-        val added_on: LocalDateTime = LocalDateTime.now(),
-        val type : Int = 0  // 0 = Message, 1 = Info
+        val deckIdentifier: UniqueIdentifier,
+        var tableCards: List<Card>,
+        var rounds: RoundEnum,
+        var betAmount: String,
+        var winner: Party? = null,
+        val lastChange: LocalDateTime = LocalDateTime.now()
 ) : LinearState {
 
-    override val participants: List<Party> get() = listOf(initiator) + members
+    override val participants: List<Party> get() = listOf(moderator) + members
 
-    fun addMessage(message: String, by: Party) = copy(
-        message = message,
-        by = by,
-        added_on = LocalDateTime.now()
+    fun addBetAmount(amount: String) = copy(
+           // betAmount = betAmount + amount,
+            betAmount = amount,
+            lastChange = LocalDateTime.now()
     )
 
-    fun addMember(member: Party) = copy(
-      message = "Added Party Member: "+member.name.commonName!!,
-      members = this.members + member,
-      by = this.initiator,
-      added_on = LocalDateTime.now()
+    fun addPlayer(member: Party) = copy(
+            members = members + member,
+            lastChange = LocalDateTime.now()
     )
+    //TODO: Deck Signature to be included in ChatState . There should be a way for members to ensure that the deck is not tampered
+    //TODO: lastchange to be updated on Rounds
 }

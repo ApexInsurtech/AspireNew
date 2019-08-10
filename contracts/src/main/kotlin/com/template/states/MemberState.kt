@@ -13,13 +13,13 @@ import net.corda.core.serialization.CordaSerializable
 @CordaSerializable
 data class MemberState(
         override val linearId: UniqueIdentifier = UniqueIdentifier(),
-        val member: Party,
-        val initiator: Party
-//        var myCards: List<Card> = emptyList<Card>(),
-//        var rankingEnum: RankingEnum = RankingEnum.HIGH_CARD,
-//        var highCard: Card? = null,
-//        var highCardRankingList: List<Card> = emptyList<Card>()
+        val party: Party,
+        val moderator: Party,
+        var myCards: List<Card> = emptyList<Card>(),
+        var rankingEnum: RankingEnum = RankingEnum.HIGH_CARD,
+        var highCard: Card? = null,
+        var highCardRankingList: List<Card> = emptyList<Card>()
 ) : LinearState {
     override val participants: List<Party>
-        get() = listOf(member, initiator)
+        get() = listOf(party, moderator)
 }
