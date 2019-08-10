@@ -54,16 +54,21 @@ class AddMemberFlow(val groupID: String, val member: Party) : FlowLogic<UniqueId
     override fun call(): UniqueIdentifier {
         // Step 1. Validation.
         progressTracker.currentStep = VALIDATING
-        val gameStateRef = this.serviceHub.vaultService.queryBy(ChatState::class.java, QueryCriteria.LinearStateQueryCriteria(linearId = listOf(UniqueIdentifier(id = UUID.fromString(groupID))))).states.first()
+        val gameStateRef = this.serviceHub.vaultService.queryBy(
+          ChatState::class.java,
+          QueryCriteria.LinearStateQueryCriteria(
+            linearId = listOf(UniqueIdentifier.fromString(groupID))
+          )
+        ).states.first()
         val gameState = gameStateRef.state.data
-        val memberStateState: MemberState = MemberState(party = member, moderator = gameState.moderator)
+        val memberStateState: MemberState = MemberState(member = member, initiator = gameState.initiator)
         val notary = this.serviceHub.networkMapCache.notaryIdentities.first()
 
         // Step 2. Building.
         progressTracker.currentStep = BUILDING
-        val newGameState = gameState.addPlayer(member)
+        val newGameState = gameState.addMember(member)
         val currentParticipants = gameState.participants.map { it.owningKey } + member.owningKey
-        val txCommand = Command(ChatContract.Commands.ADD_PLAYER(), currentParticipants)
+        val txCommand = Command(ChatContract.Commands.AddPlayer(), currentParticipants)
         val txBuilder = TransactionBuilder(notary)
                 .addInputState(gameStateRef)
                 .addOutputState(newGameState)
