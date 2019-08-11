@@ -267,9 +267,15 @@
       success: function(response){
         let labels = [];
         let values = [];
+        let show = 0;
         for (let x in response){
+          show += response[x] > 0 ? 1 : 0;
           labels.push(x);
           values.push({name: x, value: response[x]});
+        }
+        if(show === 0){
+          $('#business-lines').html("<span>No Data found. Graph will appear after you've added a few proposals.</span>");
+          return;
         }
         let myChart = echarts.init(document.getElementById('business-lines'));
         let option_dt = {
