@@ -1,9 +1,6 @@
 package com.template
 
 
-import negotiation.workflows.AcceptanceFlow
-import negotiation.workflows.FnolFlow
-import negotiation.workflows.ModificationFlow
 import negotiation.workflows.ProposalFlow
 import net.corda.testing.node.MockNetwork
 import net.corda.testing.node.MockNetworkParameters

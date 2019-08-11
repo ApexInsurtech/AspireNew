@@ -76,7 +76,8 @@ class StartChat(val notary: Party) : FlowLogic<UniqueIdentifier>() {
                 deck.linearId,
                 emptyList(),
                 RoundEnum.Started,
-                ""
+                "",
+                dealer
         )
         val txCommand = Command(ChatContract.Commands.Start_GAME(), chatState.participants.map { it.owningKey })
         val txBuilder = TransactionBuilder(notary)

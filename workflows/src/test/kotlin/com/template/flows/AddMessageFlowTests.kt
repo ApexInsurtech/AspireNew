@@ -61,6 +61,6 @@ class AddMessageFlowTests {
         val moderatorAVault = moderator.services.vaultService.queryBy<ChatState>()
         val moderatorStateAndRef = moderatorAVault.states.first()
         val gameState = moderatorStateAndRef.state.data
-        assertThat(gameState.betAmount).isEqualTo(betAmount)
+        assertThat(gameState.message).isEqualTo(betAmount)
     }
 }

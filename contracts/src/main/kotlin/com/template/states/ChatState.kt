@@ -19,20 +19,22 @@ data class ChatState(
         val deckIdentifier: UniqueIdentifier,
         var tableCards: List<Card>,
         var rounds: RoundEnum,
-        var betAmount: String,
+        var message: String,
+        var currentParticipants: Party,
         var winner: Party? = null,
         val lastChange: LocalDateTime = LocalDateTime.now()
 ) : LinearState {
 
     override val participants: List<Party> get() = listOf(moderator) + members
 
-    fun addBetAmount(amount: String) = copy(
+    fun addMessage(message: String, currentParticipants: Party) = copy(
            // betAmount = betAmount + amount,
-            betAmount = amount,
+            message = message,
+            currentParticipants = currentParticipants,
             lastChange = LocalDateTime.now()
     )
 
-    fun addPlayer(member: Party) = copy(
+    fun addMember(member: Party) = copy(
             members = members + member,
             lastChange = LocalDateTime.now()
     )

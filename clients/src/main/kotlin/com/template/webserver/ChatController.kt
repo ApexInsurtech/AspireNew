@@ -1,17 +1,12 @@
 package com.template.webserver
 
 import com.template.states.ChatState
-import group.chat.flows.AcceptChatFlow
 import group.chat.flows.AddMemberFlow
 import group.chat.flows.AddMessageFlow
 import group.chat.flows.StartChat
-import negotiation.contracts.ProposalState
-import net.corda.core.contracts.StateAndRef
 import net.corda.core.contracts.UniqueIdentifier
-import net.corda.core.identity.Party
 import net.corda.core.messaging.vaultQueryBy
 import net.corda.core.node.services.Vault
-import net.corda.core.node.services.vault.QueryCriteria
 import net.corda.core.node.services.vault.QueryCriteria.LinearStateQueryCriteria
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PostMapping
@@ -19,12 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.time.ZoneOffset
-import java.util.*
 import java.util.concurrent.CompletableFuture
-import kotlin.collections.HashMap
-import negotiation.workflows.AcceptanceFlow.Initiator as AInitiator
-import negotiation.workflows.ModificationFlow.Initiator as MInitiator
-import negotiation.workflows.ProposalFlow.Initiator as PInitiator
 
 @RestController
 @RequestMapping("/chat")
@@ -48,7 +38,7 @@ class ChatController (rpc: NodeRPCConnection){
   fun listChats() : List<Map<String, Any>> {
     return proxy.vaultQueryBy<ChatState>().states.map {
       mapOf(
-        "last_message" to it.state.data.betAmount,
+        "last_message" to it.state.data.message,
         "by" to it.state.data.moderator.name.organisation,
         "time" to it.state.data.lastChange.atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
         "chat_id" to it.state.data.linearId.toString()
@@ -91,7 +81,7 @@ class ChatController (rpc: NodeRPCConnection){
     var query = LinearStateQueryCriteria(linearId = listOf(UniqueIdentifier.fromString(groupId)), status = Vault.StateStatus.ALL);
     var me = proxy.nodeInfo().legalIdentities.first();
     return proxy.vaultQueryByCriteria(query, ChatState::class.java).states.filter {
-      it.state.data.betAmount != ""
+      it.state.data.message != ""
     }.map {
       var sender = "";
       sender = if(it.state.data.moderator == me){
@@ -100,7 +90,7 @@ class ChatController (rpc: NodeRPCConnection){
         it.state.data.moderator.name.organisation;
       }
       mapOf(
-        "message" to it.state.data.betAmount,
+        "message" to it.state.data.message,
         "party" to sender,
         "time" to it.state.data.lastChange.atZone(ZoneOffset.UTC).toInstant().toEpochMilli()
       )

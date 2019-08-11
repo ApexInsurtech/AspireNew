@@ -7,11 +7,10 @@ import net.corda.core.messaging.vaultQueryBy
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.CompletableFuture
 import kotlin.collections.HashMap
 import negotiation.workflows.AcceptanceFlow.Initiator as AInitiator
-import negotiation.workflows.ModificationFlow.Initiator as MInitiator
+import com.negotiation.workflows.ModificationFlow.Initiator as MInitiator
 import negotiation.workflows.ProposalFlow.Initiator as PInitiator
 
 @RestController

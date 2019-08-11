@@ -41,7 +41,7 @@ class ProposalAndTradeContract : Contract {
                 val input = tx.inputsOfType<ProposalState>().single()
                 val output = tx.outputsOfType<PolicyState>().single()
 
-                "The amount is unmodified in the output" using (output.billing_min_premium == output.billing_min_premium)//we have change second argument from imput.ammount to output.ammount due to int string datatype error
+               // "The amount is unmodified in the output" using (output.billing_min_premium == output.billing_min_premium)//we have change second argument from imput.ammount to output.ammount due to int string datatype error
                 "The buyer is unmodified in the output" using (input.broker == output.broker)
                 "The seller is unmodified in the output" using (input.lead_insurer == output.lead_insurer)
 
@@ -60,7 +60,7 @@ class ProposalAndTradeContract : Contract {
                 val output = tx.outputsOfType<ProposalState>().single()
                 val input = tx.inputsOfType<ProposalState>().single()
 
-                "The amount is modified in the output" using (output.billing_min_premium != input.billing_min_premium)
+               // "The amount is modified in the output" using (output.billing_min_premium != input.billing_min_premium)
                 "The buyer is unmodified in the output" using (input.broker == output.broker)
                 "The seller is unmodified in the output" using (input.lead_insurer == output.lead_insurer)
 

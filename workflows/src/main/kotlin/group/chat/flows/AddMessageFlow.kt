@@ -58,8 +58,8 @@ class AddMessageFlow(val groupID: String, val message: String) : FlowLogic<Unit>
 
         // Step 2. Building.
         progressTracker.currentStep = BUILDING
-        val newGameState = gameState.addBetAmount(message)
         val currentParticipants = gameState.participants.map { it.owningKey }
+        val newGameState = gameState.addMessage(message, this.serviceHub.myInfo.legalIdentities.first())
         val txCommand = Command(ChatContract.Commands.BET(), currentParticipants)
         val txBuilder = TransactionBuilder(notary)
                 .addInputState(gameStateRef)

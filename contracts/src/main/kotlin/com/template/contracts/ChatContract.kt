@@ -36,7 +36,7 @@ class ChatContract : Contract {
                     val output = tx.outputsOfType<ChatState>().single()
                     "The starter is a required signer/dealer" using (command.signers.contains(output.moderator.owningKey))
 //                    "The table cards are empty" using (output.tableCards.isEmpty())
-                    "Message cannot be empty " using (output.betAmount.length < 1)
+                    "Message cannot be empty " using (output.message.length < 1)
                     "Players are empty" using (output.members.isEmpty())
                     "Round is started" using (output.rounds.equals(RoundEnum.Started))
                     "Winner is not there yet" using (output.winner == null)

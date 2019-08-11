@@ -61,7 +61,7 @@ class AddMemberFlow(val groupID: String, val member: Party) : FlowLogic<UniqueId
 
         // Step 2. Building.
         progressTracker.currentStep = BUILDING
-        val newGameState = gameState.addPlayer(member)
+        val newGameState = gameState.addMember(member)
         val currentParticipants = gameState.participants.map { it.owningKey } + member.owningKey
         val txCommand = Command(ChatContract.Commands.ADD_PLAYER(), currentParticipants)
         val txBuilder = TransactionBuilder(notary)
