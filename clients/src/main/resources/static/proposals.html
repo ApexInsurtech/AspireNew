@@ -451,10 +451,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label for="counterparty">Counter Party</label>
-                <select class="form-control" name="counterparty" id="counterparty">
-                  <option>InsurerA</option>
-                  <option>InsurerB</option>
-                </select>
+                <select class="form-control" name="counterparty" id="counterparty"></select>
               </div>
             </div>
           </div>
@@ -569,6 +566,18 @@
       todayHighlight: true
     });
     $.ajax({
+      "url": "/proposal/counter-parties",
+      "method": "post",
+      "success": function(response){
+        $("#counterparty").html("");
+        let x = "";
+        for(let party of response){
+          x += "<option>"+party+"</option>"
+        }
+        $("#counterparty").html(x);
+      }
+    });
+    $.ajax({
       "url": "/proposal/stats",
       "method": "post",
       "success": function(response){
@@ -577,25 +586,6 @@
         }
       }
     });
-    /* $.ajax({
-      "url": "/proposal/list",
-      "method": "post",
-      "success": function(response){
-        let data = "";
-        for (let proposal of response) {
-          data += "<tr>";
-          data += "<td>"+proposal["applicant_name"]+"</td>";
-          data += "<td>"+proposal["broker_company"]+"</td>";
-          data += "<td>"+proposal["broker_contact"]+"</td>";
-          data += "<td>"+proposal["billing_plan"]+"</td>";
-          data += "<td>"+proposal["billing_premium"]+"</td>";
-          data += "<td>"+proposal["billing_deposit"]+"</td>";
-          data += "</tr>";
-        }
-        $("#proposal-data").html("");
-        $("#proposal-data").html(data);
-      }
-    }); */
     $("button#get-list").on("click", function(e){
       $.ajax({
         "url": "/proposal/list",

@@ -131,6 +131,16 @@ class ProposalController (rpc: NodeRPCConnection){
     };
   }
 
+  @PostMapping("/counter-parties")
+  fun available(): List<String> {
+    val notary = proxy.notaryIdentities().first().name.organisation;
+    val me = proxy.nodeInfo().legalIdentities.first().name.organisation;
+    var parties = proxy.partiesFromName("", false).map { party ->
+      party.name.organisation
+    };
+    return parties - notary - me;
+  }
+
   @PostMapping("/stats")
   fun stats() : Map<String, Int> {
     var revenue = 0;
