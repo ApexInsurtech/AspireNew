@@ -120,10 +120,7 @@
                   <button id="add_member" class="btn btn-rounded btn-primary dropdown-toggle" disabled type="button" data-toggle="dropdown">Add Member
                     <span class="caret"></span>
                   </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item add-member" data-party="InsurerA">InsurerA</a></li>
-                    <li><a class="dropdown-item add-member" data-party="InsurerB">InsurerB</a></li>
-                  </ul>
+                  <ul id="add-member-list" class="dropdown-menu"></ul>
                 </div>
               </div>
               <div id="selected_chat" class="card-body" style="height: 500px; overflow-y: auto;">
@@ -186,7 +183,7 @@
               let chats = "";
               for(let chat of response){
                 let dt = moment(chat['time']).format("YYYY-MM-DD HH:mm:ss Z");
-                chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
+                chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-allow-add=\""+chat["allow_add"]+"\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
               }
               $("#chats").html("");
               $("#chats").html(chats);
@@ -202,88 +199,125 @@
         let chats = "";
         for(let chat of response){
           let dt = moment(chat['time']).format("YYYY-MM-DD HH:mm:ss Z");
-          chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
+          chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-allow-add=\""+chat["allow_add"]+"\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
         }
         $("#chats").html("");
         $("#chats").html(chats);
       }
     });
-    $("input[name=inpMessage]").on("keyup", function(e){
+    $("input[name=inpMessage]").on("keyup", async function(e){
       if(e.keyCode == 13){
         $("input[name=inpMessage]").attr("disabled", "true");
         let message = $(this).val();
         let chat_id = $(this).data("group_id")
-        $.ajax({
+        await $.ajax({
           url: "/chat/add-message",
           method: "post",
           data: JSON.stringify({"group_id": chat_id, "message": message }),
           dataType: "json",
           contentType: 'application/json',
           processData: false,
-          success: function(response){
-            $.ajax({
-              url: "/chat/list-messages",
-              method: "post",
-              data: JSON.stringify({"group_id": chat_id }),
-              dataType: "json",
-              contentType: 'application/json',
-              processData: false,
-              success: function(response){
-                let messages = "";
-                for(let msg of response){
-                  if(msg["message"] == "") continue;
-                  let dt = moment(msg['time']).format("YYYY-MM-DD HH:mm:ss Z");
-                  messages += "<div style=\"border: 1px solid rgba(0,0,0,0.2); margin-top: 5px; padding: 5px 10px; border-radius: 3px; width: 50%; "+ (msg["party"] == "Me" ? "margin-left: 50%;" : "margin-right: 50%;") +"\" class=\""+ (msg["party"] == "Me" ? "float-right" : "float-left") +"\"><span>"+msg["message"]+"</span><br><small>"+msg["party"]+" @ "+dt+"</small></div>";
-                }
-                messages +="<div class=\"clearfix\"></div>";
-                $("#selected_chat").html("");
-                $("#selected_chat").html(messages);
-                $("input[name=inpMessage]").data("group_id", chat_id);
-                $("input[name=inpMessage]").val("");
-                $("input[name=inpMessage]").removeAttr("disabled");
-              }
-            });
-          }
         });
+        let reponse = await $.ajax({
+          url: "/chat/list-messages",
+          method: "post",
+          data: JSON.stringify({"group_id": chat_id }),
+          dataType: "json",
+          contentType: 'application/json',
+          processData: false,
+        });
+        let messages = "";
+        for(let msg of response){
+          if(msg["message"] == "") continue;
+          let dt = moment(msg['time']).format("YYYY-MM-DD HH:mm:ss Z");
+          messages += "<div style=\"border: 1px solid rgba(0,0,0,0.2); margin-top: 5px; padding: 5px 10px; border-radius: 3px; width: 50%; "+ (msg["party"] == "Me" ? "margin-left: 50%;" : "margin-right: 50%;") +"\" class=\""+ (msg["party"] == "Me" ? "float-right" : "float-left") +"\"><span>"+msg["message"]+"</span><br><small>"+msg["party"]+" @ "+dt+"</small></div>";
+        }
+        messages +="<div class=\"clearfix\"></div>";
+        $("#selected_chat").html("");
+        $("#selected_chat").html(messages);
+        $("input[name=inpMessage]").data("group_id", chat_id);
+        $("input[name=inpMessage]").val("");
+        $("input[name=inpMessage]").removeAttr("disabled");
       }
     });
-    $(".add-member").on("click", function(){
+    $("body").on("click", ".add-member",async function(){
       let member = $(this).data("party");
       let group_id = $("input[name=inpMessage]").data("group_id");
-      $.ajax({
+      await $.ajax({
         "url": "/chat/add-member",
         method: "post",
         data: JSON.stringify({"group_id": group_id, "party": member }),
         dataType: "json",
         contentType: 'application/json',
         processData: false,
-        success: function(response){},
       });
-    });
-    $("body").on("click", ".chat", function(){
-      let chat_id = $(this).data("chat-id");
-      $.ajax({
+      let reponse = await $.ajax({
         url: "/chat/list-messages",
         method: "post",
         data: JSON.stringify({"group_id": chat_id }),
         dataType: "json",
         contentType: 'application/json',
         processData: false,
-        success: function(response){
-          $("#add_member").removeAttr("disabled");
-          let messages = "";
-          for(let msg of response){
-            if(msg["message"] == "") continue;
-            let dt = moment(msg['time']).format("YYYY-MM-DD HH:mm:ss Z");
-            messages += "<div style=\"border: 1px solid rgba(0,0,0,0.2); margin-top: 5px; padding: 5px 10px; border-radius: 3px; width: 50%; "+ (msg["party"] == "Me" ? "margin-left: 50%;" : "margin-right: 50%;") +"\" class=\""+ (msg["party"] == "Me" ? "float-right" : "float-left") +"\"><span>"+msg["message"]+"</span><br><small>"+msg["party"]+" @ "+dt+"</small></div>";
-          }
-          messages +="<div class=\"clearfix\"></div>";
-          $("#selected_chat").html("");
-          $("#selected_chat").html(messages);
-          $("input[name=inpMessage]").data("group_id", chat_id);
-          $("input[name=inpMessage]").removeAttr("disabled");
-        }
       });
+      let messages = "";
+      for(let msg of response){
+        if(msg["message"] == "") continue;
+        let dt = moment(msg['time']).format("YYYY-MM-DD HH:mm:ss Z");
+        messages += "<div style=\"border: 1px solid rgba(0,0,0,0.2); margin-top: 5px; padding: 5px 10px; border-radius: 3px; width: 50%; "+ (msg["party"] == "Me" ? "margin-left: 50%;" : "margin-right: 50%;") +"\" class=\""+ (msg["party"] == "Me" ? "float-right" : "float-left") +"\"><span>"+msg["message"]+"</span><br><small>"+msg["party"]+" @ "+dt+"</small></div>";
+      }
+      messages +="<div class=\"clearfix\"></div>";
+      $("#selected_chat").html("");
+      $("#selected_chat").html(messages);
+      $("input[name=inpMessage]").data("group_id", chat_id);
+      let clist = await $.ajax({
+        "url": "/chat/list",
+        "method": "post",
+      });
+      let chats = "";
+      for(let chat of clist){
+        let dt = moment(chat['time']).format("YYYY-MM-DD HH:mm:ss Z");
+        chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-allow-add=\""+chat["allow_add"]+"\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
+      }
+      $("#chats").html("");
+      $("#chats").html(chats);
+    });
+    $("body").on("click", ".chat", async function(){
+      let chat_id = $(this).data("chat-id");
+      let allow_add = $(this).data("allow-add");
+      let response = await $.ajax({
+        url: "/chat/list-messages",
+        method: "post",
+        data: JSON.stringify({"group_id": chat_id }),
+        dataType: "json",
+        contentType: 'application/json',
+        processData: false,
+      });
+      if(!allow_add){
+        $("#add_member").attr("disabled", "disabled");
+      }else{
+        $("#add_member").removeAttr("disabled");
+      }
+      let messages = "";
+      for(let msg of response){
+        if(msg["message"] == "") continue;
+        let dt = moment(msg['time']).format("YYYY-MM-DD HH:mm:ss Z");
+        messages += "<div style=\"border: 1px solid rgba(0,0,0,0.2); margin-top: 5px; padding: 5px 10px; border-radius: 3px; width: 50%; "+ (msg["party"] == "Me" ? "margin-left: 50%;" : "margin-right: 50%;") +"\" class=\""+ (msg["party"] == "Me" ? "float-right" : "float-left") +"\"><span>"+msg["message"]+"</span><br><small>"+msg["party"]+" @ "+dt+"</small></div>";
+      }
+      messages +="<div class=\"clearfix\"></div>";
+      $("#selected_chat").html("");
+      $("#selected_chat").html(messages);
+      $("input[name=inpMessage]").data("group_id", chat_id);
+      $("input[name=inpMessage]").removeAttr("disabled");
+      let parties = await $.ajax({
+        url: "/chat/available",
+        method: "post"
+      });
+      $("#add-member-list").html("");
+      let partyHtml = "";
+      for(let party of parties){
+        partyHtml += "<li><a class=\"dropdown-item add-member\" data-party=\""+party+"\">"+party+"</a></li>"
+      }
+      $("#add-member-list").html(partyHtml);
     });
   });
 </script>
