@@ -1,9 +1,11 @@
 package bundle.claim.sub.flows
 
 import co.paralleluniverse.fibers.Suspendable
-import com.template.contracts.ParentPolicyContract
-import com.template.states.ChildPolicyState
-import com.template.states.ParentPolicyState
+import com.template.contracts.RefClaimstateContract
+
+
+import com.template.states.RefClaimState
+import com.template.states.RefClaimStateMember
 
 
 import net.corda.core.contracts.Command
@@ -22,7 +24,7 @@ import java.util.*
 // *********
 @InitiatingFlow
 @StartableByRPC
-class AddChildPolicyFlow(val groupID: String, val member: Party,val policyID: UniqueIdentifier) : FlowLogic<UniqueIdentifier>() {
+class AddClaimMembersFlow(val groupID: String, val member: Party) : FlowLogic<UniqueIdentifier>() {
     /**
      * Tracks progress throughout the flows call execution.
      */
@@ -56,17 +58,17 @@ class AddChildPolicyFlow(val groupID: String, val member: Party,val policyID: Un
     override fun call(): UniqueIdentifier {
         // Step 1. Validation.
         progressTracker.currentStep = VALIDATING
-        val gameStateRef = this.serviceHub.vaultService.queryBy(ParentPolicyState::class.java, QueryCriteria.LinearStateQueryCriteria(linearId = listOf(UniqueIdentifier(id = UUID.fromString(groupID))))).states.first()
+        val gameStateRef = this.serviceHub.vaultService.queryBy(RefClaimState::class.java, QueryCriteria.LinearStateQueryCriteria(linearId = listOf(UniqueIdentifier(id = UUID.fromString(groupID))))).states.first()
         val gameState = gameStateRef.state.data
-        val memberStateState: ChildPolicyState = ChildPolicyState(party = member, moderator = gameState.moderator, policyID = policyID)
+        val memberStateState: RefClaimStateMember = RefClaimStateMember(party = member, moderator = gameState.moderator)
         val notary = this.serviceHub.networkMapCache.notaryIdentities.first()
 
         // Step 2. Building.
         progressTracker.currentStep = BUILDING
-        val newGameState = gameState.addChildPolicyMember(member,policyID)
+        val newGameState = gameState.addRefClaimMember(member)
        // val newGameState_policy = gameState.addChildPolicyID(policyID)
         val currentParticipants = gameState.participants.map { it.owningKey } + member.owningKey
-        val txCommand = Command(ParentPolicyContract.Commands.ADD_PLAYER(), currentParticipants)
+        val txCommand = Command(RefClaimstateContract.Commands.ADD_PLAYER(), currentParticipants)
         val txBuilder = TransactionBuilder(notary)
                 .addInputState(gameStateRef)
                 .addOutputState(newGameState)
@@ -103,8 +105,8 @@ class AddChildPolicyFlow(val groupID: String, val member: Party,val policyID: Un
 
 }
 
-@InitiatedBy(AddChildPolicyFlow::class)
-class AddChildPolicyAcceptor(val otherPartySession: FlowSession) : FlowLogic<SignedTransaction>() {
+@InitiatedBy(AddClaimMembersFlow::class)
+class AddClaimMembersFlowAcceptor(val otherPartySession: FlowSession) : FlowLogic<SignedTransaction>() {
     @Suspendable
     override fun call(): SignedTransaction {
         val signTransactionFlow = object : SignTransactionFlow(otherPartySession) {

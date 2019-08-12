@@ -1,8 +1,8 @@
 package com.template.contracts
 
 import com.template.model.RoundEnum
-import com.template.states.ChildPolicyState
-import com.template.states.ParentPolicyState
+import com.template.states.RefClaimStateMember
+import com.template.states.RefClaimState
 
 import net.corda.core.contracts.*
 import net.corda.core.transactions.LedgerTransaction
@@ -10,11 +10,11 @@ import net.corda.core.transactions.LedgerTransaction
 // ************
 // * Contract *
 // ************
-class ParentPolicyContract : Contract {
+class RefClaimstateContract : Contract {
     companion object {
         // Used to identify our contract when building a transaction.
         @JvmStatic
-        val ID = ParentPolicyContract::class.qualifiedName!!
+        val ID = RefClaimstateContract::class.qualifiedName!!
     }
 
     // A transaction is valid if the verify() function of the contract of all the transaction's input and output states
@@ -32,9 +32,9 @@ class ParentPolicyContract : Contract {
                 requireThat {
                     "There are no inputs" using (tx.inputStates.isEmpty())
                     "There is exactly one output" using (tx.outputStates.size == 1)
-                    "The single output is of type Game state" using (tx.outputsOfType<ParentPolicyState>().size == 1)
+                    "The single output is of type Game state" using (tx.outputsOfType<RefClaimState>().size == 1)
                     "There is exactly one command" using (tx.commands.size == 1)
-                    val output = tx.outputsOfType<ParentPolicyState>().single()
+                    val output = tx.outputsOfType<RefClaimState>().single()
                     "The starter is a required signer/dealer" using (command.signers.contains(output.moderator.owningKey))
 //                    "The table cards are empty" using (output.tableCards.isEmpty())
                   //  "Message cannot be empty " using (output.betAmount.length < 1)
@@ -49,12 +49,12 @@ class ParentPolicyContract : Contract {
             override fun verify(tx: LedgerTransaction) {
                 requireThat {
                     "There should be exactly one input" using (tx.inputStates.size ==1)
-                    "The input should be a ChatState" using (tx.inputStates.first() is ParentPolicyState)
+                    "The input should be a ChatState" using (tx.inputStates.first() is RefClaimState)
                     //"Input Round is started" using ((tx.inputStates.first() as ParentPolicyState).rounds.equals(RoundEnum.Started))
                     "There should be two outputs" using (tx.outputStates.size ==2)
                    // "The two outputs are a Game State and a Player State" using (tx.groupStates(ParentPolicyState::deckIdentifier).size == 1 && tx.groupStates(ChildPolicyState::party).size == 1)
-                    val outputGameState = tx.outputsOfType<ParentPolicyState>().single()
-                    val outputPlayerState = tx.outputsOfType<ChildPolicyState>().single()
+                    val outputGameState = tx.outputsOfType<RefClaimState>().single()
+                    val outputPlayerState = tx.outputsOfType<RefClaimStateMember>().single()
                     //"Output game state Round is started" using (outputGameState.rounds.equals(RoundEnum.Started))
                     //"the player cards are empty" using (outputPlayerState.myCards.isEmpty())
                 }
@@ -81,15 +81,16 @@ class ParentPolicyContract : Contract {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         }
+
         class WINNER : TypeOnlyCommandData(), Commands {
             override fun verify(tx: LedgerTransaction) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
-        }
-        class BET : TypeOnlyCommandData(), Commands {
+        }*/
+        class POLICY : TypeOnlyCommandData(), Commands {
             override fun verify(tx: LedgerTransaction) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
-        }*/
+        }
     }
 }

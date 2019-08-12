@@ -1,6 +1,6 @@
 package com.template.states
 
-import com.template.contracts.ChatContract
+import com.template.contracts.RefClaimstateContract
 import com.template.model.Card
 import com.template.model.RankingEnum
 import net.corda.core.contracts.BelongsToContract
@@ -9,12 +9,11 @@ import net.corda.core.contracts.UniqueIdentifier
 import net.corda.core.identity.Party
 import net.corda.core.serialization.CordaSerializable
 
-@BelongsToContract(ChatContract::class)
+@BelongsToContract(RefClaimstateContract::class)
 @CordaSerializable
-data class ChildPolicyState(
+data class RefClaimStateMember(
         override val linearId: UniqueIdentifier = UniqueIdentifier(),
         val party: Party,
-        val policyID: UniqueIdentifier,
         val moderator: Party,
         var myCards: List<Card> = emptyList<Card>(),
         var rankingEnum: RankingEnum = RankingEnum.HIGH_CARD,

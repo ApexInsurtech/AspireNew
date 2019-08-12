@@ -1,11 +1,13 @@
 package group.chat.flows
 
 import co.paralleluniverse.fibers.Suspendable
-import com.template.contracts.ParentPolicyContract
+import com.template.contracts.RefClaimstateContract
+
 
 import com.template.model.RoundEnum
 import com.template.states.Deck
-import com.template.states.ParentPolicyState
+import com.template.states.RefClaimState
+
 
 import net.corda.core.contracts.Command
 import net.corda.core.contracts.UniqueIdentifier
@@ -61,7 +63,7 @@ class GenerateParentPolicy(val notary: Party) : FlowLogic<UniqueIdentifier>() {
         progressTracker.currentStep = DECKING
         val deck: Deck = Deck(dealer)
         deck.shuffle()
-        val txInternalCommand = Command(ParentPolicyContract.Commands.Start_GAME(), dealer.owningKey)
+        val txInternalCommand = Command(RefClaimstateContract.Commands.Start_GAME(), dealer.owningKey)
         val txInternalBuilder = TransactionBuilder(notary)
                 .addOutputState(deck)
                 .addCommand(txInternalCommand)
@@ -71,18 +73,19 @@ class GenerateParentPolicy(val notary: Party) : FlowLogic<UniqueIdentifier>() {
 
         // Step 3. Building.
         progressTracker.currentStep = BUILDING
-        val chatState: ParentPolicyState = ParentPolicyState(
+        val claimState: RefClaimState = RefClaimState(
                 UniqueIdentifier(),
                 dealer,
                 emptyList(),
                 deck.linearId,
                 emptyList(),
                 RoundEnum.Started,
-                UniqueIdentifier()
+                emptyList(),
+                emptyList(),0
         )
-        val txCommand = Command(ParentPolicyContract.Commands.Start_GAME(), chatState.participants.map { it.owningKey })
+        val txCommand = Command(RefClaimstateContract.Commands.Start_GAME(), claimState.participants.map { it.owningKey })
         val txBuilder = TransactionBuilder(notary)
-                .addOutputState(chatState)
+                .addOutputState(claimState)
                 .addCommand(txCommand)
         // .setTimeWindow(serviceHub.clock.instant(), 5.minutes)
         txBuilder.verify(serviceHub)
@@ -95,7 +98,7 @@ class GenerateParentPolicy(val notary: Party) : FlowLogic<UniqueIdentifier>() {
         // Step 5. Finalise the transaction.
         progressTracker.currentStep = FINALISING
         subFlow(FinalityFlow(dealerSignedTx, emptyList()))
-        return chatState.linearId
+        return claimState.linearId
     }
 }
 

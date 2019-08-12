@@ -1,7 +1,7 @@
 package com.template.states
 
-import com.template.contracts.ChatContract
-import com.template.contracts.ParentPolicyContract
+
+import com.template.contracts.RefClaimstateContract
 import com.template.model.Card
 import com.template.model.RoundEnum
 import net.corda.core.contracts.BelongsToContract
@@ -11,31 +11,42 @@ import net.corda.core.identity.Party
 import net.corda.core.serialization.CordaSerializable
 import java.time.LocalDateTime
 
-@BelongsToContract(ParentPolicyContract::class)
+@BelongsToContract(RefClaimstateContract::class)
 @CordaSerializable
-data class ParentPolicyState(
+data class RefClaimState(
         override val linearId: UniqueIdentifier,
         val moderator: Party,
         val members: List<Party>,
         val deckIdentifier: UniqueIdentifier,
         var tableCards: List<Card>,
         var rounds: RoundEnum,
-        var policyID: UniqueIdentifier,
+        var policyID: List<UniqueIdentifier>,
+        var coverage_ammount_ref: List<Int>,
+        var loss_amount: Int,
         var winner: Party? = null,
         val lastChange: LocalDateTime = LocalDateTime.now()
 ) : LinearState {
 
     override val participants: List<Party> get() = listOf(moderator) + members
 
-    fun addChildPolicyID(policyID: UniqueIdentifier) = copy(
+    fun addPolicyIDtoClaim(policyIDs: UniqueIdentifier) = copy(
            // betAmount = betAmount + amount,
-            policyID = policyID,
+            policyID = policyID + policyIDs,
             lastChange = LocalDateTime.now()
     )
-
-    fun addChildPolicyMember(member: Party, policyID: UniqueIdentifier) = copy(
+    fun addCoverageAmmount(coverage_ammount_refrence: Int) = copy(
+            // betAmount = betAmount + amount,
+            coverage_ammount_ref = coverage_ammount_ref + coverage_ammount_refrence,
+            lastChange = LocalDateTime.now()
+    )
+    fun addRefClaimMember(member: Party) = copy(
             members = members + member,
-            policyID = policyID ,
+
+            lastChange = LocalDateTime.now()
+    )
+    fun addLossAmount(loss_amounts: Int) = copy(
+            loss_amount = loss_amount + loss_amounts,
+
             lastChange = LocalDateTime.now()
     )
 
