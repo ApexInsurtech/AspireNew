@@ -1005,13 +1005,6 @@
       }
     });
     // EVENTS
-    $("input#billing_min_premium").on("keyup", function(e){
-      if($(this).val() == $(this).data("old-amount")){
-        $("#btnModifyProposal").attr("disabled", "disabled");
-      }else{
-        $("#btnModifyProposal").removeAttr("disabled");
-      }
-    });
     $("body").on("click", ".proposal-edit", async function(e){
       $("#page-loader").show();
       let proposal_id = $(this).data("proposal-id");
