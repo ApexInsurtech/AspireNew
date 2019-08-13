@@ -26,19 +26,20 @@ class ChatController (rpc: NodeRPCConnection){
   private val proxy = rpc.proxy
 
   @PostMapping("/make-group")
-  fun makeGroup(): Unit {
+  fun makeGroup(): CompletableFuture<CompletableFuture<Unit>>? {
     val notary = proxy.notaryIdentities().first();
     val x = proxy.startTrackedFlowDynamic(
       StartChat::class.java,
       notary
     );
     val me = proxy.nodeInfo().legalIdentities.first().name.organisation;
-    val group_id = x.returnValue.toCompletableFuture().get()!!
-    proxy.startTrackedFlowDynamic(
-      AddMessageFlow::class.java,
-      group_id.toString(),
-      "Group chat started by $me"
-    ).returnValue.toCompletableFuture();
+    return x.returnValue.toCompletableFuture().thenApply { group_id ->
+      proxy.startTrackedFlowDynamic(
+        AddMessageFlow::class.java,
+        group_id!!.toString(),
+        "Group chat started by $me"
+      ).returnValue.toCompletableFuture()
+    }
   }
 
   @PostMapping("/available")
