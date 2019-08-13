@@ -63,7 +63,7 @@
   z-index: 999;
 
   .topbar-left {
-    background: $dark;
+    background: $custom;
     float: left;
     text-align: center;
     height: 70px;
@@ -82,7 +82,7 @@
 }
 
 .navbar-custom {
-  background-color: $dark;
+  background-color: $custom;
   border-radius: 0;
   margin-bottom: 0;
   padding: 0 10px;
@@ -205,7 +205,7 @@
   display: inline-block;
   height: 70px;
   width: 60px;
-  background-color: $dark;
+  background-color: $custom;
   font-size: 16px;
 }
 
