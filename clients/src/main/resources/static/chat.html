@@ -178,9 +178,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
 <script>
   $(function(){
-    // $(".sk-three-bounce").hide();
+    // INIT
+    $(".sk-three-bounce").hide();
     $("input[name=inpMessage]").attr("disabled", "true");
     $("#add_member").attr("disabled", "true");
+    $.ajax({
+      "url": "/chat/list",
+      "method": "post",
+      "success": function(response){
+        let chats = "";
+        for(let chat of response){
+          let dt = moment(chat['time']).format("YYYY-MM-DD HH:mm:ss Z");
+          chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-allow-add=\""+chat["allow_add"]+"\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
+        }
+        $("#chats").html("");
+        $("#chats").html(chats);
+      }
+    });
+    // EVENTS
     $("#btnAddChat").on("click", async function(){
       $("#page-loader").show();
       await $.ajax({
@@ -200,19 +215,6 @@
       $("#chats").html(chats);
       $("#page-loader").hide();
     });
-    $.ajax({
-      "url": "/chat/list",
-      "method": "post",
-      "success": function(response){
-        let chats = "";
-        for(let chat of response){
-          let dt = moment(chat['time']).format("YYYY-MM-DD HH:mm:ss Z");
-          chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-allow-add=\""+chat["allow_add"]+"\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
-        }
-        $("#chats").html("");
-        $("#chats").html(chats);
-      }
-    });
     $("input[name=inpMessage]").on("keyup", async function(e){
       if(e.keyCode == 13){
         $("#page-loader").show();
@@ -227,7 +229,7 @@
           contentType: 'application/json',
           processData: false,
         });
-        let reponse = await $.ajax({
+        let response = await $.ajax({
           url: "/chat/list-messages",
           method: "post",
           data: JSON.stringify({"group_id": chat_id }),
