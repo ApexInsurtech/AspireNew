@@ -93,7 +93,7 @@ class DashboardController (rpc: NodeRPCConnection){
     proxy.vaultQueryBy<ProposalState>().states.map { ps ->
       premium += ps.state.data.billing_min_premium;
     };
-    proxy.vaultQueryBy<ClaimState>().states.map { ps ->
+    proxy.vaultQueryBy<ClaimState>().states.map {
       claims += 1;
     };
     return mapOf(
