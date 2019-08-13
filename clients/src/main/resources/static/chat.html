@@ -98,6 +98,11 @@
             <div class="page-title-box">
               <div class="float-left"><h4 class="page-title">Chat</h4></div>
               <div class="float-right">
+                <span class="sk-three-bounce text-center mr-2" id="page-loader">
+                  <div class="sk-child sk-bounce1"></div>
+                  <div class="sk-child sk-bounce2"></div>
+                  <div class="sk-child sk-bounce3"></div>
+                </span>
                 <button class="btn btn-primary" id="btnAddChat"><i class="fa fa-plus"></i> New Chat</button>
               </div>
               <div class="clearfix"></div>
@@ -172,28 +177,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
 <script>
   $(function(){
+    $(".sk-three-bounce").hide();
     $("input[name=inpMessage]").attr("disabled", "true");
     $("#add_member").attr("disabled", "true");
-    $("#btnAddChat").on("click", function(){
-      $.ajax({
+    $("#btnAddChat").on("click", async function(){
+      $("#page-loader").show();
+      await $.ajax({
         "url": "/chat/make-group",
-        "method": "post",
-        "success": function(response){
-          $.ajax({
-            "url": "/chat/list",
-            "method": "post",
-            "success": function(response){
-              let chats = "";
-              for(let chat of response){
-                let dt = moment(chat['time']).format("YYYY-MM-DD HH:mm:ss Z");
-                chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-allow-add=\""+chat["allow_add"]+"\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
-              }
-              $("#chats").html("");
-              $("#chats").html(chats);
-            }
-          });
-        }
+        "method": "post"
       });
+      let response =await $.ajax({
+        "url": "/chat/list",
+        "method": "post",
+      });
+      let chats = "";
+      for(let chat of response){
+        let dt = moment(chat['time']).format("YYYY-MM-DD HH:mm:ss Z");
+        chats += "<li class=\"list-group-item chat\" style=\"cursor: pointer;\" data-allow-add=\""+chat["allow_add"]+"\" data-chat-id=\""+chat["chat_id"]+"\">"+chat["last_message"]+" by "+chat["by"]+"<br><small>"+dt+"</small></li>";
+      }
+      $("#chats").html("");
+      $("#chats").html(chats);
+      $("#page-loader").show();
     });
     $.ajax({
       "url": "/chat/list",
@@ -210,6 +214,7 @@
     });
     $("input[name=inpMessage]").on("keyup", async function(e){
       if(e.keyCode == 13){
+        $("#page-loader").show();
         $("input[name=inpMessage]").attr("disabled", "true");
         let message = $(this).val();
         let chat_id = $(this).data("group_id")
@@ -241,9 +246,11 @@
         $("input[name=inpMessage]").data("group_id", chat_id);
         $("input[name=inpMessage]").val("");
         $("input[name=inpMessage]").removeAttr("disabled");
+        $("#page-loader").hide();
       }
     });
-    $("body").on("click", ".add-member",async function(){
+    $("body").on("click", ".add-member", async function(){
+      $("#page-loader").show();
       let member = $(this).data("party");
       let group_id = $("input[name=inpMessage]").data("group_id");
       await $.ajax({
@@ -283,8 +290,10 @@
       }
       $("#chats").html("");
       $("#chats").html(chats);
+      $("#page-loader").hide();
     });
     $("body").on("click", ".chat", async function(){
+      $("#page-loader").show();
       let chat_id = $(this).data("chat-id");
       let allow_add = $(this).data("allow-add");
       let response = await $.ajax({
@@ -321,6 +330,7 @@
         partyHtml += "<li><a class=\"dropdown-item add-member\" data-party=\""+party+"\">"+party+"</a></li>"
       }
       $("#add-member-list").html(partyHtml);
+      $("#page-loader").hide();
     });
   });
 </script>
