@@ -94,77 +94,77 @@
   <!-- Start content -->
   <div class="content">
     <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-      <div class="page-title-box">
-        <div class="float-left"><h4 class="page-title">Claims</h4></div>
-        <div class="float-right">
-        <span class="sk-three-bounce text-center mr-2" id="page-loader">
-          <div class="sk-child sk-bounce1"></div>
-          <div class="sk-child sk-bounce2"></div>
-          <div class="sk-child sk-bounce3"></div>
-        </span>
-        <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#add-claim"><i class="fa fa-plus"></i> Add Claim</a>
+      <div class="row">
+        <div class="col-12">
+        <div class="page-title-box">
+          <div class="float-left"><h4 class="page-title">Claims</h4></div>
+          <div class="float-right">
+          <span class="sk-three-bounce text-center mr-2" id="page-loader">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+          </span>
+          <button class="btn btn-primary" id="btnAddClaim"><i class="fa fa-plus"></i> Add Claim</button>
+          </div>
+          <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
-      </div>
-      </div>
-    </div>
-    <!-- end row -->
-    <div class="row">
-      <div class="card-box col-12">
-        <h4 class="header-title m-b-15 m-t-0">Stats</h4>
-        <div class="row text-center">
-          <div class="col-xs-6 col-sm-3">
-            <div class="m-t-20 m-b-20">
-              <h3 id="claim_total" class="m-b-10"></h3>
-              <p class="text-uppercase m-b-5 font-13 font-600">Total Claims</p>
-            </div>
-          </div>
-          <div class="col-xs-6 col-sm-3">
-            <div class="m-t-20 m-b-20">
-              <h3 id="claim_coverage" class="m-b-10"></h3>
-              <p class="text-uppercase m-b-5 font-13 font-600">Coverage Amount of All Claims</p>
-            </div>
-          </div>
-          <div class="col-xs-6 col-sm-3">
-            <div class="m-t-20 m-b-20">
-              <h3 id="claim_reserve" class="m-b-10"></h3>
-              <p class="text-uppercase m-b-5 font-13 font-600">Reserve Amount</p>
-            </div>
-          </div>
-          <div class="col-xs-6 col-sm-3">
-            <div class="m-t-20 m-b-20">
-              <h3 id="claim_ratio" class="m-b-10"></h3>
-              <p class="text-uppercase m-b-5 font-13 font-600">Claim Ratio</p>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="card-box col-12 dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-        <table id="claims-table" class="table table-hover m-0 tickets-list table-actions-bar dt-responsive nowrap dataTable no-footer dtr-inline collapsed">
-          <thead>
-            <tr>
-              <!-- <th>ID</th> -->
-              <th>Proposer</th>
-              <th>Proposee</th>
-              <th>Applicant Name</th>
-              <th>Applicant Address</th>
-              <th>Description</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+      <!-- end row -->
+      <div class="row">
+        <div class="card-box col-12">
+          <h4 class="header-title m-b-15 m-t-0">Stats</h4>
+          <div class="row text-center">
+            <div class="col-xs-6 col-sm-3">
+              <div class="m-t-20 m-b-20">
+                <h3 id="claim_total" class="m-b-10"></h3>
+                <p class="text-uppercase m-b-5 font-13 font-600">Total Claims</p>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+              <div class="m-t-20 m-b-20">
+                <h3 id="claim_coverage" class="m-b-10"></h3>
+                <p class="text-uppercase m-b-5 font-13 font-600">Coverage Amount of All Claims</p>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+              <div class="m-t-20 m-b-20">
+                <h3 id="claim_reserve" class="m-b-10"></h3>
+                <p class="text-uppercase m-b-5 font-13 font-600">Reserve Amount</p>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+              <div class="m-t-20 m-b-20">
+                <h3 id="claim_ratio" class="m-b-10"></h3>
+                <p class="text-uppercase m-b-5 font-13 font-600">Claim Ratio</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="card-box col-12 dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+          <table id="claims-table" class="table table-hover m-0 tickets-list table-actions-bar dt-responsive nowrap dataTable no-footer dtr-inline collapsed">
+            <thead>
+              <tr>
+                <th>Moderator</th>
+                <th>Coverage Amount</th>
+                <th>Loss Amount</th>
+                <th>Policies</th>
+                <th>Parties</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
     </div> <!-- container -->
   </div> <!-- content -->
   <!-- Button trigger modal -->  
   <!-- Modal -->
-  <div class="modal fade" id="add-claim" tabindex="-1" role="dialog" aria-labelledby="add_claim" aria-hidden="true">
+  <!-- <div class="modal fade" id="add-claim" tabindex="-1" role="dialog" aria-labelledby="add_claim" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -211,13 +211,62 @@
               </div>
             </div>
           </fieldset>
-          <button id="btnAddClaim" class="btn btn-primary stepy-finish">Submit</button>
+          <button id="btnAddClaimE" class="btn btn-primary stepy-finish">Submit</button>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
+    </div>
+  </div> -->
+  <!-- Modal -->
+  <div class="modal fade" id="modal-add-member" tabindex="-1" role="dialog" aria-labelledby="add_member" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Members</h5>
+          <span class="sk-three-bounce text-center mr-2" id="loader-add-member">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="">Members</label>
+            <select class="form-control" name="members"></select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="btnAddMember" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-add-policy" tabindex="-1" role="dialog" aria-labelledby="add_policy" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Policies</h5>
+          <span class="sk-three-bounce text-center mr-2" id="loader-add-polcies">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="">Policies (Applicant Name)</label>
+            <select class="form-control" name="policies"></select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="btnAddPolicy" class="btn btn-primary">Save</button>
+        </div>
+      </div>
     </div>
   </div>
   <footer class="footer text-right">
@@ -253,6 +302,7 @@
 <script src="/assets/js/jquery.core.js"></script>
 <script src="/assets/js/jquery.app.js"></script>
 <script>
+  var dtClaims;
   $(function(){
     // INIT LOADERS
     $.fn.stepy.defaults.legend = false;
@@ -290,51 +340,128 @@
         $("select[name=policies]").html(d);
       }
     });
-    $("table#claims-table").DataTable({
+    dtClaims = $("table#claims-table").DataTable({
       "ajax": {
         "url": "/claims/list",
         "method": "post"
       },
       "columns": [
-        // { "data": "id" },
-        { "data": "proposer" },
-        { "data": "proposee" },
-        { "data": "applicant_name" },
-        { "data": "applicant_address" },
-        { "data": "description" },
+        { "data": "moderator" },
+        { "data": "coverage_amt" },
+        { "data": "loss_amount" },
+        { "data": "policies" },
+        { "mRender": function(data, type, row){
+          return row["parties"].join(", ");
+        }},
         { "mRender": function(data, type, row){
           if(row["open"]) {
             return "<span class=\"label label-success\">Open</span>";
           }else{
             return "<span class=\"label label-muted\">Closed</span>";
           }
-        }}
+        }},
+        { "mRender": function(data, type, row){
+          let button = "<button type=\"button\" data-claim-id=\""+row["id"]+"\" class=\"btn btn-icon btn-default btn-add-members\"><i class=\"mdi mdi-account-multiple-plus\"></i></button>";
+          button += "<button type=\"button\" data-claim-id=\""+row["id"]+"\" class=\"btn btn-icon btn-default btn-add-policies\"><i class=\"mdi mdi-playlist-plus\"></i></button>";
+          return button;
+        }},
       ]
     });
     // EVENTS
+    // $("#btnAddClaim").on("click", async function(){
+    //   $("#loader-claim-add").show();
+    //   await $.ajax({
+    //     url: "/claims/add",
+    //     method: "post",
+    //     data: JSON.stringify({
+    //       "info": {
+    //         "firstname": $("#add-claim input[name=firstname]").val(),
+    //         "lastname": $("#add-claim input[name=lastname]").val(),
+    //         "address": $("#add-claim input[name=address]").val(),
+    //         "phonenumber": $("#add-claim input[name=phonenumber]").val(),
+    //       },
+    //       "details": $("#add-claim textarea[name=description]").val(),
+    //       "policy_ids": $("#add-claim select[name=policies]").val(),
+    //     }),
+    //     dataType: "json",
+    //     contentType: 'application/json',
+    //     processData: false,
+    //   });
+    //   $("#loader-claim-add").hide();
+    //   $("#add-claim").modal("hide");
+    //   window.location.reload();
+    // });
     $("#btnAddClaim").on("click", async function(){
       $("#loader-claim-add").show();
       await $.ajax({
         url: "/claims/add",
         method: "post",
+      });
+      dtClaims.ajax.reload();
+      $("#loader-claim-add").hide();
+    });
+    $("body").on("click", ".btn-add-members", async function(){
+      let claim_id= $(this).data("claim-id");
+      let members = await $.ajax({
+        url: "/claims/members",
+        method: "post",
+      });
+      $("select[name=members]").html();
+      for(let party of members){
+        $("select[name=members]").append("<option>"+party+"</option>");
+      }
+      $("#modal-add-member").modal("show");
+      $("#btnAddMember").data("claim-id", claim_id)
+    });
+    $("body").on("click", ".btn-add-policies", async function(){
+      let claim_id= $(this).data("claim-id");
+      let members = await $.ajax({
+        url: "/claims/policies",
+        method: "post",
+      });
+      $("select[name=policies]").html();
+      for(let party of members){
+        $("select[name=members]").append("<option value=\""+party["id"]+"\">"+party["applicant_name"]+"</option>");
+      }
+      $("#modal-add-policy").modal("show");
+      $("#btnAddPolicy").data("claim-id", claim_id)
+    });
+    $("#btnAddMember").on("click", async function(e){
+      $("#loader-add-member").show();
+      let claim_id= $(this).data("claim-id");
+      await $.ajax({
+        url: "/claims/add-member",
+        method: "post",
         data: JSON.stringify({
-          "info": {
-            "firstname": $("#add-claim input[name=firstname]").val(),
-            "lastname": $("#add-claim input[name=lastname]").val(),
-            "address": $("#add-claim input[name=address]").val(),
-            "phonenumber": $("#add-claim input[name=phonenumber]").val(),
-          },
-          "details": $("#add-claim textarea[name=description]").val(),
-          "policy_ids": $("#add-claim select[name=policies]").val(),
+          "claim_id": claim_id,
+          "member": $("select[name=members]").val(),
         }),
         dataType: "json",
         contentType: 'application/json',
         processData: false,
       });
-      $("#loader-claim-add").hide();
-      $("#add-claim").modal("hide");
-      window.location.reload();
+      $("#loader-add-member").hide();
+      dtClaims.ajax.reload();
+      $("#modal-add-member").modal("hide");
     });
+    $("#btnAddPolicy").on("click", async function(e){
+      $("#loader-add-polcies").show();
+      let claim_id= $(this).data("claim-id");
+      await $.ajax({
+        url: "/claims/add-policy",
+        method: "post",
+        data: JSON.stringify({
+          "claim_id": claim_id,
+          "policy_id": $("select[name=policies]").val(),
+        }),
+        dataType: "json",
+        contentType: 'application/json',
+        processData: false,
+      });
+      $("#loader-add-polcies").hide();
+      dtClaims.ajax.reload();
+      $("#modal-add-policy").modal("hide");
+    })
   });
 </script>
 </body>

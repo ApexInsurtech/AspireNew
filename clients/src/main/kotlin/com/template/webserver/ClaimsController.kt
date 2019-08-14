@@ -1,11 +1,13 @@
 package com.template.webserver
 
+import bundle.claim.sub.flows.AddClaimMembersFlow
 import com.template.states.RefClaimState
 import group.chat.flows.AddPolicyIDtoClaimFlow
-import negotiation.contracts.MakeaClaimState
+import group.chat.flows.GenerateParentPolicy
 import negotiation.contracts.PolicyState
 import negotiation.workflows.MakeClaimFlow
 import net.corda.core.contracts.UniqueIdentifier
+import net.corda.core.messaging.FlowProgressHandle
 import net.corda.core.messaging.vaultQueryBy
 import net.corda.core.node.services.Vault
 import net.corda.core.node.services.vault.QueryCriteria
@@ -47,22 +49,47 @@ class ClaimsController (rpc: NodeRPCConnection){
 
   @PostMapping("/list")
   fun list(): Map<String, List<Map<String, Any>>> {
-    var criteria = QueryCriteria.VaultQueryCriteria(status = Vault.StateStatus.ALL);
-    var vpStates = proxy.vaultQueryBy<MakeaClaimState>(criteria);
+    var criteria = QueryCriteria.VaultQueryCriteria(status = Vault.StateStatus.UNCONSUMED);
+    var vpStates = proxy.vaultQueryBy<RefClaimState>(criteria);
     var i = 0;
     return mapOf(
       "data" to vpStates.states.map { claim ->
         mapOf(
           "id" to claim.state.data.linearId.toString(),
-          "proposee" to claim.state.data.proposee.name.organisation,
-          "proposer" to claim.state.data.proposer.name.organisation,
-          "applicant_name" to claim.state.data.policy_applicant_name,
-          "applicant_address" to claim.state.data.policy_applicant_mailing_address,
+          "parties" to claim.state.data.members.map { p ->
+            p.name.organisation
+          },
+          "policies" to claim.state.data.policyID.count(),
           "open" to (vpStates.statesMetadata[i++].status == Vault.StateStatus.UNCONSUMED),
-          "description" to claim.state.data.description_details
+          "coverage_amt" to claim.state.data.coverage_ammount_ref.sum(),
+          "loss_amount" to claim.state.data.loss_amount,
+          "moderator" to claim.state.data.moderator.name.organisation
         );
       }
     )
+  }
+
+  @PostMapping("/members")
+  fun members(): List<String> {
+    val notary = proxy.notaryIdentities().first().name.organisation;
+    val me = proxy.nodeInfo().legalIdentities.first().name.organisation;
+    var parties = proxy.partiesFromName("", false).map { party ->
+      party.name.organisation
+    };
+    return parties - notary - me;
+  }
+
+  @PostMapping("/add-member", consumes = ["application/json"])
+  fun addMembers(
+    @RequestBody data : Map<String, Any>
+  ): CompletableFuture<UniqueIdentifier> {
+    val claimId = data["claim_id"] as String;
+    val member = proxy.partiesFromName((data["member"] as String), true).first();
+    return proxy.startTrackedFlowDynamic(
+      AddClaimMembersFlow::class.java,
+      claimId,
+      member
+    ).returnValue.toCompletableFuture();
   }
 
   @PostMapping("/policies")
@@ -76,28 +103,29 @@ class ClaimsController (rpc: NodeRPCConnection){
     }
   }
 
-  @PostMapping("/add")
-  fun add(
+  @PostMapping("/add-policy", consumes = ["application/json"])
+  fun addPolicies(
     @RequestBody data : Map<String, Any>
-  ): CompletableFuture<UniqueIdentifier> {
-    val info = data["info"] as Map<String, Any>;
-    val details = data["details"] as String;
-    val policyIds = data["policy_ids"] as List<String>;
+  ) : CompletableFuture<Unit> {
+    val claimId = data["claim_id"] as String;
+    val policyId = data["policy_id"] as String;
     return proxy.startTrackedFlowDynamic(
-      MakeClaimFlow.Initiator::class.java,
-      UniqueIdentifier.fromString(policyIds.first()),
-      details
-    ).returnValue.toCompletableFuture()/*.thenApply { uid ->
-      if(policyIds.count() > 1){
-        for( policy_id in policyIds){
-          proxy.startTrackedFlowDynamic(
-            AddPolicyIDtoClaimFlow::class.java,
-            uid!!,
-            policy_id
-          ).returnValue.toCompletableFuture()
-        }
-      }
-    };*/
+      AddPolicyIDtoClaimFlow::class.java,
+      claimId,
+      UniqueIdentifier.fromString(policyId)
+    ).returnValue.toCompletableFuture();
+  }
+
+  @PostMapping("/add")
+  fun add(): CompletableFuture<UniqueIdentifier> {
+//    val info = data["info"] as Map<String, Any>;
+//    val details = data["details"] as String;
+//    val policyIds = data["policy_ids"] as List<String>;
+    val notary = proxy.notaryIdentities().first();
+    return proxy.startTrackedFlowDynamic(
+      GenerateParentPolicy::class.java,
+      notary
+    ).returnValue.toCompletableFuture();
   }
 
 }
