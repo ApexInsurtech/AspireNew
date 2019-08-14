@@ -269,6 +269,30 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="modal-add-loss" tabindex="-1" role="dialog" aria-labelledby="add_loss" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Loss Amount</h5>
+          <span class="sk-three-bounce text-center mr-2" id="loader-add-loss">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="">Loss Amount</label>
+            <input type="number" class="form-control" name="amount" aria-describedby="helpId" placeholder="In Numbers">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="btnAddLoss" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <footer class="footer text-right">
     2019 &copy; Apex Labs
   </footer>
@@ -363,34 +387,12 @@
         { "mRender": function(data, type, row){
           let button = "<button type=\"button\" data-claim-id=\""+row["id"]+"\" class=\"btn btn-icon btn-default btn-add-members\"><i class=\"mdi mdi-account-multiple-plus\"></i></button>";
           button += "<button type=\"button\" data-claim-id=\""+row["id"]+"\" class=\"btn btn-icon btn-default btn-add-policies\"><i class=\"mdi mdi-playlist-plus\"></i></button>";
+          button += "<button type=\"button\" data-claim-id=\""+row["id"]+"\" class=\"btn btn-icon btn-default btn-add-loss\"><i class=\"mdi mdi-cash\"></i></button>";
           return button;
         }},
       ]
     });
     // EVENTS
-    // $("#btnAddClaim").on("click", async function(){
-    //   $("#loader-claim-add").show();
-    //   await $.ajax({
-    //     url: "/claims/add",
-    //     method: "post",
-    //     data: JSON.stringify({
-    //       "info": {
-    //         "firstname": $("#add-claim input[name=firstname]").val(),
-    //         "lastname": $("#add-claim input[name=lastname]").val(),
-    //         "address": $("#add-claim input[name=address]").val(),
-    //         "phonenumber": $("#add-claim input[name=phonenumber]").val(),
-    //       },
-    //       "details": $("#add-claim textarea[name=description]").val(),
-    //       "policy_ids": $("#add-claim select[name=policies]").val(),
-    //     }),
-    //     dataType: "json",
-    //     contentType: 'application/json',
-    //     processData: false,
-    //   });
-    //   $("#loader-claim-add").hide();
-    //   $("#add-claim").modal("hide");
-    //   window.location.reload();
-    // });
     $("#btnAddClaim").on("click", async function(){
       $("#loader-claim-add").show();
       await $.ajax({
@@ -413,19 +415,6 @@
       $("#modal-add-member").modal("show");
       $("#btnAddMember").data("claim-id", claim_id)
     });
-    $("body").on("click", ".btn-add-policies", async function(){
-      let claim_id= $(this).data("claim-id");
-      let members = await $.ajax({
-        url: "/claims/policies",
-        method: "post",
-      });
-      $("select[name=policies]").html();
-      for(let party of members){
-        $("select[name=members]").append("<option value=\""+party["id"]+"\">"+party["applicant_name"]+"</option>");
-      }
-      $("#modal-add-policy").modal("show");
-      $("#btnAddPolicy").data("claim-id", claim_id)
-    });
     $("#btnAddMember").on("click", async function(e){
       $("#loader-add-member").show();
       let claim_id= $(this).data("claim-id");
@@ -444,6 +433,19 @@
       dtClaims.ajax.reload();
       $("#modal-add-member").modal("hide");
     });
+    $("body").on("click", ".btn-add-policies", async function(){
+      let claim_id= $(this).data("claim-id");
+      let members = await $.ajax({
+        url: "/claims/policies",
+        method: "post",
+      });
+      $("select[name=policies]").html();
+      for(let party of members){
+        $("select[name=members]").append("<option value=\""+party["id"]+"\">"+party["applicant_name"]+"</option>");
+      }
+      $("#modal-add-policy").modal("show");
+      $("#btnAddPolicy").data("claim-id", claim_id)
+    });
     $("#btnAddPolicy").on("click", async function(e){
       $("#loader-add-polcies").show();
       let claim_id= $(this).data("claim-id");
@@ -461,7 +463,30 @@
       $("#loader-add-polcies").hide();
       dtClaims.ajax.reload();
       $("#modal-add-policy").modal("hide");
-    })
+    });
+    $("body").on("click", ".btn-add-loss", async function(){
+      let claim_id= $(this).data("claim-id");
+      $("#modal-add-loss").modal("show");
+      $("#btnAddLoss").data("claim-id", claim_id)
+    });
+    $("#btnAddLoss").on("click", async function(e){
+      $("#loader-add-loss").show();
+      let claim_id= $(this).data("claim-id");
+      await $.ajax({
+        url: "/claims/add-loss",
+        method: "post",
+        data: JSON.stringify({
+          "claim_id": claim_id,
+          "amount": parseInt($("input[name=amount]").val()),
+        }),
+        dataType: "json",
+        contentType: 'application/json',
+        processData: false,
+      });
+      $("#loader-add-loss").hide();
+      dtClaims.ajax.reload();
+      $("#modal-add-loss").modal("hide");
+    });
   });
 </script>
 </body>

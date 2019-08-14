@@ -2,6 +2,7 @@ package com.template.webserver
 
 import bundle.claim.sub.flows.AddClaimMembersFlow
 import com.template.states.RefClaimState
+import group.chat.flows.AddLossAmmunttoClaimFlow
 import group.chat.flows.AddPolicyIDtoClaimFlow
 import group.chat.flows.GenerateParentPolicy
 import negotiation.contracts.PolicyState
@@ -118,13 +119,23 @@ class ClaimsController (rpc: NodeRPCConnection){
 
   @PostMapping("/add")
   fun add(): CompletableFuture<UniqueIdentifier> {
-//    val info = data["info"] as Map<String, Any>;
-//    val details = data["details"] as String;
-//    val policyIds = data["policy_ids"] as List<String>;
     val notary = proxy.notaryIdentities().first();
     return proxy.startTrackedFlowDynamic(
       GenerateParentPolicy::class.java,
       notary
+    ).returnValue.toCompletableFuture();
+  }
+
+  @PostMapping("/add-loss", consumes = ["application/json"])
+  fun addLoss(
+    @RequestBody data : Map<String, Any>
+  ) : CompletableFuture<Unit> {
+    val claimId = data["claim_id"] as String;
+    val amount = data["amount"] as Int;
+    return proxy.startTrackedFlowDynamic(
+      AddLossAmmunttoClaimFlow::class.java,
+      claimId,
+      amount
     ).returnValue.toCompletableFuture();
   }
 
