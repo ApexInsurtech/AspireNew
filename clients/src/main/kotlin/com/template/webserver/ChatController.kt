@@ -69,21 +69,22 @@ class ChatController (rpc: NodeRPCConnection){
   @PostMapping("/add-member", consumes = ["application/json"])
   fun addMembers(
     @RequestBody body : Map<String, Any>
-  ) : Unit {
+  ) : CompletableFuture<CompletableFuture<Unit>>? {
     val groupId = body["group_id"] as String;
     val party = body["party"] as String;
     val p = proxy.partiesFromName(party, true).first();
     val me = proxy.nodeInfo().legalIdentities.first();
-    proxy.startTrackedFlowDynamic(
+    return proxy.startTrackedFlowDynamic(
       AddMemberFlow::class.java,
       groupId,
       p
-    ).returnValue.toCompletableFuture();
-    proxy.startTrackedFlowDynamic(
-      AddMessageFlow::class.java,
-      groupId,
-      me.name.organisation + " added " + p.name.organisation+" to chat"
-    ).returnValue.toCompletableFuture();
+    ).returnValue.toCompletableFuture().thenApply {
+      proxy.startTrackedFlowDynamic(
+        AddMessageFlow::class.java,
+        groupId,
+        me.name.organisation + " added " + p.name.organisation+" to chat"
+      ).returnValue.toCompletableFuture();
+    };
   }
 
   @PostMapping("/add-message", consumes = ["application/json"])
