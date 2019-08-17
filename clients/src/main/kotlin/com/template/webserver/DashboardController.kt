@@ -102,7 +102,7 @@ class DashboardController (rpc: NodeRPCConnection){
     );
   }
 
-  @PostMapping("policies")
+  @PostMapping("Active Policies")
   fun policies(): List<Map<String, Any>> {
     return proxy.vaultQueryBy<PolicyState>().states.map { ps ->
       mapOf(
